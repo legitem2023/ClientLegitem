@@ -7,7 +7,6 @@ import Image from 'next/image'
 import { setTime } from 'utils/cookie'
 import Loading from 'components/LoadingAnimation/Loading'
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
-
 const Messages = () => {
 
     const [deviceId, setDeviceId] = useState(null);
@@ -36,19 +35,6 @@ const Messages = () => {
             updateQuery: (prev, { subscriptionData }) => {
                 if (!subscriptionData.data) return prev;
                 const newMessage = subscriptionData.data.messageAdded;
-
-                Notification.requestPermission().then(perm => {
-                    if (perm === "granted") {
-                        const notification = new Notification("Legitem Message", {
-                            body: newMessage,
-                            icon: "https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg"
-                        })
-                        notification.addEventListener("close", e => {
-                            console.log(e);
-                        })
-                    }
-                })
-
 
                 return Object.assign({}, prev, {
                     messages: [newMessage, ...(prev?.messages || [])]
