@@ -42,7 +42,8 @@
     "apollo-client.ts",
     "components/context/context.js",
     "tailwind.config.s",
-    "components/ThreeJS/ThreeJS.jsx"
+    "components/ThreeJS/ThreeJS.jsx",
+    "src/global.d.ts"
   ],
   "exclude": [
     "node_modules"

@@ -11,6 +11,7 @@ import { ShoppingCartProvider } from 'components/context/ShoppingCartProvider'
 import * as React from "react";
 import Script from 'next/script'
 import { cookies } from 'components/cookies/cookie'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,6 +26,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <link rel="manifest" href='/manifest.json' sizes="any"></link>
+        <script
+          type="module"
+          src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+        ></script>
       </head>
       <body className={inter.className}>
         <ShoppingCartProvider>

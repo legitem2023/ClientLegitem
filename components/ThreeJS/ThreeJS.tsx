@@ -36,7 +36,7 @@ const ThreeJS = () => {
     controls.enableZoom = true;
     controls.enableRotate = true;
     controls.enablePan = false;
-    
+
     Manager.Loadmodel(activeModel, camera, scene);
 
     const HDRLighting = (path: string) => {

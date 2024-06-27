@@ -1,6 +1,6 @@
 import React from "react";
 import { Gallery } from "components/Gallery/Gallery";
-import ThreeJS from "components/ThreeJS/ThreeJS";
+import ModelViewer from "components/ThreeJS/modelViewer";
 import 'react-tabs/style/react-tabs.css';
 import { Icon } from "@iconify/react";
 
@@ -59,11 +59,8 @@ export default function ProductTabs() {
         </div>
         <div id="ThreeJS" className="tabcontent">
           {isActive === "ThreeJS" ? <div className='ThreeJS' id='ThreeJS'>
-            <div className="Loading" id="Loading">
-              <div id="progress"></div>
-              <div className="loader"></div>
-            </div>
-            <ThreeJS /></div> : ""}
+            <ModelViewer />
+          </div> : ""}
         </div>
         <div id="VTO" className="tabcontent">
 
