@@ -1,6 +1,6 @@
 import React from "react";
 import { Gallery } from "components/Gallery/Gallery";
-import ModelViewer from "components/ThreeJS/modelViewer";
+import ModelViewer from "components/ThreeJS/ModelViewer";
 import 'react-tabs/style/react-tabs.css';
 import { Icon } from "@iconify/react";
 
