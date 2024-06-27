@@ -1,4 +1,3 @@
-
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -10,8 +9,8 @@ import { ShoppingCartProvider } from 'components/context/ShoppingCartProvider'
 
 import * as React from "react";
 import Script from 'next/script'
+import Head from 'next/head'
 import { cookies } from 'components/cookies/cookie'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,21 +20,19 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-
   return (
     <html lang="en">
-      <head>
-        <link rel="manifest" href='/manifest.json' sizes="any"></link>
-        <script
+      <Head>
+        <link rel="manifest" href='/manifest.json' sizes="any" />
+      </Head>
+      <body className={inter.className}>
+        <Script
           type="module"
           src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
-        ></script>
-      </head>
-      <body className={inter.className}>
+          strategy="lazyOnload"
+        />
         <ShoppingCartProvider>
-          {/* <NextUIProvider> */}
           <Provider>{children}</Provider>
-          {/* </NextUIProvider> */}
         </ShoppingCartProvider>
       </body>
     </html>
