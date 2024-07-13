@@ -5,12 +5,12 @@ import PageFooter from '../../../components/Footer/PageFooter'
 
 const page = () => {
   return (
-    <div></div>
-    // <div className='Main'>
-    //   {/* <PageHeader /> */}
-    //   {/* <RealState /> */}
-    //   {/* <PageFooter /> */}
-    // </div>
+    // <div></div>
+    <div className='Main'>
+      <PageHeader />
+      <RealState />
+      <PageFooter />
+    </div>
   )
 }
 export default page

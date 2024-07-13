@@ -10,7 +10,7 @@ import Loading from 'components/LoadingAnimation/Loading';
 import { setGlobalState, useGlobalState } from 'state';
 import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import ProductTabs from './ProductTabs';
-import { GET_RELATED_PRODUCTS } from 'graphql/queries';
+import { GET_NUM_OF_VIEWS, GET_RELATED_PRODUCTS, GET_VIEW_PRODUCT } from 'graphql/queries';
 import { useQuery } from '@apollo/client';
 const path = process.env.NEXT_PUBLIC_PATH
 const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
@@ -37,8 +37,16 @@ const ProductView = () => {
   const { data: Products, loading, error } = useQuery(GET_RELATED_PRODUCTS);//Manager.productRelated();
   /************ Viewed Product ************/
 
-  const { ViewedProducts, Viewedloading, Viewederror } = Manager.viewedProduct(useUrl);
-  const { NumberOFViews, LoadingNumberOFViews } = Manager.NumberOfViews();
+  let JSON_DATA = {
+    "getToviewProductId": useUrl
+}
+
+const { data:ViewedProducts, loading:Viewedloading, error:Viewederror } = useQuery(GET_VIEW_PRODUCT, {
+    variables: JSON_DATA
+});
+
+
+  const { data:NumberOFViews, loading:LoadingNumberOFViews} = useQuery(GET_NUM_OF_VIEWS);
 
   const insertviewcount = Manager.InsertViews();
   // const {Location_Data,LocationDataLoading,LocationDataError} =  Manager.LocationData(useIPaddress);
@@ -57,7 +65,6 @@ const ProductView = () => {
     currency: 'PHP',
   });
 
-  console.log(viewedData[0].model);
   if (viewedData[0].model === "" || viewedData[0].model === null) {
     setGlobalState("activeModel", 'http://192.168.100.86:3000/models/NoModel.glb');
   } else {
@@ -102,7 +109,9 @@ const ProductView = () => {
             <div>
               <button onClick={() => handleAddToCart(Cart())} className='addCart'><Icon icon="mdi:cart" /> Add to Cart</button>
             </div>
-            <div className='ShareContainer'><Share></Share></div>
+            <div className='ShareContainer'>
+              <Share></Share>
+            </div>
             <div></div>
           </div>
         </div>
@@ -140,8 +149,10 @@ const ProductView = () => {
                 <div>
                   <span>Ratings :</span><span></span>
                 </div>
+                <div>
+                  <span>Size :</span><span></span>
+                </div>
                 <div className='Rates'>
-                  <Image src={path + "/image/Fivestarss-svg.svg"} width="100" height="100" alt={idx} priority={true} />
                   <div className='Rates_values'>
                     <span>0</span>
                     <span>0</span>

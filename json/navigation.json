@@ -1,9 +1,5 @@
 [
-    {
-        "Name":"Crowd",
-        "icon":"simple-icons:crowdsource",
-        "Link":"./Crowd"
-    },
+
     {
         "Name":"Products",
         "icon":"bi:tags-fill",
@@ -13,6 +9,11 @@
         "Name":"Real State",
         "icon":"material-symbols:real-estate-agent-sharp",
         "Link":"./RealState"
+    },
+    {
+        "Name":"Crowd",
+        "icon":"simple-icons:crowdsource",
+        "Link":"./Crowd"
     },
     {
         "Name":"Account",

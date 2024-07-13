@@ -68,7 +68,7 @@ const Messages = () => {
         <div>
             <ul className='messagesUL'>
                 <li className='messagesLI_1'>
-                    <div>
+                    <div className='Messenger_inputs'>
                         <textarea id='textarea' placeholder="Message"></textarea>
                         <button type='submit' onClick={handleSubmit} className='submit'><Icon icon="material-symbols:send" /></button>
                     </div>

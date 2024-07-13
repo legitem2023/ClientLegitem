@@ -8,7 +8,7 @@ import { setGlobalState, useGlobalState } from 'state';
 const RealState = () => {
 
     const [activeModel] = useGlobalState("activeModel");
-    setGlobalState("activeModel", `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/model_houses/House.glb`);
+    setGlobalState("activeModel", `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/model_houses/modern_luxury_villa_house_building_home.glb`);
     const sceneRef: any = useRef();
     let model: any
     const Manager = new DataManager();
@@ -26,7 +26,7 @@ const RealState = () => {
         camera.position.z = 5;
         camera.position.y = 1;
         // Create a renderer
-        const renderer: any = new THREE.WebGLRenderer({ antialias: true, canvas: canvas, alpha: true });
+        const renderer: any = new THREE.WebGLRenderer({ antialias: true, canvas: canvas,alpha:true });
         renderer.setSize(width, height);
 
         // Create a controls
@@ -34,11 +34,8 @@ const RealState = () => {
         controls.enableDamping = true;
         controls.enableZoom = true;
         controls.enableRotate = true;
-        // controls.enablePan = false;
-        // controls.minPolarAngle = Math.PI / 6; // 45 degrees
-        // controls.maxPolarAngle = Math.PI / 2; // 90 degrees
-        // controls.minDistance = 80;
-        // controls.maxDistance = 110;
+        controls.enablePan = false;
+
 
         const light = Manager.Light();
         scene.add(light.A, light.B, light.C, light.D, light.E, light.F, light.G, light.H, light.I, light.J, light.K, light.L, light.M, light.light);
@@ -56,9 +53,8 @@ const RealState = () => {
 
         const material = new THREE.MeshBasicMaterial(
             {
-                color: 0x79A93C,
-                map: texture,
-
+                color: 0xc0c0c0,
+                map:texture
             });
         const plane = new THREE.Mesh(geometry, material);
         plane.position.set(0, -0.5, 0);
@@ -106,7 +102,7 @@ const RealState = () => {
         renderer.setAnimationLoop((time: any) => {
             TWEEN.update();
             controls.update();
-            Manager.cameraPositionLimit(camera, controls);
+            // Manager.cameraPositionLimit(camera, controls);
             renderer.render(scene, camera);
         })
 
