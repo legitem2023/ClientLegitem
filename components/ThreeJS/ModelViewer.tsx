@@ -37,7 +37,7 @@ const ModelViewer = () => {
                 ar-scale="fixed"
                 camera-controls touch-action="pan-y"
                 shadow-intensity="2"
-                skybox-image="https://www.nps.gov/npgallery/GetAsset/152b501b-8759-4cfa-8fdd-2563c8945426/proxy/hires?"
+                skybox-image="https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/hdr/symmetrical_garden_02_1k.hdr"
                 skybox-height="2m"
                 max-camera-orbit="auto 90deg auto"
                 style={{ width: useWidth, height: useHeight }}>

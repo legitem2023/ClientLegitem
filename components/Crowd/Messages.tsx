@@ -35,7 +35,6 @@ const Messages = () => {
             updateQuery: (prev, { subscriptionData }) => {
                 if (!subscriptionData.data) return prev;
                 const newMessage = subscriptionData.data.messageAdded;
-
                 return Object.assign({}, prev, {
                     messages: [newMessage, ...(prev?.messages || [])]
                 });
@@ -44,6 +43,7 @@ const Messages = () => {
         return () => {
             unsubscribe();
         };
+
     }, [subscribeToMore]);
     if (loading) return <Loading />
     if (error) return <p>{error.message}</p>

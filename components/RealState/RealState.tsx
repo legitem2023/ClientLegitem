@@ -8,7 +8,7 @@ import { setGlobalState, useGlobalState } from 'state';
 const RealState = () => {
 
     const [activeModel] = useGlobalState("activeModel");
-    setGlobalState("activeModel", `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/model_houses/modern_luxury_villa_house_building_home.glb`);
+    setGlobalState("activeModel", `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/model_houses/HouseLuxury.glb`);
     const sceneRef: any = useRef();
     let model: any
     const Manager = new DataManager();
@@ -54,7 +54,6 @@ const RealState = () => {
         const material = new THREE.MeshBasicMaterial(
             {
                 color: 0xc0c0c0,
-                map:texture
             });
         const plane = new THREE.Mesh(geometry, material);
         plane.position.set(0, -0.5, 0);

@@ -32,7 +32,7 @@ export const HomeGallery = () => {
 
   const filteredImageData = useMemo(() => {
     if (urlData) {
-      return ImageData?.getInv_subImage.filter((item) => item.subImageRelationChild === urlData);
+      return ImageData?.getInv_subImage;
     }
     return ImageData?.getInv_subImage;
   }, [ImageData, urlData]);

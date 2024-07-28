@@ -11,6 +11,7 @@ import * as React from "react";
 import Script from 'next/script'
 import Head from 'next/head'
 import { cookies } from 'components/cookies/cookie'
+import PageHeader from 'components/Header/PageHeader'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -32,7 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           strategy="lazyOnload"
         />
         <ShoppingCartProvider>
-          <Provider>{children}</Provider>
+          <Provider>
+            {children}
+          </Provider>
         </ShoppingCartProvider>
       </body>
     </html>

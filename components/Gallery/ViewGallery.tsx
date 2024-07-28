@@ -58,10 +58,6 @@ const settings_B = {
     slidesToShow: 1,
     slidesToScroll: 3
 }
-
-
-
-
   return (
     <div>
       <div className="slider-container">

@@ -7,11 +7,9 @@ import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import Link from 'next/link'
 
 const CartBody = () => {
-  const [quantity,setquantity] = useState(1);
   const [Storage,setStorage] = useState(null);
-
+  const [useGrandTotal,setGrandTotal] = useState(0);
   const { handleAddToCart } = useContext(ShoppingCartContext);
-
   // const path = process.env.NEXT_PUBLIC_PATH
   const path = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
 
@@ -64,7 +62,31 @@ useEffect(()=>{
   
     return uniqueEntries;
   }
-  
+  const updateQuant = (e:any) =>{
+    const id = e.target.getAttribute("aria-current");
+    const Element = (document.getElementById('CurQuant'+id) as HTMLInputElement)
+    const currValue:any = Element.value;
+
+    const Price:any = e.target.getAttribute("aria-label");
+
+
+    const Subtotal:any = formatter.format(currValue * Price);
+    
+    document.getElementById("Subtotal"+id).innerHTML = Subtotal;
+
+    let grandTotal = 0;
+
+    for (let index = 0; index < filtered_data.length; index++) {
+      let QTY: number = parseFloat((document.getElementById('CurQuant' + index) as HTMLInputElement).value);
+      let Price: number = parseFloat((document.getElementById('CurQuant' + index)).getAttribute("aria-valuenow"));
+      let Total = QTY * Price;
+      
+      grandTotal += Total;
+    }
+    setGrandTotal(grandTotal);
+    console.log("Grand Total: ", grandTotal);
+    
+  }
 
 const filtered_data = filterAndSumQuantity(extracted());
 
@@ -123,13 +145,13 @@ const Cart = (prodCode:any,number:any,e:any) => {
                   </div>
                   <div className='CartDetails CartDetailsCenter'>
                     <div className='ShareQuantity'>
-                                  <button aria-current={innerIdx} onClick={(e:any)=>handleAddToCart(Cart(item.productCode,1,e))}>+</button>
-                                  <input type='text' id={"CurQuant"+innerIdx} defaultValue={item.Quantity} />
-                                  <button aria-current={innerIdx} onClick={(e:any)=>handleAddToCart(Cart(item.productCode,-1,e))}>-</button>
-                              </div>
+                          <button aria-current={innerIdx} aria-label={item.Price} onClick={(e:any)=>{handleAddToCart(Cart(item.productCode,1,e));updateQuant(e);}}>+</button>
+                          <input type='text' id={"CurQuant"+innerIdx} defaultValue={item.Quantity} aria-valuenow={item.Price}/>
+                          <button aria-current={innerIdx} aria-label={item.Price} onClick={(e:any)=>{handleAddToCart(Cart(item.productCode,-1,e));updateQuant(e);}}>-</button>
                     </div>
+                  </div>
                   <div className='CartDetails CartDetailsCenter'>
-                    <div className='CartDetailsCenter'>
+                    <div className='CartDetailsCenter' id={"Subtotal"+innerIdx}>
                       {formatter.format(item.Price * item.Quantity)}              
                     </div>
                   </div>
@@ -144,7 +166,7 @@ const Cart = (prodCode:any,number:any,e:any) => {
                   <div className=''></div>
                   <div className=''></div>
                   <div className=''></div>
-                  <div className='CartColsHeadSutotal'><span>Sub Total :</span><span>{formatter.format(sumAmount)}</span>
+                  <div className='CartColsHeadSutotal'><span>Sub Total :</span><span id='TotalAmount'>{useGrandTotal===0?formatter.format(sumAmount):formatter.format(useGrandTotal)}</span>
                                                 <span>VAT :</span><span>{formatter.format((sumAmount / 100)*10)}</span>
                                                 <span>Shipping Fee :</span><span>{formatter.format(10)}</span>                                                
                                                 <span>Total Amount :</span><span>{formatter.format(sumAmount)}</span>
