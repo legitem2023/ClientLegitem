@@ -7,9 +7,12 @@ import { useGlobalState } from 'state';
 import { useQuery } from '@apollo/client';
 import { GET_INVENTORY_SUB_IMAGES } from 'graphql/queries';
 import  { useState, useEffect, useRef } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from 'swiper/react';
+// core version + navigation, pagination modules:
+import { Navigation, Pagination } from 'swiper/modules';
+// import Swiper and modules styles
+import 'swiper/css';
+import 'swiper/css/scrollbar';
 import Image from 'next/image';
 export const HomeGallery = () => {
   const [nav1, setNav1] = useState(null);
@@ -52,42 +55,23 @@ export const HomeGallery = () => {
   if (imageLoading) return null;
   if (imageError) return null;
 
-const settings_B = {
-  dots: false,
-  infinite: true,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  autoplay: true,
-  speed: 2000,
-  autoplaySpeed: 2000,
-  cssEase: "linear",
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        infinite: true,
-        dots: false
-      }
-    }
-  ]
-}
-
-
-
-
   return (
     <div>
       <div className="slider-container">
-      <Slider {...settings_B}>
-        {images.map((item, i) => (
-          <div className='slick-thumb-parent' key={i}>
-              <Image key={i} src={item.original} alt={"alt" + i} width='200' height='100' />
-              {item.title}
-          </div>
-          ))}
-      </Slider>
+      <Swiper
+      spaceBetween={50}
+      slidesPerView={3}
+      loop={true}
+      onSlideChange={() => console.log('slide change')}
+      onSwiper={(swiper) => console.log(swiper)}
+    >
+      {images.map((item:any, i:any) => (
+        <SwiperSlide key={i}>
+            <Image key={i} src={item.original} alt={"alt" + i} width='200' height='150' />
+            {item.title}
+        </SwiperSlide>
+        ))}
+    </Swiper>
       </div>
     </div>
   );

@@ -10,24 +10,31 @@ body {
 .Messenger_inputs{
   position: relative;
 }
-.slick-thumb img{
-  width:100%;
-  height:auto;
+.swiper {
+  width: 100%;
+  height: 100%;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }
-.slick-thumb-parent{
-  width:100%;
-}
-.slick-slide{
-  display: flex!important;
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: flex;
   justify-content: center;
-  align-items: center;  
+  align-items: center;
 }
-.slick-thumb-parent img{
-  width:98%!important;
-  height:auto;
-  position: relative;
-  padding:10px;
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
+
 .faq-question{
   display: grid;
   grid-template-columns: 98% 2%;
@@ -1024,7 +1031,7 @@ body {
 }
 
 .footer div {
-  padding: 1vw;
+  margin: 1vw;
 }
 
 .body {
@@ -1180,7 +1187,7 @@ body {
 
 .searchContaier {
   background-color: #00a380;
-  padding: 5px;
+  margin: 5px;
 }
 
 .Menu {
@@ -1395,6 +1402,7 @@ body {
   padding: 0px;
   margin: 0px;
   border: 0px;
+  width:100%;
 }
 
 .viewmore {
@@ -1692,25 +1700,6 @@ body {
 }
 
 /*************************  SWIPER **********************/
-
-.swiper {
-  width: 100%;
-  padding-top: 50px !important;
-  padding-bottom: 50px !important;
-}
-
-.swiper-slide {
-  background-color: #008793;
-  background-position: center;
-  background-size: cover;
-  width: 300;
-  height: 200px;
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-}
 
 .autoplay-progress {
   position: absolute;

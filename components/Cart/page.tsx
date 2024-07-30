@@ -67,6 +67,8 @@ useEffect(()=>{
     const Element = (document.getElementById('CurQuant'+id) as HTMLInputElement)
     const currValue:any = Element.value;
 
+    if(currValue===1) return
+
     const Price:any = e.target.getAttribute("aria-label");
 
 
@@ -93,20 +95,21 @@ const filtered_data = filterAndSumQuantity(extracted());
 let sumAmount = 0;
 console.log(filtered_data)
 const Cart = (prodCode:any,number:any,e:any) => {
-  const id = e.target.getAttribute("aria-current");
-
-  const Element = (document.getElementById('CurQuant'+id) as HTMLInputElement)
-  const currValue = Element.value;
-  Element.value = parseInt(currValue) + number;
-  return filtered_data.filter((item:any)=>item.productCode===prodCode).map((item: any) => ({
-    "productCode":item.productCode,
-    "Thumbnail":item.thumbnail,
-    "Name": item.name,
-    "Price": item.price,
-    "Size": item.size,
-    "Color": item.color,
-    "Quantity": number 
-  }));
+  if(number > 0){
+    const id = e.target.getAttribute("aria-current");
+    const Element = (document.getElementById('CurQuant'+id) as HTMLInputElement)
+    const currValue:any = Element.value;
+    Element.value = parseInt(currValue) + number;
+    return filtered_data.filter((item:any)=>item.productCode===prodCode).map((item: any) => ({
+      "productCode":item.productCode,
+      "Thumbnail":item.thumbnail,
+      "Name": item.name,
+      "Price": item.price,
+      "Size": item.size,
+      "Color": item.color,
+      "Quantity": number 
+    }));
+  }
 };
 
 

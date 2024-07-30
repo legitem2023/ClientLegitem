@@ -194,7 +194,9 @@
     .LabelBack {
         grid-template-columns: 10% 90%;
     }
-
+    .searchContaier{
+        margin:0px;
+    }
     .searchContaier div {
         display: flex;
         position: relative;
@@ -204,7 +206,8 @@
 
     .searchContaier div input,
     .searchContaier div select {
-        width: 45vw;
+        width: 100%;
+        margin: 5px;
         padding: 10px;
     }
 

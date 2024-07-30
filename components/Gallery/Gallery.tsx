@@ -5,7 +5,13 @@ import Link from 'next/link';
 import { useGlobalState } from 'state';
 import { useQuery } from '@apollo/client';
 import { GET_INVENTORY_SUB_IMAGES } from 'graphql/queries';
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+// core version + navigation, pagination modules:
+import { Navigation, Pagination } from 'swiper/modules';
+// import Swiper and modules styles
+import 'swiper/css';
+import 'swiper/css/scrollbar';
+import Image from 'next/image';
 export const Gallery = () => {
 
   const path = process.env.NEXT_PUBLIC_PATH;
@@ -37,16 +43,21 @@ export const Gallery = () => {
 
   if (imageLoading) return null;
   if (imageError) return null;
+
   return (
-    <ImageGallery
-      items={images}
-      showBullets
-      thumbnailPosition={position}
-      showNav={true}
-      lazyLoad={true}
-      autoPlay={true}
-      infinite={true}
-      useTranslate3D={true}
-    />
+      <Swiper
+      spaceBetween={50}
+      slidesPerView={1}
+      loop={true}
+      onSlideChange={() => console.log('slide change')}
+      onSwiper={(swiper) => console.log(swiper)}
+    >
+      {images.map((item:any, i:any) => (
+        <SwiperSlide key={i}>
+            <Image key={i} src={item.original} alt={"alt" + i} width='400' height='300' />
+            {item.title}
+        </SwiperSlide>
+        ))}
+    </Swiper>
   );
 };
