@@ -14,7 +14,6 @@ const ModelViewer = () => {
             setWidth('100%');
             setHeight('500px');
         }
-        console.log(useWidth, useHeight);
     };
 
     useEffect(() => {
@@ -26,7 +25,7 @@ const ModelViewer = () => {
             window.removeEventListener('resize', handleWidth);
             clearInterval(interval);
         };
-    }, [useWidth, useHeight]);
+    });
 
     return (
         <div className="canvas">

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AboutJson from 'json/About.json'
 const About = () => {
-    console.log(AboutJson);
+
     return (
         <div className="About">
             <div>{AboutJson[0].Name}</div>

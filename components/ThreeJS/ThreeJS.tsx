@@ -21,7 +21,6 @@ const ThreeJS = () => {
     const width = Element.clientWidth;
     const height = Element.clientHeight;
 
-    console.log(width)
     // Create a scene
     const scene = new THREE.Scene();
     const canvas = sceneRef.current;
@@ -74,7 +73,7 @@ const ThreeJS = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [Manager,activeModel,model]);
 
   return <div className="canvas" >
     <canvas id="canvas" ref={sceneRef} width={1108} height={1108}></canvas>
