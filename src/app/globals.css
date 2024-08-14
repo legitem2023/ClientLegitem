@@ -1294,7 +1294,7 @@ body {
 .thumbnail {
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: auto auto;
+  grid-template-rows: 50% 50%;
   border-radius: 10px;
   padding: 3px;
   box-shadow: 0.5px 0.5px 3px #000;

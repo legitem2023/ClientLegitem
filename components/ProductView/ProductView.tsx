@@ -4,44 +4,33 @@ import Share from 'components/Share/Share';
 import { Icon } from '@iconify/react';
 import DataManager from 'utils/DataManager';
 import { useRouter } from 'next/navigation'
-import { useSearchParams } from 'next/navigation';
-import Image from 'next/image';
 import Loading from 'components/LoadingAnimation/Loading';
-import { setGlobalState } from 'state';
 import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import ProductTabs from './ProductTabs';
 import {  GET_RELATED_PRODUCTS } from 'graphql/queries';
 import { useQuery } from '@apollo/client';
+import { formatter } from 'utils/scripts';
+import RelatedProducts from './RelatedProducts';
 const path = process.env.NEXT_PUBLIC_PATH
-const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
 
 const Manager = new DataManager();
 
 const ProductView = () => {
   const router = useRouter()
   const [searchParameter,setSearchParameter] = useState([]);
-
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const dataParam = JSON.parse(params.get('data'));
     setSearchParameter(dataParam);
   }, []);
-
-  // const parameter:any = useSearchParams();
-  const parsedData = searchParameter;//JSON.parse(parameter.get('data'));
-  const viewedProd = Array.isArray(parsedData) ? parsedData : [parsedData];
+  const viewedProd = Array.isArray(searchParameter) ? searchParameter : [searchParameter];
+  
   const { handleAddToCart } = useContext(ShoppingCartContext);
-  /************ Related Product ************/
   const [take, settake] = useState(10);
   const [quantity, setquantity] = useState(1);
 
   const { data: Products, loading } = useQuery(GET_RELATED_PRODUCTS);
   if (loading) return;
-  /************ Related Product ************/
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'PHP',
-  });
 
   const Cart = () => {
     Manager.Success("Added to cart!");
@@ -56,8 +45,7 @@ const ProductView = () => {
       "Quantity": quantity  // Assuming there's a quantity property in your item object
     }));
   };
-
-
+ 
   return (
     <Suspense fallback={<Loading />}>
       {viewedProd.length > 0 ?viewedProd.map((viewItem: any, idx: any) =>(
@@ -106,42 +94,7 @@ const ProductView = () => {
         <div className='MainView_Rchild'>
           <div className='LabelHead'>Related Product</div>
           <div className='MainView_RelatedProducts'>
-            {loading ? <Loading /> : Products.getRelatedProduct?.slice(0, take).map((item: any, idx: any) => (
-              <div key={idx} className='MainView_RelatedProductsThumbs'>
-                <Image
-                  src={item.thumbnail === '' || item.thumbnail === null ? imgPath + 'Product-2024-0-5-22-47034.webp' : imgPath + item.thumbnail}
-                  height='200' width='200' alt={idx} onClick={() => { router.push(path + `Products/${item.id}?data=${encodeURIComponent(JSON.stringify(item))}`); setGlobalState("urlData", item.id); setGlobalState("activeModel", item.model); console.log("--->" + item.model) }}></Image>
-                <div className='thumbnailTextContainer'>
-                  <div>
-                    <span>Price :</span><span>{formatter.format(item.price)}</span>
-                  </div>
-                  <div>
-                    <span>Name :</span><span>{item.name}</span>
-                  </div>
-                  <div>
-                    <span>Ratings :</span><span></span>
-                  </div>
-                  <div>
-                    <span>Size :</span><span></span>
-                  </div>
-                  <div className='Rates'>
-                    <div className='Rates_values'>
-                      <span>0</span>
-                      <span>0</span>
-                      <span>0</span>
-                      <span>0</span>
-                      <span>0</span>
-                    </div>
-                    <div className='ViewsLikes'>
-                      <span>Views :</span>
-                      {/* <span>{useNumberOfviews.filter((numbitem: any) => { return numbitem.productCode === relatedProd[0].productCode }).length}</span> */}
-                      <span>Likes :</span>
-                      {/* <span>{NumberOFViews.getNumberOfViews.filter((numbitem:any)=>{return numbitem.productCode===items.productCode}).length}</span> */}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+            {loading ? <Loading /> : <RelatedProducts data={Products?.getRelatedProduct.slice(0, take)}></RelatedProducts>}
             <div className='viewmore'>
               {loading ? (
                 <button onClick={() => settake(take + 5)}>
