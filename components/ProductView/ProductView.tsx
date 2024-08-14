@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useContext, Suspense } from 'react'
+import React, { useState, useContext, Suspense, useEffect } from 'react'
 import Share from 'components/Share/Share';
 import { Icon } from '@iconify/react';
 import DataManager from 'utils/DataManager';
@@ -19,13 +19,22 @@ const Manager = new DataManager();
 
 const ProductView = () => {
   const router = useRouter()
-  const parameter:any = useSearchParams();
-  const parsedData = JSON.parse(parameter.get('data'));
+  const [searchParameter,useSearchParameter] = useState('');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const dataParam = JSON.parse(params.get('data'));
+    useSearchParameter(dataParam);
+  }, []);
+
+  // const parameter:any = useSearchParams();
+  const parsedData = searchParameter;//JSON.parse(parameter.get('data'));
   const viewedProd = Array.isArray(parsedData) ? parsedData : [parsedData];
   const { handleAddToCart } = useContext(ShoppingCartContext);
   /************ Related Product ************/
   const [take, settake] = useState(10);
   const [quantity, setquantity] = useState(1);
+
   const { data: Products, loading } = useQuery(GET_RELATED_PRODUCTS);
   if (loading) return;
   /************ Related Product ************/
