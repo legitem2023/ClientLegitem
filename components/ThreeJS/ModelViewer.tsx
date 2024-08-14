@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useGlobalState } from 'state';
-
-const ModelViewer = () => {
-    const [activeModel] = useGlobalState("activeModel");
+const ModelViewer = ({data}) => {
     const [useHeight, setHeight] = useState('100vw');
     const [useWidth, setWidth] = useState('100vw');
 
@@ -30,7 +27,7 @@ const ModelViewer = () => {
     return (
         <div className="canvas">
             <model-viewer
-                src={activeModel}
+                src={data[0].model}
                 alt="A 3D model"
                 ar
                 ar-scale="fixed"

@@ -28,6 +28,9 @@ query GetChildInventory($skip: String, $take: String) {
     productCode
     name
     category
+    size
+    color
+    model
   }
 }`
 export const GET_CHILD_INVENTORY_DETAIL = gql`

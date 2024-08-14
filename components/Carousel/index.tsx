@@ -1,16 +1,18 @@
 'use client'
+import { useQuery } from "@apollo/client";
 import { Icon } from "@iconify/react";
+import { GET_CATEGORY } from "graphql/queries";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import React from "react";
 import {StackedCarousel,ResponsiveContainer} from "react-stacked-center-carousel";
-import DataManager from "utils/DataManager";
 
 export default function Carousel(props:any) {
   const ref:any = React.useRef(StackedCarousel);
-  const Manager = new DataManager();
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-
-  const {Category,loading,error} = Manager.category();
+  const { data:Category, loading, error } = useQuery(GET_CATEGORY);
+  const pathname = usePathname();
+  const Products = pathname.startsWith('/Products');
   if(loading) return
   if(error) return
   const Card = (props:any) => {
@@ -40,10 +42,8 @@ export default function Carousel(props:any) {
     );
   };
 
-setInterval(()=>{
-  ref.current?.goBack();
-},3000)
 
+if(Products) return
   return (
   <div className="card">
     <div style={{ width: "100%", position: "relative" }}>

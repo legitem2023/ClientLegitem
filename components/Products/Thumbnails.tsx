@@ -5,6 +5,8 @@ import DataManager from 'utils/DataManager';
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
 import { useGlobalState } from 'state';
+import { GET_CHILD_INVENTORY, GET_NUM_OF_VIEWS } from 'graphql/queries';
+import { useQuery } from '@apollo/client';
 
 const path = process.env.NEXT_PUBLIC_PATH || '';
 const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
@@ -15,12 +17,9 @@ const Thumbnails: React.FC = () => {
   const [thumbnailSearch] = useGlobalState("thumbnailSearch");
   const [thumbnailCategory] = useGlobalState("thumbnailCategory");
   const [descAsc] = useGlobalState("descAsc");
-
-  const { Products, loading } = Manager.productThumbnail();
-  const { NumberOFViews, LoadingNumberOFViews } = Manager.NumberOfViews();
-
+  const { data: Products, loading } = useQuery(GET_CHILD_INVENTORY);
+  const { data:NumberOFViews, loading:LoadingNumberOFViews } = useQuery(GET_NUM_OF_VIEWS);
   if (LoadingNumberOFViews || loading) return <Loading />;
-
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'PHP',
@@ -54,7 +53,7 @@ const Thumbnails: React.FC = () => {
         {thumbnailData.slice(0, take).map((item: any, idx: any) => (
           <div className='thumbnail' key={idx}>
             <div className='thumbnailImageContainer'>
-              <Link href={path + `ProductView/?id=${item.id}`}>
+              <Link href={path + `Products/${item.id}?data=${encodeURIComponent(JSON.stringify(item))}`}>
                 <Image
                   src={item.thumbnail ? imgPath + item.thumbnail : imgPath + 'Product-2024-0-5-22-47034.webp'}
                   height='256'

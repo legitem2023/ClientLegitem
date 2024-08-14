@@ -3,11 +3,9 @@ import { Gallery } from "components/Gallery/Gallery";
 import ModelViewer from "components/ThreeJS/ModelViewer";
 import 'react-tabs/style/react-tabs.css';
 import { Icon } from "@iconify/react";
-import { HomeGallery } from "components/Gallery/HomeGallery";
-import { ViewGallery } from "components/Gallery/ViewGallery";
+import EffectsRenderer from "components/VTO/EffectsRenderer";
 
-
-export default function ProductTabs() {
+export default function ProductTabs({data}) {
   const [isActive, setIsActive] = React.useState("Gallery");
 
   const openCity = (tabID: any, elmnt: any) => {
@@ -57,15 +55,15 @@ export default function ProductTabs() {
           <button className="tablink" onClick={() => { setIsActive("VTO"); openCity('VTO', 'VTOBut') }} id="VTOBut">VTO</button>
         </div>
         <div id="Gallery" className="tabcontent">
-          {isActive === "Gallery" ? <Gallery/> : ""}
+          {isActive === "Gallery" ? <Gallery data={data}/> : ""}
         </div>
         <div id="ThreeJS" className="tabcontent">
           {isActive === "ThreeJS" ? <div className='ThreeJS' id='ThreeJS'>
-            <ModelViewer />
+            <ModelViewer data={data}/>
           </div> : ""}
         </div>
         <div id="VTO" className="tabcontent">
-
+          {isActive === "VTO" ? <EffectsRenderer /> : ""}
         </div>
       </div>
     </div>

@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           strategy="lazyOnload"
         />
         <ShoppingCartProvider>
-          <Provider>z
+          <Provider>
             {children}
           </Provider>
         </ShoppingCartProvider>
