@@ -88,7 +88,7 @@ const ProductView = () => {
           </div>
           <div className='LabelHead'>Product Details</div>
           <div className='longtext'>
-  
+
           </div>
           <div className='LabelHead'>Product Review</div>
           <div className='longtext'>
