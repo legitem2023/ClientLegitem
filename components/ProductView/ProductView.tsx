@@ -1,17 +1,16 @@
 'use client'
-import React, { useEffect, useState, useContext } from 'react'
-import { Gallery } from 'components/Gallery/Gallery';
+import React, { useState, useContext, Suspense } from 'react'
 import Share from 'components/Share/Share';
 import { Icon } from '@iconify/react';
 import DataManager from 'utils/DataManager';
 import { useRouter } from 'next/navigation'
-import { useParams,useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Loading from 'components/LoadingAnimation/Loading';
-import { setGlobalState, useGlobalState } from 'state';
+import { setGlobalState } from 'state';
 import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import ProductTabs from './ProductTabs';
-import { GET_NUM_OF_VIEWS, GET_RELATED_PRODUCTS, GET_VIEW_PRODUCT } from 'graphql/queries';
+import {  GET_RELATED_PRODUCTS } from 'graphql/queries';
 import { useQuery } from '@apollo/client';
 const path = process.env.NEXT_PUBLIC_PATH
 const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
@@ -27,8 +26,7 @@ const ProductView = () => {
   /************ Related Product ************/
   const [take, settake] = useState(10);
   const [quantity, setquantity] = useState(1);
-  const [useProduct,setProduct] = useState([]);
-  const { data: Products, loading } = useQuery(GET_RELATED_PRODUCTS);//Manager.productRelated();
+  const { data: Products, loading } = useQuery(GET_RELATED_PRODUCTS);
   if (loading) return;
   /************ Related Product ************/
   const formatter = new Intl.NumberFormat('en-US', {
@@ -52,7 +50,7 @@ const ProductView = () => {
 
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       {viewedProd.length > 0 ?viewedProd.map((viewItem: any, idx: any) =>(
         <div className='MainView' key={idx}>
         <div className='MainView_Lchild'>
@@ -152,7 +150,7 @@ const ProductView = () => {
         <div className='popNotification' id="popNotification">Item Successfuly Added!</div>
       </div>
       )):""}
-    </>
+    </Suspense>
     
   )
 }
