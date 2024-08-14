@@ -54,7 +54,7 @@ const ProductView = () => {
   return (
     <>
       {viewedProd.length > 0 ?viewedProd.map((viewItem: any, idx: any) =>(
-        <div className='MainView'>
+        <div className='MainView' key={idx}>
         <div className='MainView_Lchild'>
           <div className='LabelHead'>Product Data</div>
           <div className='LabelBack' onClick={() => router.push(path + `Products`)}>
