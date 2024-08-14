@@ -19,12 +19,12 @@ const Manager = new DataManager();
 
 const ProductView = () => {
   const router = useRouter()
-  const [searchParameter,useSearchParameter] = useState([]);
+  const [searchParameter,setSearchParameter] = useState([]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const dataParam = JSON.parse(params.get('data'));
-    useSearchParameter(dataParam);
+    setSearchParameter(dataParam);
   }, []);
 
   // const parameter:any = useSearchParams();
