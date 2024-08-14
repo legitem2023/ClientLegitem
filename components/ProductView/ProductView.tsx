@@ -19,7 +19,7 @@ const Manager = new DataManager();
 
 const ProductView = () => {
   const router = useRouter()
-  const [searchParameter,useSearchParameter] = useState('');
+  const [searchParameter,useSearchParameter] = useState([]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
