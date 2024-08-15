@@ -29,35 +29,42 @@ const Thumbnails: React.FC = () => {
 
   // Filter and sort products
   let thumbnailData = Products?.getChildInventory || [];
-
+  let filteredThumbnailData:any = thumbnailData;
   if (thumbnailSearch) {
     const escapedSearchQuery = thumbnailSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const regex = new RegExp(escapedSearchQuery, 'i');
-    thumbnailData = thumbnailData.filter((item: any) => regex.test(item.name));
+    filteredThumbnailData = thumbnailData.filter((item: any) => regex.test(item.name));
   }
 
   if (thumbnailCategory) {
-    thumbnailData = thumbnailData.filter((item: any) => item.category === thumbnailCategory);
+    filteredThumbnailData = thumbnailData.filter((item: any) => item.category === thumbnailCategory);
   }
 
+
+
+  // Create a new array to sort
+  const sortedThumbnailData = [...thumbnailData];
+
   if (descAsc === "High to Low") {
-    thumbnailData.sort((a: any, b: any) => b.price - a.price);
+    sortedThumbnailData.sort((a: any, b: any) => b.price - a.price);
   } else if (descAsc === "Low to High") {
-    thumbnailData.sort((a: any, b: any) => a.price - b.price);
+    sortedThumbnailData.sort((a: any, b: any) => a.price - b.price);
   }
+
 
   return (
     <div className='Thumbnails'>
-      {thumbnailData.slice(0, take).map((item: any, idx: number) => (
+      {sortedThumbnailData?.slice(0, take).map((item: any, idx: number) => (
         <div className='thumbnail' key={idx}>
           <div className='thumbnailImageContainer'>
             <Link href={`${path}Products/${item.id}?data=${encodeURIComponent(JSON.stringify(item))}`}>
               <Image
                 src={item.thumbnail ? `${imgPath}${item.thumbnail}` : `${imgPath}Product-2024-0-5-22-47034.webp`}
-                height='256'
-                width='192'
+                height='156'
+                width='200'
                 quality={1}
                 alt={item.id}
+                priority
                 className='thumbnailImage'
               />
             </Link>
@@ -74,7 +81,6 @@ const Thumbnails: React.FC = () => {
             <div className='ViewsLikes'>
               <span>Views :</span>
               <span>{NumberOFViews.getNumberOfViews.filter((numbitem: any) => numbitem.productCode === item.productCode).length}</span>
-              <span>Likes :</span>
             </div>
             <div className='ViewsLikes'>
               <Ratings/>

@@ -4,6 +4,7 @@ import Stack from '@mui/material/Stack';
 
 export default function Ratings() {
   return (
+    <div className='Ratings'>
     <Stack spacing={1}>
       <Rating 
         name="size-large" 
@@ -13,7 +14,7 @@ export default function Ratings() {
         onChangeActive={(event, newHover) => {
         console.log(newHover)
         }}/>
-        
     </Stack>
+    </div>
   );
 }

@@ -3,15 +3,11 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import './media600px.css'
 import './media1080px.css'
-
 import { Provider } from 'components/ApolloProvider/Provider'
 import { ShoppingCartProvider } from 'components/context/ShoppingCartProvider'
-
 import * as React from "react";
 import Script from 'next/script'
 import Head from 'next/head'
-import { cookies } from 'components/cookies/cookie'
-import PageHeader from 'components/Header/PageHeader'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,12 +23,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href='/manifest.json' sizes="any" />
       </Head>
       <body className={inter.className}>
+        <ShoppingCartProvider>
         <Script
           type="module"
           src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
           strategy="lazyOnload"
         />
-        <ShoppingCartProvider>
           <Provider>
             {children}
           </Provider>

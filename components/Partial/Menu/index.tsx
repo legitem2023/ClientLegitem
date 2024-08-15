@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import menuList from '../../json/menu.json'
+import menuList from '../../../json/menu.json'
 import { Icon } from '@iconify/react';
 import { setGlobalState } from 'state';
 const Menu = () => {

@@ -1,6 +1,6 @@
 'use client'
 import { Icon } from '@iconify/react'
-import Menu from 'components/Menu'
+import Menu from 'components/Partial/Menu'
 import Image from 'next/image'
 import React,{useState,useEffect, useContext} from 'react'
 import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';

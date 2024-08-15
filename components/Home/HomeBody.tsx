@@ -1,7 +1,7 @@
 'use client'
 import { Icon } from '@iconify/react'
 import { Gallery } from 'components/Gallery/Gallery'
-import Menu from 'components/Menu'
+import Menu from 'components/Partial/Menu'
 import React from 'react'
 import ThreeJS from 'components/ThreeJS/ThreeJS'
 import { Input } from '@nextui-org/react'

@@ -968,9 +968,13 @@ body {
 
 .searchContaier {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 80% 20%;
   justify-content: center;
   align-items: center;
+  padding:5px;
+  
+
+  /* background:linear-gradient(to right, rgba(206, 219, 233, 1) 0%, rgba(57, 191, 144, 1) 0%, rgba(97, 198, 154, 1) 30%, rgba(67, 216, 151, 1) 44%, rgba(76, 239, 158, 1) 61%, rgba(58, 196, 148, 1) 84%, rgba(39, 140, 74, 1) 100%); */
 }
 
 .CartColsHead {
@@ -998,7 +1002,7 @@ body {
 
 .searchContaier div input,
 .searchContaier div select {
-  width: 20vw;
+  width:100%!important;
   padding: 10px;
 }
 
@@ -1185,10 +1189,6 @@ body {
   /* background-color: #67ccb6; */
 }
 
-.searchContaier {
-  background-color: #00a380;
-  margin: 5px;
-}
 
 .Menu {
   padding-left: 0px;
@@ -1315,7 +1315,10 @@ body {
   transition: ease 0.5s;
   cursor: pointer;
 }
-
+.Ratings{
+  display: grid;
+  grid-column: 1 / span ;
+}
 .thumbnailImage:hover {
   border-radius: 8px 8px 0px 0px;
   transform: scale(1.1);
@@ -1398,11 +1401,13 @@ body {
 }
 
 .thumbnailImageContainer a {
-  display: block;
+  display: flex;
   padding: 0px;
   margin: 0px;
   border: 0px;
   width:100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .viewmore {
