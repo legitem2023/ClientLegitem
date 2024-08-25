@@ -62,13 +62,14 @@ body {
   width: 100%;
   height: 100%;
   z-index: 99999999;
-  background-color: rgba(11, 95, 41, 0.5);
+  background-color: rgb(11, 95, 40);
   position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  z-index:999999;
 }
 .ContactForm{
   background-color: #f1f1f1;
@@ -333,8 +334,7 @@ body {
 
 .ProfileDetails {
   display: grid;
-  grid-template-columns: 20% 80%;
-  /* grid-template-rows:50px 200px auto; */
+  grid-template-columns: 30% 70%;
   padding: 10px;
 }
 
@@ -432,10 +432,23 @@ body {
 .AddressDetails_text {
   width: 100%;
   /* height:100%; */
-  -webkit-box-sizing: border-box;
   padding: 10px;
 }
-
+.AddressDetails div{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: auto;
+  height:100%!important;
+}
+.AddressDetails div span{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 100%!important;
+  height:100%!important;
+  padding: 10px;
+}
 .AddressesCollapse {
   grid-column: 1 / span 2;
   /* overflow-x: hidden; */
@@ -883,11 +896,7 @@ body {
   top: 0px;
   height: 23vw;
   width: 33vw;
-  /* padding:1px; */
-  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#63756c+0,007239+0,008975+34,00916d+50,009e79+67,29a086+78,00a380+100 */
   background: radial-gradient(ellipse at center, #63756c 0%, #007239 0%, #008975 34%, #00916d 50%, #009e79 67%, #29a086 78%, #00a380 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-
 }
 
 .ThreeJS {
@@ -909,9 +918,10 @@ body {
 
 .ShareQuantity {
   display: grid;
-  grid-template-columns: 15% 70% 15%;
+  grid-template-columns: 20% 60% 20%;
   justify-content: center;
   align-items: center;
+
 }
 
 .ShareQuantity button {
@@ -959,13 +969,16 @@ body {
 
 .Logo {
   background-image: url('https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg');
-  background-size: auto 90%;
+  background-size: auto 70%;
   background-position: center;
   background-repeat: no-repeat;
   cursor: pointer;
   color: transparent;
 }
-
+.CartImageImage{
+  width:100%!important;
+  height: auto;
+}
 .searchContaier {
   display: grid;
   grid-template-columns: 80% 20%;
@@ -1014,6 +1027,7 @@ body {
   grid-template-columns: 25vw 25vw 25vw 25vw;
   text-align: center;
   color: #002c23;
+  display: none;
 }
 
 .footer ul {
@@ -1076,7 +1090,9 @@ body {
   grid-template-rows: 25% 25% 25% 25%;
   align-items: center;
 }
-
+.CartDetails span{
+  padding:10px;
+}
 .CartDetailsCenter {
   display: flex;
   text-align: center;
@@ -1146,7 +1162,6 @@ body {
   display: grid;
   margin: 5px;
   grid-template-columns: 40% 60%;
-  /* justify-content: center; */
   align-items: center;
 }
 
@@ -1157,12 +1172,6 @@ body {
   outline: none;
 }
 
-/* .Search_container button{
-  padding:10px;
-  width: 100px;
-  border:none;
-  outline: none;
-} */
 .LeftWing,
 .RightWing {
   background-color: rgba(255, 255, 255, 0);
@@ -1170,25 +1179,14 @@ body {
 }
 
 .middlecontainer {
-  width: 60vw;
   height: 100%;
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 7vh auto auto;
-  /* background-color: #67ccb6; */
 }
 
 .middlecontainer_messages {
   width: 60vw;
-  /* height: 100%;
-  min-height: 100vh; */
   display: grid;
   grid-template-columns: 100%;
-  /* grid-template-rows: auto auto auto; */
-  /* background-color: #67ccb6; */
 }
-
 
 .Menu {
   padding-left: 0px;
@@ -1244,11 +1242,6 @@ body {
   background-color: #009356;
 }
 
-/* .category_list:hover{
-  background: linear-gradient(to right, rgba(206, 219, 233, 1) 0%, rgba(57, 191, 144, 1) 0%, rgba(97, 198, 154, 1) 30%, rgba(67, 216, 151, 1) 44%, rgba(76, 239, 158, 1) 61%, rgba(58, 196, 148, 1) 84%, rgba(39, 140, 74, 1) 100%); 
-  padding:1px;
-  border:solid 5px #004127;
-} */
 .category_list_div {
   display: flex;
 }
@@ -1284,11 +1277,11 @@ body {
 .Thumbnails {
   display: grid;
   grid-template-columns: 19.8% 19.8% 19.8% 19.8% 19.8%;
-  min-height: 100px;
+  height: auto;
   grid-gap: 0.1vw;
-  background: radial-gradient(ellipse, #017245, #004127, rgb(0, 39, 2));
   transition: ease 0.5s;
   justify-content: center;
+  position: relative;
 }
 
 .thumbnail {
@@ -1314,6 +1307,7 @@ body {
   border-radius: 8px 8px 0px 0px;
   transition: ease 0.5s;
   cursor: pointer;
+  background-color: #01996b;
 }
 .Ratings{
   display: grid;

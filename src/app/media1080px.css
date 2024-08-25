@@ -71,32 +71,14 @@
         transition: 0.5s;
     }
 
-    .openDrawer:hover+.LeftWing {
-        left: 0px;
-        width: 100vw;
-    }
 
-    .openDrawer:hover~.closeDrawer {
-        right: 0px;
-    }
 
-    /* .menu_li:active + .LeftWing{
-        left:-100%;
-        width:100vw;
-    } */
     .category_list {
         width: auto;
         position: relative;
     }
 
-    /* .LeftWing .category_li:hover .LeftWing{
-        left:0px;
-    }  */
-    .LeftWing:hover {
-        left: 0px;
-        width: 100vw;
-        z-index: 99999;
-    }
+
 
     .LeftWing {
         left: -100%;
@@ -104,7 +86,18 @@
         transition: ease 0.5s;
         background-color: rgb(3, 128, 90);
         z-index: 99999;
+        width:100vw;
     }
+
+    .LeftWing_ {
+        left: 0!important;
+        position: absolute;
+        transition: ease 0.5s;
+        background-color: rgb(3, 128, 90);
+        z-index: 99999;
+        width:100vw;
+      }
+
 
     .RightWing {
         width: 0vw;

@@ -19,9 +19,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <Head>
+      <head>
         <link rel="manifest" href='/manifest.json' sizes="any" />
-      </Head>
+      </head>
       <body className={inter.className}>
         <ShoppingCartProvider>
         <Script

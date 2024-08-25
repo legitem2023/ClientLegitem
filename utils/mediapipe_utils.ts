@@ -1,5 +1,5 @@
-import { Camera } from "components/vto_modules/camera_util"
-import { FaceMeshSolution } from "components/vto_modules/face_mesh"
+import { Camera } from "components/Partial/vto_modules/camera_util"
+import { FaceMeshSolution } from "components/Partial/vto_modules/face_mesh"
 
 class Mediapipe {
     constructor() { }

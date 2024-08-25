@@ -1,5 +1,5 @@
 "use client"
-import { Camera } from 'components/vto_modules/camera_util';
+import { Camera } from 'components/Partial/vto_modules/camera_util';
 import React, { useEffect, useState } from 'react';
 import Mediapipe from 'utils/mediapipe_utils';
 import Threejs from 'utils/vto_utils';

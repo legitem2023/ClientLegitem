@@ -1,6 +1,6 @@
 import CartBody from 'components/Cart/page'
-import PageFooter from 'components/Footer/PageFooter'
-import PageHeader from 'components/Header/PageHeader'
+import PageFooter from 'components/Partial/Footer/PageFooter'
+import PageHeader from 'components/Partial/Header/PageHeader'
 import React from 'react'
 
 const Cart = () => {

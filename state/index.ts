@@ -28,5 +28,6 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     descAsc: null,
     activeModel: "http://localhost:3000/models/NoModel.glb",
     saveDeviceid: "",
+    drawer:true
 });
 export { useGlobalState, setGlobalState };

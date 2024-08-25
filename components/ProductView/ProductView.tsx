@@ -1,10 +1,10 @@
 'use client'
 import React, { useState, useContext, Suspense, useEffect } from 'react'
-import Share from 'components/Share/Share';
+import Share from 'components/Partial/Share/Share';
 import { Icon } from '@iconify/react';
 import DataManager from 'utils/DataManager';
 import { useRouter } from 'next/navigation'
-import Loading from 'components/LoadingAnimation/Loading';
+import Loading from 'components/Partial/LoadingAnimation/Loading';
 import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import ProductTabs from './ProductTabs';
 import {  GET_RELATED_PRODUCTS } from 'graphql/queries';
@@ -20,18 +20,15 @@ const ProductView = () => {
   const [searchParameter,setSearchParameter] = useState([]);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const dataParam = JSON.parse(params.get('data'));
+    const dataParam = JSON.parse(atob(params.get('data')));
     setSearchParameter(dataParam);
   }, []);
   const viewedProd = Array.isArray(searchParameter) ? searchParameter : [searchParameter];
-  
   const { handleAddToCart } = useContext(ShoppingCartContext);
   const [take, settake] = useState(10);
   const [quantity, setquantity] = useState(1);
-
   const { data: Products, loading } = useQuery(GET_RELATED_PRODUCTS);
   if (loading) return;
-
   const Cart = () => {
     Manager.Success("Added to cart!");
     return viewedProd.map((item: any) => ({
@@ -45,7 +42,7 @@ const ProductView = () => {
       "Quantity": quantity  // Assuming there's a quantity property in your item object
     }));
   };
- 
+
   return (
     <Suspense fallback={<Loading />}>
       {viewedProd.length > 0 ?viewedProd.map((viewItem: any, idx: any) =>(

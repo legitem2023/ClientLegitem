@@ -1,3 +1,4 @@
+import Ratings from 'components/Partial/Ratings/Ratings';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React from 'react'
@@ -5,19 +6,25 @@ import { formatter } from 'utils/scripts';
 
 const RelatedProducts = ({data}) => {
     const path = process.env.NEXT_PUBLIC_PATH
-    const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
+    const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
     const router = useRouter()
-    console.log(data,"++++++")
+    const fallbackImage = 'Product-2024-0-5-22-47034.webp';
+    const handleError = (event) => {
+      event.target.src = `${imgPath}${fallbackImage}`;
+      event.target.srcset = `${imgPath}${fallbackImage}`;
+    };
   return (
     <div>
         {data.map((item: any, idx: any) => (
               <div key={idx} className='MainView_RelatedProductsThumbs'>
                 <Image
-                  src={item.thumbnail === '' || item.thumbnail === null ? imgPath + 'Product-2024-0-5-22-47034.webp' : imgPath + item.thumbnail}
+                  src={item.thumbnail ? `${imgPath}${item.thumbnail}` : `${imgPath}${fallbackImage}`}
                   height='200' 
                   width='200' 
                   alt={idx} 
-                  onClick={() => { router.push(path + `Products/${item.id}?data=${encodeURIComponent(JSON.stringify(item))}`);}}></Image>
+                  onError={handleError}
+                  onClick={() => { router.push(`${path}Products/${item.id}?data=${encodeURIComponent(btoa(JSON.stringify(item)))}`);}}>
+                </Image>
                 <div className='thumbnailTextContainer'>
                   <div>
                     <span>Price :</span><span>{formatter.format(item.price)}</span>
@@ -32,19 +39,9 @@ const RelatedProducts = ({data}) => {
                     <span>Size :</span><span></span>
                   </div>
                   <div className='Rates'>
-                    <div className='Rates_values'>
-                      <span>0</span>
-                      <span>0</span>
-                      <span>0</span>
-                      <span>0</span>
-                      <span>0</span>
-                    </div>
-                    <div className='ViewsLikes'>
-                      <span>Views :</span>
-                      {/* <span>{useNumberOfviews.filter((numbitem: any) => { return numbitem.productCode === relatedProd[0].productCode }).length}</span> */}
-                      <span>Likes :</span>
-                      {/* <span>{NumberOFViews.getNumberOfViews.filter((numbitem:any)=>{return numbitem.productCode===items.productCode}).length}</span> */}
-                    </div>
+                  <div className='ViewsLikes'>
+                    <Ratings />
+                  </div>
                   </div>
                 </div>
               </div>

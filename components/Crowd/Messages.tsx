@@ -5,7 +5,7 @@ import { MESSAGE_ADDED, GET_MESSAGES, SEND_MESSAGE } from 'graphql/queries'
 import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import { setTime } from 'utils/cookie'
-import Loading from 'components/LoadingAnimation/Loading'
+import Loading from 'components/Partial/LoadingAnimation/Loading'
 import FingerprintJS from '@fingerprintjs/fingerprintjs';
 const Messages = () => {
 

@@ -1,9 +1,9 @@
 import React from "react";
 import { Gallery } from "components/Gallery/Gallery";
-import ModelViewer from "components/ThreeJS/ModelViewer";
+import ModelViewer from "components/Partial/ThreeJS/ModelViewer";
 import 'react-tabs/style/react-tabs.css';
 import { Icon } from "@iconify/react";
-import EffectsRenderer from "components/VTO/EffectsRenderer";
+import EffectsRenderer from "components/Partial/VTO/EffectsRenderer";
 
 export default function ProductTabs({data}) {
   const [isActive, setIsActive] = React.useState("Gallery");

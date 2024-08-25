@@ -1,20 +1,22 @@
 
 "use client";
-import PageHeader from '../../../components/Header/PageHeader' 
-import PageFooter from '../../../components/Footer/PageFooter'
+import PageHeader from '../../../components/Partial/Header/PageHeader' 
+import PageFooter from '../../../components/Partial/Footer/PageFooter'
 import PageAccount from '../../../components/Account/PageAccount'
-import { useEffect } from 'react';
 import { cookies } from 'components/cookies/cookie';
-import { useGlobalState } from 'state';
-import DataManager from 'utils/DataManager';
+import { useRouter } from 'next/navigation';
 export default function Account() {
-  const [userId] = useGlobalState("cookieActiveUser");
-
-
+const cookie = cookies();
+const router = useRouter();
+    if (!cookie) {
+      router.push('/Login');  
+      return;
+    }
+  const id = cookie.id;
   return (
     <div className='Main'>
       <PageHeader/>
-        <PageAccount userId={userId}/>
+        <PageAccount userId={id}/>
       <PageFooter/>
     </div>
   )

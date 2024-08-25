@@ -1,7 +1,7 @@
 import React from 'react'
 import RealState from 'components/RealState/RealState'
-import PageHeader from '../../../components/Header/PageHeader'
-import PageFooter from '../../../components/Footer/PageFooter'
+import PageHeader from '../../../components/Partial/Header/PageHeader'
+import PageFooter from '../../../components/Partial/Footer/PageFooter'
 
 const page = () => {
   return (

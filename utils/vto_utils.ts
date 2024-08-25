@@ -25,7 +25,7 @@ import { VerticalBlurShader } from 'three/examples/jsm/shaders/VerticalBlurShade
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { MirrorShader } from 'three/examples/jsm/shaders/MirrorShader.js';
 import { TriangleBlurShader } from 'three/examples/jsm/shaders/TriangleBlurShader.js';
-import { FACE_MESH_UV } from 'components/vto_modules/face_geom';
+import { FACE_MESH_UV } from 'components/Partial/vto_modules/face_geom';
 
 class Threejs {
     constructor() { }

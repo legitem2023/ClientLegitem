@@ -1,17 +1,24 @@
 'use client'
 import React from 'react'
-import Navigation from '../../json/navigation.json'
+import Navigation from '../../../json/navigation.json'
 import Link from 'next/link'
 import { Icon } from '@iconify/react';
-import { useGlobalState } from 'state';
+import { setGlobalState, useGlobalState } from 'state';
 import { cookies } from 'components/cookies/cookie';
 const PageHeader = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const [userId] = useGlobalState("cookieActiveUser");
-
+  const [drawerState] = useGlobalState("drawer");
+  const drawer = () =>{
+    if(drawerState){
+      setGlobalState("drawer",false);
+    }else{
+      setGlobalState("drawer",true);
+    }
+  }
   return (
     <div className='Header'>
-      <Link className='Logo' href={path + `Home`}>.</Link>
+      <span className='Logo openDrawer' onClick={()=>drawer()}>{drawerState}</span>
       <div className='Navigation'>
         {Navigation.map((item: any, idx: any) => (
           item.Name === 'Account' ? 

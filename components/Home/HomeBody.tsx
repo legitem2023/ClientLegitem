@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react'
 import { Gallery } from 'components/Gallery/Gallery'
 import Menu from 'components/Partial/Menu'
 import React from 'react'
-import ThreeJS from 'components/ThreeJS/ThreeJS'
+import ThreeJS from 'components/Partial/ThreeJS/ThreeJS'
 import { Input } from '@nextui-org/react'
 import { HomeGallery } from 'components/Gallery/HomeGallery'
 import Accordion from 'components/Accordion/Accordion'
@@ -15,9 +15,6 @@ import Privacy from 'components/About/Privacy'
 const HomeBody = () => {
   return (
     <div className='body'>
-      <div className='dropdown openDrawer'>
-        <Icon icon='iconamoon:menu-burger-horizontal-duotone' />
-      </div>
       <div className='LeftWing'>
         <Menu />
       </div>

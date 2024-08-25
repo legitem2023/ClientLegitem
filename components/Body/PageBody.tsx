@@ -2,18 +2,12 @@
 import React, { useState } from 'react'
 import Menu from '../Partial/Menu'
 import Thumbnails from '../Products/Thumbnails'
-
 import Carousel from 'components/Carousel'
 import { Icon } from '@iconify/react'
 import { setGlobalState, useGlobalState } from 'state'
-
-
-
-
-
 const PageBody = () => {
   const [isVisible, setIsVisible] = useState(false);
-
+  const [drawerState] = useGlobalState("drawer");
   const scrollToTop = () => {
 
     window.scrollTo({
@@ -31,17 +25,9 @@ const PageBody = () => {
   })
   return (
     <div className='body'>
-      <div className='dropdown openDrawer'>
-        <Icon icon='iconamoon:menu-burger-horizontal-duotone' />
-      </div>
-
-
-      <div className='LeftWing'>
+      <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>
         <Menu />
         <Icon icon="emojione-monotone:up-arrow" className='goUp' onClick={() => scrollToTop()} />
-      </div>
-      <div className='dropdown closeDrawer'>
-        <Icon icon='mdi:close-box' />
       </div>
       <div className='middlecontainer'>
         <div className='searchContaier'>

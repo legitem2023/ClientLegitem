@@ -181,11 +181,12 @@ query GetAccountDetails($getAccountDetailsIdId: String) {
   getAccountDetails_id(id: $getAccountDetailsIdId) {
     id
     userId
-    storeName
     fullname
+    storeName
     contactNo
-    accountEmail
     Address
+    accountEmail
+    defaultAddress
   }
 }`
 
