@@ -10,7 +10,7 @@ interface PageAccountProps {
   userId: string;
 }
 
-const PageAccount:React.FC = ({ userId }: PageAccountProps) => {
+const PageAccount = ({ userId }: PageAccountProps) => {
   const router = useRouter();
   const { data:AccountDetails, loading:AccountLoading, error } = useQuery(GET_ACCOUNT_DETAILS_ID, { variables: { getAccountDetailsIdId: userId } });
 
