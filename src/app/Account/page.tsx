@@ -5,18 +5,24 @@ import PageFooter from '../../../components/Partial/Footer/PageFooter'
 import PageAccount from '../../../components/Account/PageAccount'
 import { cookies } from 'components/cookies/cookie';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 export default function Account() {
-const cookie = cookies();
-const router = useRouter();
+  const router = useRouter();
+  const [useCookie,setCookie] = useState();
+  useEffect(()=>{
+    const cookie = cookies();
     if (!cookie) {
       router.push('/Login');  
       return;
     }
-  const id = cookie.id;
+  const id:any = cookie.id;
+  setCookie(id);
+  },[])
+
   return (
     <div className='Main'>
       <PageHeader/>
-        <PageAccount userId={id}/>
+        <PageAccount userId={useCookie}/>
       <PageFooter/>
     </div>
   )
