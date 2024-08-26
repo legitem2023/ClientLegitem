@@ -20,10 +20,45 @@ export const HomeGallery = () => {
       <div className="slider-container">
       <Swiper
       spaceBetween={50}
-      slidesPerView={3}
+      slidesPerView={4}
       loop={true}
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
+      breakpoints={{
+        360: {
+          slidesPerView: 1,
+          spaceBetween: 50,
+        },
+        390: {
+          slidesPerView: 1,
+          spaceBetween: 50,
+        },
+        414: {
+          slidesPerView: 1,
+          spaceBetween: 50,
+        },
+        430: {
+          slidesPerView: 1,
+          spaceBetween: 50,
+        },
+        // when window width is >= 640px
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 50,
+        },
+        // when window width is >= 768px
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 50,
+        },
+        // when window width is >= 1024px
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 50,
+        },
+        1366: {
+          slidesPerView: 4,
+          spaceBetween: 50,
+        }
+      }}
     >
       {ImageData.getInv_subImage.map((item:any, i:any) => (
         <SwiperSlide key={i}>

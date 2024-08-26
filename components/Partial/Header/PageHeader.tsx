@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Icon } from '@iconify/react';
 import { setGlobalState, useGlobalState } from 'state';
 import { cookies } from 'components/cookies/cookie';
+import { useRouter,usePathname } from 'next/navigation';
 const PageHeader = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const [userId] = useGlobalState("cookieActiveUser");
@@ -16,9 +17,16 @@ const PageHeader = () => {
       setGlobalState("drawer",true);
     }
   }
+  const pathName = usePathname();
+  const redirect = useRouter();
+  
   return (
     <div className='Header'>
-      <span className='Logo openDrawer' onClick={()=>drawer()}>{drawerState}</span>
+      {
+        pathName==='/Products'?
+        <div className='HeaderNav'><Icon icon='iconamoon:menu-burger-horizontal-duotone' onClick={()=>drawer()}/></div>
+        :<span className='Logo openDrawer' onClick={()=>redirect.push('/Home')}></span>
+      }
       <div className='Navigation'>
         {Navigation.map((item: any, idx: any) => (
           item.Name === 'Account' ? 
