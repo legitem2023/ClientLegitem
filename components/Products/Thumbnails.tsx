@@ -19,7 +19,7 @@ const Thumbnails: React.FC = () => {
   const [thumbnailCategory] = useGlobalState("thumbnailCategory");
   const [descAsc] = useGlobalState("descAsc");
   
-  const { data: Products, loading: productsLoading } = useQuery(GET_CHILD_INVENTORY);
+  const { data: Products, loading: productsLoading,error:productsError } = useQuery(GET_CHILD_INVENTORY);
   const { data: NumberOFViews, loading: viewsLoading } = useQuery(GET_NUM_OF_VIEWS);
 
   const handleError = useCallback((event: any) => {
@@ -28,8 +28,8 @@ const Thumbnails: React.FC = () => {
   }, []);
 
   const handleLoading = useCallback((event: any) => {
-    event.target.src = 'http://localhost:3000/Loading.webp';
-    event.target.srcset = 'http://localhost:3000/Loading.webp';
+    event.target.src = path +`/Loading.webp`;
+    event.target.srcset = path +`/Loading.webp`;
   }, []);
 
   const filteredAndSortedData = useMemo(() => {
@@ -55,6 +55,7 @@ const Thumbnails: React.FC = () => {
   }, [Products, thumbnailSearch, thumbnailCategory, descAsc]);
 
   if (productsLoading || viewsLoading) return <Loading />;
+  if (productsError) return <h1>Connection Error</h1>
   const createdPath = (data:any,path:string) =>{
     return `${path}Products/${data.id}?data=${encodeURIComponent(btoa(JSON.stringify(data)))}`
   }
