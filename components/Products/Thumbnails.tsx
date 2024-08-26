@@ -11,31 +11,30 @@ import Ratings from 'components/Partial/Ratings/Ratings';
 
 const path = process.env.NEXT_PUBLIC_PATH || '';
 const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-
 const limitText = (text: string) => text.length > 10 ? `${text.slice(0, 10)}...` : text;
-
-const fallbackImage = 'Product-2024-0-5-22-47034.webp';
-
+const fallbackImage = `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`;
 const Thumbnails: React.FC = () => {
   const [take, setTake] = useState<number>(20);
   const [thumbnailSearch] = useGlobalState("thumbnailSearch");
   const [thumbnailCategory] = useGlobalState("thumbnailCategory");
   const [descAsc] = useGlobalState("descAsc");
-
+  
   const { data: Products, loading: productsLoading } = useQuery(GET_CHILD_INVENTORY);
   const { data: NumberOFViews, loading: viewsLoading } = useQuery(GET_NUM_OF_VIEWS);
 
   const handleError = useCallback((event: any) => {
-    event.target.src = `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`;
+    event.target.src = fallbackImage;
+    event.target.srcset = fallbackImage;
+  }, []);
 
-    event.target.srcset = `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`;
+  const handleLoading = useCallback((event: any) => {
+    event.target.src = 'http://localhost:3000/Loading.webp';
+    event.target.srcset = 'http://localhost:3000/Loading.webp';
   }, []);
 
   const filteredAndSortedData = useMemo(() => {
-    if (!Products?.getChildInventory) return [];
-
+    if (productsLoading) return [];
     let data = Products.getChildInventory;
-
     if (thumbnailSearch) {
       const escapedSearchQuery = thumbnailSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
       const regex = new RegExp(escapedSearchQuery, 'i');
@@ -56,13 +55,15 @@ const Thumbnails: React.FC = () => {
   }, [Products, thumbnailSearch, thumbnailCategory, descAsc]);
 
   if (productsLoading || viewsLoading) return <Loading />;
-
+  const createdPath = (data:any,path:string) =>{
+    return `${path}Products/${data.id}?data=${encodeURIComponent(btoa(JSON.stringify(data)))}`
+  }
   return (
     <div className='Thumbnails'>
       {filteredAndSortedData.slice(0, take).map((item: any, idx: number) => (
         <div className='thumbnail' key={idx}>
           <div className='thumbnailImageContainer'>
-            <Link href={`${path}Products/${item.id}?data=${encodeURIComponent(btoa(JSON.stringify(item)))}`}>
+            <Link href={createdPath(item,path)}>
               <Image
                 src={item.thumbnail ? `${imgPath}${item.thumbnail}` : `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`}
                 height='156'
@@ -71,6 +72,7 @@ const Thumbnails: React.FC = () => {
                 alt={item.id}
                 priority
                 onError={handleError}
+                onClick={handleLoading}
                 className='thumbnailImage'
               />
             </Link>

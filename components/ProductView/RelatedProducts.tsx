@@ -1,54 +1,77 @@
 import Ratings from 'components/Partial/Ratings/Ratings';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useCallback } from 'react';
 import { formatter } from 'utils/scripts';
 
-const RelatedProducts = ({data}) => {
-    const path = process.env.NEXT_PUBLIC_PATH
-    const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-    const router = useRouter()
-    const fallbackImage = 'Product-2024-0-5-22-47034.webp';
-    const handleError = (event) => {
-      event.target.src = `${imgPath}${fallbackImage}`;
-      event.target.srcset = `${imgPath}${fallbackImage}`;
-    };
-  return (
-    <div>
-        {data.map((item: any, idx: any) => (
-              <div key={idx} className='MainView_RelatedProductsThumbs'>
-                <Image
-                  src={item.thumbnail ? `${imgPath}${item.thumbnail}` : `${imgPath}${fallbackImage}`}
-                  height='200' 
-                  width='200' 
-                  alt={idx} 
-                  onError={handleError}
-                  onClick={() => { router.push(`${path}Products/${item.id}?data=${encodeURIComponent(btoa(JSON.stringify(item)))}`);}}>
-                </Image>
-                <div className='thumbnailTextContainer'>
-                  <div>
-                    <span>Price :</span><span>{formatter.format(item.price)}</span>
-                  </div>
-                  <div>
-                    <span>Name :</span><span>{item.name}</span>
-                  </div>
-                  <div>
-                    <span>Ratings :</span><span></span>
-                  </div>
-                  <div>
-                    <span>Size :</span><span></span>
-                  </div>
-                  <div className='Rates'>
-                  <div className='ViewsLikes'>
-                    <Ratings />
-                  </div>
-                  </div>
-                </div>
-              </div>
-            ))
-        }
-    </div>
-  )
+interface RelatedProductsProps {
+  data: Array<{
+    id: string;
+    thumbnail: string | null;
+    price: number;
+    name: string;
+  }>;
 }
 
-export default RelatedProducts
+const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
+  const path = process.env.NEXT_PUBLIC_PATH;
+  const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
+  const router = useRouter();
+  const fallbackImage = `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`;
+
+  const handleError = useCallback((event: any) => {
+    event.target.src = fallbackImage;
+    event.target.srcset = fallbackImage;
+  }, []);
+
+  const handleLoading = useCallback((event: any) => {
+    event.target.src = 'http://localhost:3000/Loading.webp';
+    event.target.srcset = 'http://localhost:3000/Loading.webp';
+  }, []);
+  const createdPath = (data:any,path:string) =>{
+    return `${path}Products/${data.id}?data=${encodeURIComponent(btoa(JSON.stringify(data)))}`
+  }
+  return (
+    <div>
+      {data.map((item, idx) => (
+        <div key={idx} className='MainView_RelatedProductsThumbs'>
+            <Link href={createdPath(item,path)}>
+              <Image
+                src={item.thumbnail ? `${imgPath}${item.thumbnail}` : `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`}
+                height='200'
+                width='200'
+                quality={1}
+                alt={item.id}
+                priority
+                onError={handleError}
+                onClick={handleLoading}
+                // className='thumbnailImage'
+              />
+            </Link>
+          <div className='thumbnailTextContainer'>
+            <div>
+              <span>Price :</span><span>{formatter.format(item.price)}</span>
+            </div>
+            <div>
+              <span>Name :</span><span>{item.name}</span>
+            </div>
+            <div>
+              <span>Ratings :</span><span></span>
+            </div>
+            <div>
+              <span>Size :</span><span></span>
+            </div>
+            <div className='Rates'>
+              <div className='ViewsLikes'>
+                <Ratings />
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default RelatedProducts;

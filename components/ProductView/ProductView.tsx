@@ -15,7 +15,7 @@ const path = process.env.NEXT_PUBLIC_PATH
 
 const Manager = new DataManager();
 
-const ProductView = () => {
+const ProductView:React.FC = () => {
   const router = useRouter()
   const [searchParameter,setSearchParameter] = useState([]);
   useEffect(() => {
