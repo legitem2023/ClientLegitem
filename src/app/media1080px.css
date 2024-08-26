@@ -2,14 +2,19 @@
     body {
         overflow: hidden;
     }
-
+    .LoginDiv{
+        width:90vw;
+    }
     .ThreeJS {
         position: relative;
         height: 100vw;
         width: 100vw;
         overflow: hidden;
     }
-
+    .LoginDiv .usernameinput,
+    .LoginDiv .passwordinput{
+        width:100%;
+    }
     .image-gallery-image {
         width: 100% !important;
     }

@@ -63,9 +63,6 @@ const triggerCancel = () =>{
 }
   return (
     <div className='body'>
-        <div className='dropdown openDrawer'>
-          <Icon icon='iconamoon:menu-burger-horizontal-duotone' />
-        </div>
         <div className='LeftWing'>
 
         </div>

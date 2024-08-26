@@ -1,6 +1,25 @@
 
 import { gql } from "@apollo/client"
 //*************** QUERIES ***************/
+export const READ_ORDERS = gql`
+query GetOrderHistory($emailAddress: String) {
+  getOrderHistory(emailAddress: $emailAddress) {
+    id
+    Image
+    Size
+    Color
+    productCode
+    emailAddress
+    TrackingNo
+    OrderNo
+    Quantity
+    Price
+    Address
+    Contact
+    dateCreated
+  }
+}`
+
 export const GET_MESSAGES = gql`
 query Messages {
   messages {

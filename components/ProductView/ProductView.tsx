@@ -28,7 +28,7 @@ const ProductView:React.FC = () => {
   const [take, settake] = useState(10);
   const [quantity, setquantity] = useState(1);
   const { data: Products, loading,error } = useQuery(GET_RELATED_PRODUCTS);
-  if (loading) return;
+  if (loading) return <Loading/>;
   if (error) return <h1>Connection Error</h1>  
 const Cart = () => {
     Manager.Success("Added to cart!");

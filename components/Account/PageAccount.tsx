@@ -6,17 +6,20 @@ import { useRouter } from 'next/navigation';
 import { useQuery } from '@apollo/client';
 import { GET_ACCOUNT_DETAILS_ID } from 'graphql/queries';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
+import { useGlobalState } from 'state';
 interface PageAccountProps {
   userId: string;
 }
 
 const PageAccount = ({ userId }) => {
   const router = useRouter();
+  const [drawerState] = useGlobalState("drawer");
+
   const { data:AccountDetails, loading:AccountLoading, error } = useQuery(GET_ACCOUNT_DETAILS_ID, { variables: { getAccountDetailsIdId: userId } });
 if(AccountLoading) return <Loading/>
   return (
     <div className='body'>
-      <div className='LeftWing'>
+      <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>
         <AccountMenu />
       </div>
       <div className='middlecontainer'>

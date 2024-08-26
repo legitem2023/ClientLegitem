@@ -6,10 +6,12 @@ import React,{useState,useEffect, useContext} from 'react'
 import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+
 const CartBody = () => {
   const [Storage,setStorage] = useState(null);
   const [useGrandTotal,setGrandTotal] = useState(0);
   const reload = useRouter();
+
   const { handleAddToCart, handleRemoveFromCart } = useContext(ShoppingCartContext);
   const path = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
   const formatter = new Intl.NumberFormat('en-US', {
@@ -93,11 +95,11 @@ const Cart = (prodCode:any,number:number,e:any) => {
     }));
   
 };
+
+
+
   return (
     <div className='body'>
-        <div className='dropdown openDrawer'>
-          <Icon icon='iconamoon:menu-burger-horizontal-duotone' />
-        </div>
         <div className='LeftWing'>
             <Menu/>
         </div>
@@ -160,15 +162,16 @@ const Cart = (prodCode:any,number:number,e:any) => {
                   <div className=''></div>
                   <div className=''></div>
                   <div className=''></div>
-                  <div className='CartColsHeadSutotal'><span>Sub Total :</span><span id='TotalAmount'>{useGrandTotal===0?formatter.format(sumAmount):formatter.format(useGrandTotal)}</span>
-                                                <span>VAT :</span><span>10%</span>
-                                                <span>Shipping Fee :</span><span>{formatter.format(10)}</span>                                                
-                                                <span>Total Amount :</span><span>{formatter.format(sumAmount)}</span>
-                                                <span></span><span><Link href='/Cart/Checkout/'>Checkout</Link></span>
-
-
+                  <div className='CartColsHeadSutotal'>
+                    <span>Sub Total :</span>
+                    <span id='TotalAmount'>{useGrandTotal===0?formatter.format(sumAmount):formatter.format(useGrandTotal)}</span>
+                    <span>VAT :</span><span>10%</span>
+                    <span>Shipping Fee :</span><span>{formatter.format(10)}</span>                                                
+                    <span>Total Amount :</span><span>{formatter.format(sumAmount)}</span>
+                    <span></span><span><Link href='/Checkout/'>Checkout</Link></span>
                   </div>
-          </div> 
+          </div>
+
             </div>
         </div>
         <div className='RightWing'></div>

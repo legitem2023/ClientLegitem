@@ -24,7 +24,6 @@ export const cookies = () => {
     const cookie = getCookie("token");
 
     if (!cookie) {
-        document.location.href = '../Management';
         return;
     }
 

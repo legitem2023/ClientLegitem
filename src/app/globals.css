@@ -1696,7 +1696,6 @@ body {
   display: grid;
   grid-template-columns: 100%;
   grid-template-rows: 23vh 23vh 23vh 23vh;
-  /* background-color: red; */
 }
 
 .Banner {
@@ -1706,10 +1705,7 @@ body {
   right: 0%;
   top: 9%;
   bottom: 0px;
-  /* background: radial-gradient(ellipse, #00662e, #006d41, rgb(0, 49, 3)); */
   margin: auto;
-  position: sticky;
-  box-shadow: inset 0.5px 0.5px 3px #000000;
 }
 
 /*************************  SWIPER **********************/

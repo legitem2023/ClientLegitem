@@ -1,5 +1,4 @@
 "use client"
-// import createUploadLink from "apollo-upload-client/createUploadLink.mts";
 import createUploadLink from 'apollo-upload-client/createUploadLink.mjs'
 import { ApolloClient, InMemoryCache, ApolloProvider, split } from '@apollo/client';
 import { WebSocketLink } from '@apollo/client/link/ws';
@@ -12,16 +11,14 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
   });
 
   const wsLink = new WebSocketLink({
-    uri: process.env.NEXT_PUBLIC_WS_SERVER_LINK, // WebSocket endpoint
+    uri: process.env.NEXT_PUBLIC_WS_SERVER_LINK,
     options: {
-      reconnect: true // Automatically reconnect if connection is lost
+      reconnect: true
     }
   });
 
-  // Use the split function to direct subscriptions to the WebSocket link
-  // and other operations to the HTTP link
+
   const link = split(
-    // split based on operation type
     ({ query }) => {
       const definition = getMainDefinition(query);
       return (
