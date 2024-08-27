@@ -6,8 +6,10 @@
         grid-gap: 1px;
     }
     .TransactionImage {
-        width:16px;
-        height:16px;
+        width:30px;
+        height:30px;
+        margin:5px;
+        padding:5px;
     }
     .LoginDiv{
         width:90vw;
