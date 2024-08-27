@@ -21,7 +21,16 @@ const CartBody = () => {
 useEffect(()=>{
   setStorage(localStorage.getItem("cartItems"))
 },[])
-  if(!Storage) return
+  if(!Storage) return (
+    <div className='body'>
+    <div className='LeftWing'>
+        {/* <Menu/> */}
+    </div>
+      <div className='middlecontainer'>
+        <h1>No Data</h1>
+      </div>
+    </div>
+  )
   const data = JSON.parse(Storage);
   const extracted = () =>{
     const arrayData = [];
@@ -168,7 +177,7 @@ const Cart = (prodCode:any,number:number,e:any) => {
                     <span>VAT :</span><span>10%</span>
                     <span>Shipping Fee :</span><span>{formatter.format(10)}</span>                                                
                     <span>Total Amount :</span><span>{formatter.format(sumAmount)}</span>
-                    <span></span><span><Link href='/Checkout/'>Checkout</Link></span>
+                    <span></span><span><Link href='/Checkout/' className='checkoutLink'><Icon icon="material-symbols:shopping-cart-checkout" /> Checkout</Link></span>
                   </div>
           </div>
 

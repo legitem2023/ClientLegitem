@@ -12,9 +12,7 @@ import { useQuery } from '@apollo/client';
 import { formatter } from 'utils/scripts';
 import RelatedProducts from './RelatedProducts';
 const path = process.env.NEXT_PUBLIC_PATH
-
 const Manager = new DataManager();
-
 const ProductView:React.FC = () => {
   const router = useRouter()
   const [searchParameter,setSearchParameter] = useState([]);
@@ -40,7 +38,8 @@ const Cart = () => {
       "Size": item.size,
       "Color": item.color,
       "Model": item.model,
-      "Quantity": quantity  // Assuming there's a quantity property in your item object
+      "Quantity": quantity,  // Assuming there's a quantity property in your item object
+      "agentEmail":item.agentEmail
     }));
   };
 

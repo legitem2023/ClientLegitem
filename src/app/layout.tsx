@@ -8,6 +8,7 @@ import { ShoppingCartProvider } from 'components/context/ShoppingCartProvider'
 import * as React from "react";
 import Script from 'next/script'
 import Head from 'next/head'
+import { ToastContainer } from 'react-toastify'
 
 const inter = Inter({ subsets: ['latin'] })
 

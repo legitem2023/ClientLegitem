@@ -46,7 +46,7 @@ const LoginForm = () => {
                 document.cookie = cookieValue;
             }
             Manager.Success("Welcome !"+username);
-            setSharedCookie("token", response.data.getLogin.jsonToken, 1);
+            setSharedCookie("clientToken", response.data.getLogin.jsonToken, 1);
             router.push('/Account/');
         }else{
            Manager.Error("Login Failed!");

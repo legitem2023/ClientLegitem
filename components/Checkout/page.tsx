@@ -10,8 +10,10 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { filterAndSumQuantity } from 'utils/scripts';
 import { setGlobalState, useGlobalState } from 'state';
+import DataManager from 'utils/DataManager';
 
 const CheckoutData = () => {
+  const Manager = new DataManager();
   const [useCookie, setCookie] = useState();
   const [useEmail,setEmail] = useState();
   const [checkoutAddress] = useGlobalState("checkoutAddress");
@@ -19,7 +21,15 @@ const CheckoutData = () => {
   const [Storage,setStorage] = useState(null);
 
   const [insert_order] = useMutation(INSERT_ORDER, {
-    onCompleted: data => console.log(data)
+    onError: data => {console.log(data)},
+    onCompleted: data => {
+      console.log(data.insertOrder.statusText);
+      if(data.insertOrder.statusText==='Success'){
+        Manager.Success("Order Successfull");
+        localStorage.removeItem('cartItems');
+        router.push('./Order');
+      }    
+    }
   });
 
   const { data: AccountDetails, loading: AccountLoading, error } = useQuery(GET_ACCOUNT_DETAILS_ID, { 
@@ -60,7 +70,7 @@ const CheckoutData = () => {
   if (error) return null;
 
   const HandleSubmit = (e:any) => {
-
+    e.target.disabled = true
     insert_order({
       variables: {
         orderHistoryInput: filter.map((item: any) => ({
@@ -73,10 +83,11 @@ const CheckoutData = () => {
           Size: item.Size,
           Image: item.Thumbnail,
           Color: item.Color,
+          agentEmail:item.agentEmail
         })),
       },
     });
-    e.target.enabled = false
+
   };
   
 
@@ -90,7 +101,7 @@ const CheckoutData = () => {
     <div>
       {AccountDetails && <AccordionCheckout address={AccountDetails.getAccountDetails_id} />}
     </div>
-     <button onClick={HandleSubmit}>Place Order</button>
+     <button className='PlaceLink' onClick={(e:any)=>HandleSubmit(e)}><Icon icon="mdi:place"/> Place Order</button>
     </div>
     <div className='RightWing'></div>
 </div>

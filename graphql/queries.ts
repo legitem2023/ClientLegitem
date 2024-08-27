@@ -1,22 +1,28 @@
 
 import { gql } from "@apollo/client"
 //*************** QUERIES ***************/
-export const READ_ORDERS = gql`
-query GetOrderHistory($emailAddress: String) {
-  getOrderHistory(emailAddress: $emailAddress) {
-    id
-    Image
-    Size
-    Color
-    productCode
-    emailAddress
+export const READ_ORDERS = gql`query ReadGroupedOrderHistory($emailAddress: String) {
+  readGroupedOrderHistory(emailAddress: $emailAddress) {
     TrackingNo
-    OrderNo
-    Quantity
-    Price
     Address
     Contact
-    dateCreated
+    OrderHistory {
+      id
+      Image
+      Size
+      Color
+      productCode
+      emailAddress
+      TrackingNo
+      OrderNo
+      Quantity
+      Price
+      Address
+      Contact
+      StoreEmail
+      dateCreated
+      agentEmail
+    }
   }
 }`
 
@@ -50,6 +56,7 @@ query GetChildInventory($skip: String, $take: String) {
     size
     color
     model
+    agentEmail
   }
 }`
 export const GET_CHILD_INVENTORY_DETAIL = gql`

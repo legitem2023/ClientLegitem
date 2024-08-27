@@ -21,6 +21,7 @@ export const filterAndSumQuantity = (jsonData:any) =>{
         Size: item.Size,
         Color: item.Color,
         Quantity: quantity || 0,
+        agentEmail:item.agentEmail
       };
       uniqueEntries.push(uniqueEntry);
     }

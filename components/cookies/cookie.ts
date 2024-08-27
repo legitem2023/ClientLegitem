@@ -21,7 +21,7 @@ export const cookies = () => {
         return null;
     }
 
-    const cookie = getCookie("token");
+    const cookie = getCookie("clientToken");
 
     if (!cookie) {
         return;
@@ -30,7 +30,7 @@ export const cookies = () => {
     const token = jwt.decode(cookie) as JwtPayload | null;
 
     if (!token || !token.user) {
-        document.location.href = '../Management';
+        document.location.href = '../Login';
         return;
     }
 
