@@ -23,7 +23,7 @@ const PageHeader = () => {
   return (
     <div className='Header'>
       {
-        pathName==='/Products' || pathName==='/Account'?
+        pathName==='/Products' || pathName==='/Account' || pathName==='/Order'?
         <div className='HeaderNav'><Icon icon='iconamoon:menu-burger-horizontal-duotone' onClick={()=>drawer()}/></div>
         :<span className='Logo openDrawer' onClick={()=>redirect.push('/Home')}></span>
       }

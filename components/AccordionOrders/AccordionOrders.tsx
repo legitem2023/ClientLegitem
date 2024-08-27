@@ -25,7 +25,7 @@ const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
                     </div>
                     {activeIndex === index && (
                         <div className="faq-answer">
-                            <div className='ClientOrderTable'>
+                            <div className='ClientOrderTable hiddenInmobile'>
                                 <div>Image</div>
                                 <div>Product Code</div>
                                 <div>Size</div>

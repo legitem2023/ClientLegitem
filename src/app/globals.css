@@ -437,7 +437,7 @@ body {
   background-color:rgb(0, 194, 145);
   color:#002c23;
   font-weight: bold;
-  width:200px;
+  width:auto;
   border:none;
 }
 .PlaceLink{
@@ -451,6 +451,9 @@ body {
   font-weight: bold;
   width:200px;
   border:none;
+  position: absolute;
+  right:2px!important;
+  margin:auto
 }
 .ClientOrderTable{
   display:grid;

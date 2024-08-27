@@ -2,6 +2,13 @@
     body {
         overflow: hidden;
     }
+    .OrderStages {
+        grid-gap: 1px;
+    }
+    .TransactionImage {
+        width:16px;
+        height:16px;
+    }
     .LoginDiv{
         width:90vw;
     }

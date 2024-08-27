@@ -14,6 +14,8 @@ import AccordionOrders from 'components/AccordionOrders/AccordionOrders'
 
 
 const PageOrder = () => {
+  const [drawerState] = useGlobalState("drawer");
+
   useEffect(()=>{
     cookies();
   })
@@ -37,13 +39,9 @@ const PageOrder = () => {
 
   return (
     <div className='body'>
-        <div className='dropdown openDrawer'>
-          <Icon icon='iconamoon:menu-burger-horizontal-duotone' />
-        </div>
-        <div className='LeftWing'>
-          <AccountMenu/>
-            <Icon icon="emojione-monotone:up-arrow" className='goUp' onClick={()=>scrollToTop()}/>
-        </div>
+      <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>
+        <AccountMenu />
+      </div>
         <div className='middlecontainer'>
         <div className='OrderDetails'>
             <div className='OrderList'>

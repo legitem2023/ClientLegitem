@@ -8,7 +8,14 @@
         display: flex;
         flex-direction: column;
     }
-
+    .ClientOrderTable{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .hiddenInmobile{
+        display:none;
+    }
     .Dashboard_grid {
         display: flex;
         flex-direction: column;
