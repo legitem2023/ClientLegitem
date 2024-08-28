@@ -1,84 +1,110 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import Image from 'next/image';
-import Loading from 'components/Partial/LoadingAnimation/Loading';
 import Link from 'next/link';
-import { Icon } from '@iconify/react';
-import { useGlobalState } from 'state';
-import { GET_CHILD_INVENTORY, GET_NUM_OF_VIEWS } from 'graphql/queries';
 import { useQuery } from '@apollo/client';
-import { formatter } from 'utils/scripts';
+import { GET_CHILD_INVENTORY } from 'graphql/queries';
+import Loading from 'components/Partial/LoadingAnimation/Loading';
 import Ratings from 'components/Partial/Ratings/Ratings';
-
+import Views from './Views';
+import Pagination from 'components/Pagination/Pagination';
+import { setGlobalState, useGlobalState } from 'state';
+import { formatter } from 'utils/scripts';
 const path = process.env.NEXT_PUBLIC_PATH || '';
 const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-const limitText = (text: string) => text.length > 10 ? `${text.slice(0, 10)}...` : text;
 const fallbackImage = `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`;
+
+const limitText = (text: string) => (text.length > 10 ? `${text.slice(0, 10)}...` : text);
+
 const Thumbnails: React.FC = () => {
-  const [take, setTake] = useState<number>(20);
-  const [thumbnailSearch] = useGlobalState("thumbnailSearch");
-  const [thumbnailCategory] = useGlobalState("thumbnailCategory");
-  const [descAsc] = useGlobalState("descAsc");
-  
-  const { data: Products, loading: productsLoading,error:productsError } = useQuery(GET_CHILD_INVENTORY);
-  const { data: NumberOFViews, loading: viewsLoading } = useQuery(GET_NUM_OF_VIEWS);
+  const [thumbnailCategory] = useGlobalState('thumbnailCategory');
+  const [CurrentPage] = useGlobalState('CurrentPage');
+  const [thumbnailSearch] = useGlobalState('thumbnailSearch');
+  const [sortBy] = useGlobalState('sortBy');
+  const [sortDirection] = useGlobalState('sortDirection');
 
-  const handleError = useCallback((event: any) => {
-    event.target.src = fallbackImage;
-    event.target.srcset = fallbackImage;
+  const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY);
+
+  const handleError = useCallback((event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = fallbackImage;
+    event.currentTarget.srcset = fallbackImage;
   }, []);
 
-  const handleLoading = useCallback((event: any) => {
-    event.target.src = path +`/Loading.webp`;
-    event.target.srcset = path +`/Loading.webp`;
+  const handleLoading = useCallback((event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    event.currentTarget.src = `${path}/Loading.webp`;
+    event.currentTarget.srcset = `${path}/Loading.webp`;
   }, []);
 
-  const filteredAndSortedData = useMemo(() => {
-    if (productsLoading) return [];
-    let data = Products.getChildInventory;
-    if (thumbnailSearch) {
-      const escapedSearchQuery = thumbnailSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(escapedSearchQuery, 'i');
-      data = data.filter((item: any) => regex.test(item.name));
-    }
+  const createdPath = useCallback((data: any) => {
+    return `${path}Products/${data.id}?data=${encodeURIComponent(btoa(JSON.stringify(data)))}`;
+  }, []);
 
-    if (thumbnailCategory) {
-      data = data.filter((item: any) => item.category === thumbnailCategory);
-    }
+  const filteredProducts = useMemo(() => {
+    if (!Products) return [];
 
-    if (descAsc === "High to Low") {
-      data.sort((a: any, b: any) => b.price - a.price);
-    } else if (descAsc === "Low to High") {
-      data.sort((a: any, b: any) => a.price - b.price);
-    }
+    return Products.getChildInventory
+      ?.filter((item: any) =>
+        item?.name?.toLowerCase()?.includes(thumbnailSearch.toLowerCase())
+      )
+      ?.filter((item: any) =>
+        item?.category?.toLowerCase()?.includes(thumbnailCategory.toLowerCase())
+      );
+  }, [Products, thumbnailSearch, thumbnailCategory]);
 
-    return data;
-  }, [Products, thumbnailSearch, thumbnailCategory, descAsc]);
+  const sortedProducts = useMemo(() => {
+    if (!filteredProducts) return [];
 
-  if (productsLoading || viewsLoading) return <Loading />;
-  if (productsError) return <h1>Connection Error</h1>
-  const createdPath = (data:any,path:string) =>{
-    return `${path}Products/${data.id}?data=${encodeURIComponent(btoa(JSON.stringify(data)))}`
-  }
+    return filteredProducts.sort((a: any, b: any) => {
+      if (sortBy === 'price') {
+        return sortDirection === 'asc' ? a.price - b.price : b.price - a.price;
+      } else if (sortBy === 'name') {
+        return sortDirection === 'asc'
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+      }
+      return 0;
+    });
+  }, [filteredProducts, sortBy, sortDirection]);
+
+  const paginatedProducts = useMemo(() => {
+    const itemsPerPage = 20;
+    return sortedProducts.slice(
+      (CurrentPage - 1) * itemsPerPage,
+      CurrentPage * itemsPerPage
+    );
+  }, [sortedProducts, CurrentPage]);
+
+  const totalPages = useMemo(() => {
+    const itemsPerPage = 20;
+    return Math.ceil((filteredProducts?.length || 0) / itemsPerPage);
+  }, [filteredProducts]);
+
+  const handlePageChange = useCallback((page: number) => {
+    setGlobalState('CurrentPage', page);
+  }, []);
+
+  if (productsLoading) return <Loading />;
+  if (productsError) return <h1>Connection Error</h1>;
+
   return (
-    <div className='Thumbnails'>
-      {filteredAndSortedData.slice(0, take).map((item: any, idx: number) => (
-        <div className='thumbnail' key={idx}>
-          <div className='thumbnailImageContainer'>
-            <Link href={createdPath(item,path)}>
+    <div className="Thumbnails">
+      {paginatedProducts.map((item: any, idx: number) => (
+        <div className="thumbnail" key={idx}>
+          <div className="thumbnailImageContainer">
+            <Link href={createdPath(item)}>
               <Image
-                src={item.thumbnail ? `${imgPath}${item.thumbnail}` : `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`}
-                height='156'
-                width='200'
+                src={item.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage}
+                height="156"
+                width="200"
                 quality={1}
                 alt={item.id}
                 priority
-                onError={handleError}
                 onClick={handleLoading}
-                className='thumbnailImage'
+                onError={handleError}
+                className="thumbnailImage"
               />
             </Link>
           </div>
-          <div className='thumbnailTextContainer'>
+          <div className="thumbnailTextContainer">
             <div>
               <span>Price :</span>
               <span>{formatter.format(item.price)}</span>
@@ -87,25 +113,22 @@ const Thumbnails: React.FC = () => {
               <span>Name :</span>
               <span>{item.name ? limitText(item.name) : 'Untitled'}</span>
             </div>
-            <div className='ViewsLikes'>
+            <div className="ViewsLikes">
               <span>Views :</span>
-              <span>{NumberOFViews.getNumberOfViews.filter((numbitem: any) => numbitem.productCode === item.productCode).length}</span>
+              <Views data={item} />
             </div>
-            <div className='ViewsLikes'>
+            <div className="ViewsLikes">
               <Ratings />
             </div>
           </div>
         </div>
       ))}
-      <div className='viewmore'>
-        {filteredAndSortedData.length > 0 ? (
-          <button onClick={() => setTake(take + 10)}>
-            Load More
-            <Icon icon='eos-icons:bubble-loading' />
-          </button>
-        ) : (
-          <h1>No Data</h1>
-        )}
+      <div className="viewmore">
+        <Pagination
+          currentPage={CurrentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
     </div>
   );

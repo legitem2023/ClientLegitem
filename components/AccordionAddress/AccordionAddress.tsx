@@ -11,7 +11,7 @@ const AccordionAddress = ({ address }) => {
             setActiveIndex(index); // Expand clicked item
         }
     };
-
+    console.log(address)
     return (
         <div className="faq-accordion">
             {address.map((add:any, index:number) => (
@@ -23,6 +23,8 @@ const AccordionAddress = ({ address }) => {
                     {activeIndex === index && (
                         <div className="faq-answer">
                             <button>Set Default</button>
+                            <p>{add.fullname}</p>
+                            <p>{add.contactNo}</p>
                             <p>{add.Address}</p>
                         </div>
                     )}

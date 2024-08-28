@@ -8,6 +8,8 @@ import { setGlobalState, useGlobalState } from 'state'
 const PageBody = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [drawerState] = useGlobalState("drawer");
+  const [sortDirection] = useGlobalState("sortDirection");
+  const [sortBy] = useGlobalState("sortBy");
   const scrollToTop = () => {
 
     window.scrollTo({
@@ -23,6 +25,19 @@ const PageBody = () => {
   const sort = ((e: any) => {
     setGlobalState("descAsc", e.target.value);
   })
+
+  const handleSort = (column) => {
+
+    console.log(column);
+
+    if (sortBy === column) {
+      setGlobalState("sortDirection",sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setGlobalState("sortDirection","asc");
+    }
+  };
+
+
   return (
     <div className='body'>
       <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>
@@ -34,10 +49,10 @@ const PageBody = () => {
           <div><input type='text' placeholder='Search' onChange={(e: any) => searchEngine(e)}></input></div>
           <div>
             <label htmlFor="mySelect" className='hidden'>Choose an option:</label>
-            <select onChange={(e: any) => sort(e)} id='mySelect'>
-              <option>Sort By</option>
-              <option>High to Low</option>
-              <option>Low to High</option>
+            <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSort(e.target.value)}>
+              <option value=''>Sort</option>
+              <option value='name'>By Name</option>
+              <option value='price'>By Price</option>
             </select>
           </div>
         </div>

@@ -1445,23 +1445,25 @@ body {
 .viewmore {
   grid-column: 1 / span 5;
   height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display:flex;
+  flex-direction: row;
 }
 
 .Header {
   display: grid;
   grid-template-columns: 20% auto 20%;
 }
-
+.viewmore div{
+  width:100%;
+  display:flex;
+  flex-direction: row;
+}
 .viewmore button {
   padding: 5px;
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  /* justify-content: center;
+  align-items: center; */
   font-size: 20px;
 
 }

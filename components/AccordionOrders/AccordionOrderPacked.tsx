@@ -3,7 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { formatter } from 'utils/scripts';
 
-const AccordionOrders = ({json}) => {
+const AccordionOrderPacked = ({json}) => {
     const path = process.env.NEXT_PUBLIC_PATH || '';
     const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
     const [activeIndex, setActiveIndex] = useState(null);
@@ -65,4 +65,4 @@ const AccordionOrders = ({json}) => {
     );
 };
 
-export default AccordionOrders;
+export default AccordionOrderPacked;

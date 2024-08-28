@@ -24,12 +24,16 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     cookieActiveUser: "",
     thumbnailSearch: "",
     thumbnailData: null,
-    thumbnailCategory: null,
+    thumbnailCategory: "",
     descAsc: null,
     activeModel: "http://localhost:3000/models/NoModel.glb",
     saveDeviceid: "",
     drawer:true,
     checkoutAddress:"",
-    checkoutContact:""
+    checkoutContact:"",
+    CurrentOrderStage:"New Order",
+    CurrentPage:1,
+    sortDirection:'asc',
+    sortBy:'Price'
 });
 export { useGlobalState, setGlobalState };

@@ -120,6 +120,7 @@
 
     .ProfileDetails {
         grid-template-columns: 35% 65%;
+        padding:0px;
     }
 
     .hideInmobile {

@@ -1,11 +1,14 @@
 
 import { gql } from "@apollo/client"
 //*************** QUERIES ***************/
-export const READ_ORDERS = gql`query ReadGroupedOrderHistory($emailAddress: String) {
-  readGroupedOrderHistory(emailAddress: $emailAddress) {
+export const READ_ORDERS = gql`
+query GetGroupedOrderHistory($emailAddress: String) {
+  getGroupedOrderHistory(emailAddress: $emailAddress) {
     TrackingNo
     Address
     Contact
+    StatusText
+    OrderStatus
     OrderHistory {
       id
       Image
@@ -25,6 +28,163 @@ export const READ_ORDERS = gql`query ReadGroupedOrderHistory($emailAddress: Stri
     }
   }
 }`
+
+export const READ_ORDERS_RECIEVED = gql`
+query GetGroupedOrderHistoryRecieved($emailAddress: String) {
+  getGroupedOrderHistoryRecieved(emailAddress: $emailAddress) {
+    TrackingNo
+    Address
+    Contact
+    StatusText
+    OrderStatus
+    OrderHistory {
+      id
+      Image
+      Size
+      Color
+      productCode
+      emailAddress
+      TrackingNo
+      OrderNo
+      Quantity
+      Price
+      Address
+      Contact
+      StoreEmail
+      dateCreated
+      agentEmail
+    }
+  }
+}`
+
+export const READ_ORDERS_PACKED = gql`
+query GetGroupedOrderHistoryPacked($emailAddress: String) {
+  getGroupedOrderHistoryPacked(emailAddress: $emailAddress) {
+    TrackingNo
+    Address
+    Contact
+    StatusText
+    OrderStatus
+    OrderHistory {
+      id
+      Image
+      Size
+      Color
+      productCode
+      emailAddress
+      TrackingNo
+      OrderNo
+      Quantity
+      Price
+      Address
+      Contact
+      StoreEmail
+      dateCreated
+      agentEmail
+    }
+  }
+}`
+
+export const READ_ORDERS_LOGISTIC = gql`
+query GetGroupedOrderHistoryLogistic($emailAddress: String) {
+  getGroupedOrderHistoryLogistic(emailAddress: $emailAddress) {
+    TrackingNo
+    Address
+    Contact
+    StatusText
+    OrderStatus
+    OrderHistory {
+      id
+      Image
+      Size
+      Color
+      productCode
+      emailAddress
+      TrackingNo
+      OrderNo
+      Quantity
+      Price
+      Address
+      Contact
+      StoreEmail
+      dateCreated
+      agentEmail
+    }
+  }
+}`
+
+export const READ_ORDERS_DELIVER = gql`
+query GetGroupedOrderHistoryDelivery($emailAddress: String) {
+  getGroupedOrderHistoryDelivery(emailAddress: $emailAddress) {
+    TrackingNo
+    Address
+    Contact
+    StatusText
+    OrderStatus
+    OrderHistory {
+      id
+      Image
+      Size
+      Color
+      productCode
+      emailAddress
+      TrackingNo
+      OrderNo
+      Quantity
+      Price
+      Address
+      Contact
+      StoreEmail
+      dateCreated
+      agentEmail
+    }
+  }
+}`
+
+export const READ_ORDERS_DELIVERED = gql`
+query GetGroupedOrderHistoryDelivered($emailAddress: String) {
+  getGroupedOrderHistoryDelivered(emailAddress: $emailAddress) {
+    TrackingNo
+    Address
+    Contact
+    StatusText
+    OrderStatus
+    OrderHistory {
+      id
+      Image
+      Size
+      Color
+      productCode
+      emailAddress
+      TrackingNo
+      OrderNo
+      Quantity
+      Price
+      Address
+      Contact
+      StoreEmail
+      dateCreated
+      agentEmail
+    }
+  }
+}`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const GET_MESSAGES = gql`
 query Messages {

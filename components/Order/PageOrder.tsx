@@ -6,25 +6,41 @@ import transactionData from '../../json/transactionStages_client.json'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useQuery } from '@apollo/client'
-import { READ_ORDERS } from 'graphql/queries'
-import { useGlobalState } from 'state'
+import { READ_ORDERS,READ_ORDERS_RECIEVED,READ_ORDERS_PACKED,READ_ORDERS_LOGISTIC,READ_ORDERS_DELIVER,READ_ORDERS_DELIVERED } from 'graphql/queries'
+import { setGlobalState, useGlobalState } from 'state'
 import { cookies } from 'components/cookies/cookie'
 import Loading from 'components/Partial/LoadingAnimation/Loading'
 import AccordionOrders from 'components/AccordionOrders/AccordionOrders'
+import AccordionOrderRecieved from 'components/AccordionOrders/AccordionOrderRecieved'
+import AccordionOrderPacked from 'components/AccordionOrders/AccordionOrderPacked'
+import AccordionOrderLogistic from 'components/AccordionOrders/AccordionOrderLogistic'
+import AccordionOrderDelivered from 'components/AccordionOrders/AccordionOrderDelivered'
+import AccordionOrderDeliver from 'components/AccordionOrders/AccordionOrderDeliver'
 
 
 const PageOrder = () => {
   const [drawerState] = useGlobalState("drawer");
-
   useEffect(()=>{
     cookies();
   })
+  const [CurrentOrderStage] = useGlobalState("CurrentOrderStage");
   const [cookieEmailAddress] = useGlobalState("cookieEmailAddress");
-  const { data,loading,error} = useQuery(READ_ORDERS,{variables:{emailAddress:cookieEmailAddress}})
-  if(loading) return <Loading/>
+  const { data:newOrder,loading:newOrderLoading,error} = useQuery(READ_ORDERS,{variables:{emailAddress:cookieEmailAddress}});
+  const { data:recievedOrder,loading:recievedOrderLoading} = useQuery(READ_ORDERS_RECIEVED,{variables:{emailAddress:cookieEmailAddress}});
+  const { data:packedOrder,loading:packedOrderLoading} = useQuery(READ_ORDERS_PACKED,{variables:{emailAddress:cookieEmailAddress}});
+  const { data:logisticOrder,loading:logisticOrderLoading} = useQuery(READ_ORDERS_LOGISTIC,{variables:{emailAddress:cookieEmailAddress}});
+  const { data:deliverOrder,loading:deliverOrderLoading} = useQuery(READ_ORDERS_DELIVER,{variables:{emailAddress:cookieEmailAddress}});
+  const { data:deliveredOrder,loading:deliveredOrderLoading} = useQuery(READ_ORDERS_DELIVERED,{variables:{emailAddress:cookieEmailAddress}});
+
+
+  if(newOrderLoading) return <Loading/>
+  if(recievedOrderLoading) return <Loading/>
+  if(packedOrderLoading) return <Loading/>
+  if(logisticOrderLoading) return <Loading/>
+  if(deliverOrderLoading) return <Loading/>
+  if(deliveredOrderLoading) return <Loading/>
   if(error) return "Connection Error";
 
-  console.log(data.readGroupedOrderHistory);
   // const [isVisible, setIsVisible] = useState(false);
   const scrollToTop = () => {
     window.scrollTo({
@@ -34,8 +50,27 @@ const PageOrder = () => {
   };
   const path = process.env.NEXT_PUBLIC_PATH
 
+  const optionalRender = () =>{
+      if(CurrentOrderStage==='New Order'){
+        return <AccordionOrders json={newOrder?.getGroupedOrderHistory}/>
+      }
+      if(CurrentOrderStage==='Recieved'){
+        return <AccordionOrderRecieved json={recievedOrder?.getGroupedOrderHistoryRecieved}/>
+      }
+      if(CurrentOrderStage==='Packed'){
+        return <AccordionOrderPacked json={packedOrder?.getGroupedOrderHistoryPacked}/>
+      }
+      if(CurrentOrderStage==='Logistic'){
+        return <AccordionOrderLogistic json={logisticOrder?.getGroupedOrderHistoryLogistic}/>
+      }
+      if(CurrentOrderStage==='Delivery'){
+        return <AccordionOrderDelivered json={deliverOrder?.getGroupedOrderHistoryDelivery}/>
+      }
+      if(CurrentOrderStage==='Delivered'){
+        return <AccordionOrderDeliver json={deliveredOrder?.getGroupedOrderHistoryDelivered}/>
+      }
 
-
+  }
 
   return (
     <div className='body'>
@@ -51,14 +86,15 @@ const PageOrder = () => {
 
               <div className='OrderStages'>{
                   transactionData.map((item:any,idx:any)=>(
-                      <Link href={path+item.URL} key={idx}> 
+                      <span key={idx} onClick={()=>setGlobalState("CurrentOrderStage",item.URL)}> 
                           <Image src={item.Image} height='50' width='50' alt={idx} className='TransactionImage'></Image>
-                      </Link>
+                      </span>
+                      
                   ))
                   }
               </div>
               <div>
-              <AccordionOrders json={data.readGroupedOrderHistory}/>
+              {optionalRender()}
               </div>
 
             </div>
