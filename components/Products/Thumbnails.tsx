@@ -21,7 +21,6 @@ const Thumbnails: React.FC = () => {
   const [thumbnailSearch] = useGlobalState('thumbnailSearch');
   const [sortBy] = useGlobalState('sortBy');
   const [sortDirection] = useGlobalState('sortDirection');
-  console.log(sortBy)
   const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY);
 
   const handleError = useCallback((event: React.SyntheticEvent<HTMLImageElement, Event>) => {
@@ -54,6 +53,7 @@ const Thumbnails: React.FC = () => {
     if (!filteredProducts) return [];
 
     return filteredProducts.sort((a: any, b: any) => {
+
       if (sortBy === 'price') {
         return sortDirection === 'asc' ? a.price - b.price : b.price - a.price;
       } else if (sortBy === 'name') {
@@ -65,13 +65,14 @@ const Thumbnails: React.FC = () => {
     });
   }, [filteredProducts, sortBy, sortDirection]);
 
-  const paginatedProducts = useMemo(() => {
-    const itemsPerPage = 20;
-    return sortedProducts.slice(
+
+  const itemsPerPage = 20;
+
+  const paginatedProducts = sortedProducts.slice(
       (CurrentPage - 1) * itemsPerPage,
-      CurrentPage * itemsPerPage
-    );
-  }, [sortedProducts, CurrentPage]);
+      CurrentPage * itemsPerPage);
+
+
 
   const totalPages = useMemo(() => {
     const itemsPerPage = 20;

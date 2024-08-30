@@ -26,17 +26,17 @@ const PageBody = () => {
     setGlobalState("descAsc", e.target.value);
   })
 
-  const handleSort = (column) => {
-
-    console.log(column);
-
-    if (sortBy === column) {
-      setGlobalState("sortDirection",sortDirection === 'asc' ? 'desc' : 'asc');
-    } else {
-      setGlobalState("sortDirection","asc");
-    }
+  const handleSortBy = (column) => {
+    setGlobalState("sortBy", column);
   };
 
+  const sortTrigger = (() => {
+      if(sortDirection === 'asc'){
+        setGlobalState("sortDirection", 'desc');
+      }else{
+        setGlobalState("sortDirection", 'asc');
+      }
+  }) 
 
   return (
     <div className='body'>
@@ -49,17 +49,22 @@ const PageBody = () => {
           <div><input type='text' placeholder='Search' onChange={(e: any) => searchEngine(e)}></input></div>
           <div>
             <label htmlFor="mySelect" className='hidden'>Choose an option:</label>
-            <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSort(e.target.value)}>
+            <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSortBy(e.target.value)}>
               <option value=''>Sort</option>
               <option value='name'>By Name</option>
               <option value='price'>By Price</option>
             </select>
           </div>
+          <div>
+              <button onClick={sortTrigger}>
+                {sortDirection === 'asc' ? <Icon icon="bx:sort" />: <Icon icon="bx:sort" style={{"transform":"scaleX(-1)"}}/>}
+              </button>
+          </div>
         </div>
-        <div className='LabelHead carouselLabel'><Icon icon="dashicons:store" /> Stores</div>
+        {/* <div className='LabelHead carouselLabel'><Icon icon="dashicons:store" /> Stores</div>
         <div className='carousel'>
           <Carousel></Carousel>
-        </div>
+        </div> */}
         <div className='LabelHead carouselLabel'><Icon icon="bi:tags-fill" /> Products</div>
         <Thumbnails />
       </div>
