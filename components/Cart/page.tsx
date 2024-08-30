@@ -11,6 +11,7 @@ const CartBody = () => {
   const [Storage,setStorage] = useState(null);
   const [useGrandTotal,setGrandTotal] = useState(0);
   const reload = useRouter();
+  const [loadingState,setLoading] = useState(false)
 
   const { handleAddToCart, handleRemoveFromCart } = useContext(ShoppingCartContext);
   const path = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
@@ -177,7 +178,19 @@ const Cart = (prodCode:any,number:number,e:any) => {
                     <span>VAT :</span><span>10%</span>
                     <span>Shipping Fee :</span><span>{formatter.format(10)}</span>                                                
                     <span>Total Amount :</span><span>{formatter.format(sumAmount)}</span>
-                    <span></span><span><Link href='/Checkout/' className='checkoutLink'><Icon icon="material-symbols:shopping-cart-checkout" /> Checkout</Link></span>
+                    <span></span>
+                    <span><Link href='/Checkout/' className='checkoutLink' onClick={()=>setLoading(true)}>
+                            {loadingState ? (
+                              <>
+                                <Icon icon="material-symbols:shopping-cart-checkout" /> Loading...
+                              </>
+                            ) : (
+                              <>
+                                <Icon icon="material-symbols:shopping-cart-checkout" /> Checkout
+                              </>
+                            )}
+                          </Link>
+                    </span>
                   </div>
           </div>
 

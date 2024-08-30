@@ -1,6 +1,6 @@
 import jwt, { JwtPayload as DefaultJwtPayload } from 'jsonwebtoken';
 import { setGlobalState } from 'state';
-
+import DataManager from 'utils/DataManager';
 interface JwtPayload extends DefaultJwtPayload {
     user: {
         id: string;
@@ -43,4 +43,25 @@ export const cookies = () => {
         email: token.user.emailAddress,
         userlevel: token.user.userLevel,
     };
+}
+
+export const deletecookies = (token:any) =>{
+        const setCookie = (name: string, value: string, days: number) => {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    };
+
+    const deleteCookie = (name: string) => {
+        // Setting the cookie with a past expiration date effectively deletes it
+        setCookie(name, '', -1);
+    };
+    const conf = confirm("Are you sure you want to logout?");
+    if(conf){
+        deleteCookie(token);
+        setGlobalState("cookieEmailAddress", "");
+        setGlobalState("cookieUserLevel", "");
+        setGlobalState("cookieActiveUser", "");
+        document.location.href = '../Login';
+    }
 }

@@ -32,41 +32,37 @@ const Pagination = ({
   return (
     <div className='flex justify-center my-4 bg-stone-400 border-4 border-stone-500 p-2'>
       <button
+        className="transformRotate"
         onClick={() => {onPageChange(1);setGlobalState("CurrentPage",currentPage + 1)}}
-        disabled={currentPage === 1}
-        className='mx-1 px-3 py-1 bg-transparent text-black rounded hover:bg-palette_gray hover:text-palette_white'>
+        disabled={currentPage === 1}>
         <Icon icon="gg:chevron-double-right" style={{transform:'scaleX(-1)'}} />
       </button>
       <button
+        className="transformRotate"
         onClick={() => {onPageChange(currentPage - 1);setGlobalState("CurrentPage",currentPage - 1)}}
-        disabled={currentPage === 1}
-        className='mx-1 px-3 py-1 bg-transparent text-black rounded hover:bg-palette_gray hover:text-palette_white'>
+        disabled={currentPage === 1}>
         <Icon icon="gg:chevron-right" style={{transform:'scaleX(-1)'}}/>
       </button>
 
       {pagesToShow.map(page => (
         <button
           key={page}
-          onClick={() => {onPageChange(page);setGlobalState("CurrentPage",page)}}
-          className={`mx-1 px-3 py-1 ${currentPage === page
-            ? 'bg-lime-500 text-white hover:bg-lime-700'
-            : 'text-black bg-transparent hover:bg-lime-800 hover:text-palette_white'
-            } rounded`}>
+          onClick={() => {onPageChange(page);setGlobalState("CurrentPage",page)}}>
           {page}
         </button>
       ))}
 
       <button
+        className="transformRotate"
         onClick={() => {onPageChange(currentPage + 1);setGlobalState("CurrentPage",currentPage + 1)}}
-        disabled={currentPage === totalPages}
-        className='mx-1 px-3 py-1 bg-transparent text-black rounded hover:bg-palette_gray hover:text-palette_white'>
+        disabled={currentPage === totalPages}>
         <Icon icon="gg:chevron-right" />
       </button>
 
       <button
+        className="transformRotate"
         onClick={() => {onPageChange(totalPages);setGlobalState("CurrentPage",totalPages)}}
-        disabled={currentPage === totalPages}
-        className='mx-1 px-3 py-1 bg-transparent text-black rounded hover:bg-palette_gray hover:text-palette_white'>
+        disabled={currentPage === totalPages}>
         <Icon icon="gg:chevron-double-right"/>
       </button>
 

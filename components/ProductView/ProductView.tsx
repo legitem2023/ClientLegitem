@@ -1,5 +1,6 @@
 'use client'
 import React, { useState, useContext, Suspense, useEffect } from 'react'
+
 import Share from 'components/Partial/Share/Share';
 import { Icon } from '@iconify/react';
 import DataManager from 'utils/DataManager';
@@ -11,15 +12,24 @@ import {  GET_RELATED_PRODUCTS } from 'graphql/queries';
 import { useQuery } from '@apollo/client';
 import { formatter } from 'utils/scripts';
 import RelatedProducts from './RelatedProducts';
+import Notification from 'components/Notification/Notification';
 const path = process.env.NEXT_PUBLIC_PATH
 const Manager = new DataManager();
 const ProductView:React.FC = () => {
+  const [showNotification, setShowNotification] = useState(true);
+
+
+  const handleCloseNotification = () => {
+    setShowNotification(false);
+  };
+
   const router = useRouter()
   const [searchParameter,setSearchParameter] = useState([]);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const dataParam = JSON.parse(atob(params.get('data')));
     setSearchParameter(dataParam);
+    
   }, []);
   const viewedProd = Array.isArray(searchParameter) ? searchParameter : [searchParameter];
   const { handleAddToCart } = useContext(ShoppingCartContext);
@@ -52,6 +62,9 @@ const Cart = () => {
           <div className='LabelBack' onClick={() => router.push(path + `Products`)}>
             <Icon icon="ic:sharp-double-arrow" rotate={2} className='backIcon' /> Back
           </div>
+          {showNotification && (
+            <Notification onClose={handleCloseNotification} />
+          )}
           <div className='MainView_LchildGallery'>
             <ProductTabs data={viewedProd}/>
             <div className='MainView_LchildGalleryDetails'>
@@ -92,7 +105,7 @@ const Cart = () => {
           <div className='LabelHead'>Related Product</div>
           <div className='MainView_RelatedProducts'>
             {loading ? <Loading /> : <RelatedProducts data={Products?.getRelatedProduct.slice(0, take)}></RelatedProducts>}
-            <div className='viewmore'>
+            <div>
               {loading ? (
                 <button onClick={() => settake(take + 5)}>
                   Load More

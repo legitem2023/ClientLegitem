@@ -2,7 +2,9 @@
     .Main {
         overflow-x: hidden !important;
     }
-
+    .LabelBack{
+        width:100%;
+    }
     .ManagementMainMenu {
         position: relative;
         display: flex;
@@ -20,7 +22,9 @@
         display: flex;
         flex-direction: column;
     }
-
+    .OrderList{
+        padding:0px;
+    }
     .InventoryHead {
         display: none;
     }
@@ -131,7 +135,9 @@
         overflow-x: hidden;
         font-size: 13px;
     }
-
+    .transformRotate{
+        transform: rotate(90deg);
+    }
     .Thumbnails {
         grid-gap: 0.5vw !important;
         grid-template-columns: 49% 49% !important;
@@ -143,8 +149,19 @@
 
     .viewmore {
         grid-column: 1 / span 2 !important;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top:0px;
+        bottom:0px;
+        margin:auto;
+        z-index: 9999;
+        right:10px;
     }
-
+    .viewmore div{
+        display: flex;
+        flex-direction: column;
+    }
     .footer {
         grid-template-columns: 100vw;
     }
@@ -166,5 +183,12 @@
         left: 0px;
         right: 0px;
         background-color: #00a380;
+    }
+    .Notification{
+        right:10vw;
+        top:5vw;
+    }
+    .PlaceLink {
+        position:absolute;
     }
 }

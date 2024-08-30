@@ -27,15 +27,14 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
     event.target.srcset = path +`/Loading.webp`;
   }, []);
 
-  const createdPath = (data:any,path:string) =>{
-    return `${path}Products/${data.id}?data=${encodeURIComponent(btoa(JSON.stringify(data)))}`
-  }
-  
+  const createdPath = useCallback((data: any) => {
+    return `${path}Products/${data.id}?data=${encodeURIComponent(btoa(JSON.stringify(data)))}`;
+  }, []);
   return (
     <div>
       {data.map((item, idx) => (
         <div key={idx} className='MainView_RelatedProductsThumbs'>
-            <Link href={createdPath(item,path)}>
+            <Link href={createdPath(item)}>
               <Image
                 src={item.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage}
                 height='200'
@@ -44,9 +43,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
                 alt={item.id}
                 priority
                 onError={handleError}
-                onClick={handleLoading}
-                // className='thumbnailImage'
-              />
+                onClick={handleLoading}/>
             </Link>
           <div className='thumbnailTextContainer'>
             <div>

@@ -7,7 +7,7 @@ import Loading from 'components/Partial/LoadingAnimation/Loading';
 import { GET_ACCOUNT_DETAILS_ID } from 'graphql/queries';
 import { INSERT_ORDER } from 'graphql/mutation';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { filterAndSumQuantity } from 'utils/scripts';
 import { setGlobalState, useGlobalState } from 'state';
 import DataManager from 'utils/DataManager';
@@ -19,6 +19,10 @@ const CheckoutData = () => {
   const [checkoutAddress] = useGlobalState("checkoutAddress");
   const [checkoutContact] = useGlobalState("checkoutContact");
   const [Storage,setStorage] = useState(null);
+  const loading = useRef<HTMLButtonElement>();
+
+  const [loadingState,setLoading] = useState(false)
+
 
   const [insert_order] = useMutation(INSERT_ORDER, {
     onError: data => {console.log(data)},
@@ -70,7 +74,8 @@ const CheckoutData = () => {
   if (error) return null;
 
   const HandleSubmit = (e:any) => {
-    e.target.disabled = true
+    setLoading(true);
+    e.preventDefault();
     insert_order({
       variables: {
         orderHistoryInput: filter.map((item: any) => ({
@@ -101,7 +106,18 @@ const CheckoutData = () => {
     <div>
       {AccountDetails && <AccordionCheckout address={AccountDetails.getAccountDetails_id} />}
     </div>
-     <button className='PlaceLink' onClick={(e:any)=>HandleSubmit(e)}><Icon icon="mdi:place"/> Place Order</button>
+    <button className="PlaceLink" disabled={loadingState} onClick={(e: any) => HandleSubmit(e)}>
+  {loadingState ? (
+    <>
+      <Icon icon="mdi:place" /> Sending...
+    </>
+  ) : (
+    <>
+      <Icon icon="mdi:place" /> Place Order
+    </>
+  )}
+</button>
+
     </div>
     <div className='RightWing'></div>
 </div>

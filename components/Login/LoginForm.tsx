@@ -1,15 +1,9 @@
 'use client'
-import React, { useState } from 'react'
-import { Icon } from '@iconify/react'
-// import AccountMenu from 'components/Account/AccountMenu'
-// import transactionData from '../../json/transactionStages_client.json'
-// import Link from 'next/link'
-// import Image from 'next/image'
+import React from 'react'
 import { GET_LOGIN } from 'graphql/queries'
 import { useRouter } from 'next/navigation';
 import client from 'client'
 import DataManager from 'utils/DataManager'
-// import { ToastContainer } from 'react-toastify'
 
 const LoginForm = () => {
 
@@ -17,6 +11,7 @@ const LoginForm = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const router = useRouter();
   const triggerLogin = async(e:any) => {
+    e.target.value='Loading...';
     e.preventDefault(); // Prevent default form submission behavior
     const username:any = (document.getElementById("username") as HTMLInputElement).value;
     const password:any = (document.getElementById("password") as HTMLInputElement).value;
@@ -45,6 +40,7 @@ const LoginForm = () => {
                     '; path=/';
                 document.cookie = cookieValue;
             }
+            e.target.value='Login';
             Manager.Success("Welcome !"+username);
             setSharedCookie("clientToken", response.data.getLogin.jsonToken, 1);
             router.push('/Account/');
@@ -92,7 +88,6 @@ const triggerCancel = () =>{
             <div className='divButton'>
               <button type='button' value='Login' onClick={triggerLogin}>Login</button>
               <button type='button' value='Cancel' onClick={triggerCancel}>Cancel</button>
-
               </div>
           </div>
         </div>

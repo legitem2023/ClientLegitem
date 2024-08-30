@@ -34,6 +34,6 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     CurrentOrderStage:"New Order",
     CurrentPage:1,
     sortDirection:'asc',
-    sortBy:'Price'
+    sortBy:'price'
 });
 export { useGlobalState, setGlobalState };

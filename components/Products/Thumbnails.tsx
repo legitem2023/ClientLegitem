@@ -21,7 +21,7 @@ const Thumbnails: React.FC = () => {
   const [thumbnailSearch] = useGlobalState('thumbnailSearch');
   const [sortBy] = useGlobalState('sortBy');
   const [sortDirection] = useGlobalState('sortDirection');
-
+  console.log(sortBy)
   const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY);
 
   const handleError = useCallback((event: React.SyntheticEvent<HTMLImageElement, Event>) => {

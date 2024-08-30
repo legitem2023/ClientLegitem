@@ -2,6 +2,12 @@
     body {
         overflow: hidden;
     }
+    .Navigation a,.Navigation nav,.HeaderNav{
+        font-size: 25px;
+    }
+    .thumbnailTextContainer{
+        font-size: 13px;
+    }
     .OrderStages {
         grid-gap: 1px;
     }
