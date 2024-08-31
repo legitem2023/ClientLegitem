@@ -17,7 +17,7 @@
         margin:5px;
         padding:5px;
     }
-    .LoginDiv{
+    .LoginDiv,.SignupDiv{
         width:90vw;
     }
     .ThreeJS {
@@ -26,8 +26,15 @@
         width: 100vw;
         overflow: hidden;
     }
+    .LoginDiv .emailAddressinput,
     .LoginDiv .usernameinput,
     .LoginDiv .passwordinput{
+        width:100%;
+    }
+    .SignupDiv .emailAddressinput, 
+    .SignupDiv .contactinput,
+    .SignupDiv .usernameinput,
+    .SignupDiv .passwordinput{
         width:100%;
     }
     .image-gallery-image {

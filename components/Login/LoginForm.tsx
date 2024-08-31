@@ -4,6 +4,7 @@ import { GET_LOGIN } from 'graphql/queries'
 import { useRouter } from 'next/navigation';
 import client from 'client'
 import DataManager from 'utils/DataManager'
+import Link from 'next/link';
 
 const LoginForm = () => {
 
@@ -22,7 +23,7 @@ const LoginForm = () => {
           "password": password
       }   
     })
-    const errorHandling = document.getElementById("ErrorHandling");
+    // const errorHandling = document.getElementById("ErrorHandling");
     if (username === "" || username === null) {
       Manager.Warning("Input Username!");
       (document.getElementById("username") as HTMLInputElement).focus();
@@ -59,9 +60,7 @@ const triggerCancel = () =>{
 }
   return (
     <div className='body'>
-        <div className='LeftWing'>
-
-        </div>
+        <div className='LeftWing'></div>
         <div className='LoginMiddlecontainer'>
           <div className='LoginDiv'>
             <div className='LabelHead'>Login</div>
@@ -72,8 +71,7 @@ const triggerCancel = () =>{
                 id='username'
                 className='usernameinput'
                 autoComplete='off'
-                required
-              />
+                required/>
             </div>
             <div className='div'>
               <input
@@ -82,8 +80,13 @@ const triggerCancel = () =>{
                 id='password'
                 className='passwordinput'
                 autoComplete='off'
-                required
-              />
+                required/>
+            </div>
+            <div className='div forgot'>
+              <Link href='/EmailExistence'>Forgot Password?</Link>
+            </div>
+            <div className='div forgot'>
+              Dont have an account? <Link href='/SignUp'> Sign Up?</Link>
             </div>
             <div className='divButton'>
               <button type='button' value='Login' onClick={triggerLogin}>Login</button>
