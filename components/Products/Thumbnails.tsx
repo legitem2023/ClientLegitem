@@ -97,7 +97,7 @@ const Thumbnails: React.FC = () => {
               <span>Views :</span>
               <Views data={item} />
             </div>
-            <div className="ViewsLikes">
+            <div>
               <Ratings />
             </div>
           </div>

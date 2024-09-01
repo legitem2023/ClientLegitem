@@ -22,7 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <link rel="manifest" href='/manifest.json' sizes="any" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+        {/* <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/> */}
+        {/* <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"></meta> */}
       </head>
       <body className={inter.className}>
         <ShoppingCartProvider>

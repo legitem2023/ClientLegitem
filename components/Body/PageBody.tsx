@@ -56,7 +56,7 @@ const PageBody = () => {
             </select>
           </div>
           <div>
-              <button onClick={sortTrigger}>
+              <button onClick={sortTrigger} aria-label='sort'>
                 {sortDirection === 'asc' ? <Icon icon="bx:sort" />: <Icon icon="bx:sort" style={{"transform":"scaleX(-1)"}}/>}
               </button>
           </div>

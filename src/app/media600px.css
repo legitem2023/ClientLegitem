@@ -140,8 +140,8 @@
     }
     .Thumbnails {
         grid-gap: 0.5vw !important;
-        /* grid-template-columns: 49% 49% !important; */
-        grid-template-columns: 32% 32% 32% !important;
+        grid-template-columns: 49% 49% !important;
+        /* grid-template-columns: 32% 32% 32% !important; */
         width: 98%;
         left: 0px;
         right: 0px;

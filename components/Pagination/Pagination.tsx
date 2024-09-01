@@ -32,12 +32,14 @@ const Pagination = ({
   return (
     <div className='flex justify-center my-4 bg-stone-400 border-4 border-stone-500 p-2'>
       <button
+        aria-label='pagination'
         className="transformRotate"
         onClick={() => {onPageChange(1);setGlobalState("CurrentPage",currentPage + 1)}}
         disabled={currentPage === 1}>
         <Icon icon="gg:chevron-double-right" style={{transform:'scaleX(-1)'}} />
       </button>
       <button
+        aria-label='pagination'
         className="transformRotate"
         onClick={() => {onPageChange(currentPage - 1);setGlobalState("CurrentPage",currentPage - 1)}}
         disabled={currentPage === 1}>
@@ -46,6 +48,7 @@ const Pagination = ({
 
       {pagesToShow.map(page => (
         <button
+        aria-label='pagination'
           key={page}
           onClick={() => {onPageChange(page);setGlobalState("CurrentPage",page)}}>
           {page}
@@ -53,6 +56,7 @@ const Pagination = ({
       ))}
 
       <button
+        aria-label='pagination'
         className="transformRotate"
         onClick={() => {onPageChange(currentPage + 1);setGlobalState("CurrentPage",currentPage + 1)}}
         disabled={currentPage === totalPages}>
@@ -60,6 +64,7 @@ const Pagination = ({
       </button>
 
       <button
+        aria-label='pagination'
         className="transformRotate"
         onClick={() => {onPageChange(totalPages);setGlobalState("CurrentPage",totalPages)}}
         disabled={currentPage === totalPages}>
