@@ -2789,5 +2789,44 @@ body {
   background-color: transparent;
   border: none;
 }
-
+.ClientOrderTable img{
+  width:100%;
+  height:auto;
+}
+.orderName{
+  background: linear-gradient(to right, rgba(206, 219, 233, 1) 0%, rgba(57, 191, 144, 1) 0%, rgba(97, 198, 154, 1) 30%, rgba(67, 216, 151, 1) 44%, rgba(76, 239, 158, 1) 61%, rgba(58, 196, 148, 1) 84%, rgba(39, 140, 74, 1) 100%);
+  padding:5px;
+  border-top: solid 3px #004127;
+  border-bottom: solid 3px #004127;
+}
 /*************************** Management *****************************/
+@media (orientation: portrait) {
+  .faq-accordion{
+    font-size: 18px;
+  }
+  .openDrawer{
+    display: none;
+  }
+  .HeaderNav{
+    display: flex;
+  }
+  .grid-in-mobile{
+    width: 100%;
+    display: grid!important;
+    grid-template-columns: 40% 60% auto!important;
+  }
+  .grid-in-mobile span{
+    width: 100%;
+  }
+}
+@media (orientation: landscape) {
+  .openDrawer{
+    display: flex;
+  }
+  .HeaderNav{
+    display: none;
+  }
+  .hideInLandscape{
+    display: none;
+  }
+}

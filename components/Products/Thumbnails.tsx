@@ -8,12 +8,7 @@ import Ratings from 'components/Partial/Ratings/Ratings';
 import Views from './Views';
 import Pagination from 'components/Pagination/Pagination';
 import { setGlobalState, useGlobalState } from 'state';
-import { formatter } from 'utils/scripts';
-const path = process.env.NEXT_PUBLIC_PATH || '';
-const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-const fallbackImage = `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`;
-
-const limitText = (text: string) => (text.length > 10 ? `${text.slice(0, 10)}...` : text);
+import { createdPath, formatter, handleError, handleLoading, imageSource, limitText } from 'utils/scripts';
 
 const Thumbnails: React.FC = () => {
   const [thumbnailCategory] = useGlobalState('thumbnailCategory');
@@ -21,21 +16,9 @@ const Thumbnails: React.FC = () => {
   const [thumbnailSearch] = useGlobalState('thumbnailSearch');
   const [sortBy] = useGlobalState('sortBy');
   const [sortDirection] = useGlobalState('sortDirection');
-  const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY);
-
-  const handleError = useCallback((event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    event.currentTarget.src = fallbackImage;
-    event.currentTarget.srcset = fallbackImage;
-  }, []);
-
-  const handleLoading = useCallback((event: React.SyntheticEvent<HTMLImageElement, Event>) => {
-    event.currentTarget.src = `${path}/Loading.webp`;
-    event.currentTarget.srcset = `${path}/Loading.webp`;
-  }, []);
-
-  const createdPath = useCallback((data: any) => {
-    return `${path}Products/${data.id}?data=${encodeURIComponent(btoa(JSON.stringify(data)))}`;
-  }, []);
+  const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY,{
+    fetchPolicy: 'cache-and-network',
+  });
 
   const filteredProducts = useMemo(() => {
     if (!Products) return [];
@@ -72,8 +55,6 @@ const Thumbnails: React.FC = () => {
       (CurrentPage - 1) * itemsPerPage,
       CurrentPage * itemsPerPage);
 
-
-
   const totalPages = useMemo(() => {
     const itemsPerPage = 20;
     return Math.ceil((filteredProducts?.length || 0) / itemsPerPage);
@@ -82,7 +63,6 @@ const Thumbnails: React.FC = () => {
   const handlePageChange = useCallback((page: number) => {
     setGlobalState('CurrentPage', page);
   }, []);
-
   if (productsLoading) return <Loading />;
   if (productsError) return <h1>Connection Error</h1>;
 
@@ -93,12 +73,11 @@ const Thumbnails: React.FC = () => {
           <div className="thumbnailImageContainer">
             <Link href={createdPath(item)}>
               <Image
-                src={item.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage}
+                src={imageSource(item)}
                 height="156"
                 width="200"
                 quality={1}
                 alt={item.id}
-                priority
                 onClick={handleLoading}
                 onError={handleError}
                 className="thumbnailImage"

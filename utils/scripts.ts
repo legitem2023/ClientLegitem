@@ -1,8 +1,11 @@
+import { useCallback } from "react";
+
 export const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'PHP',
   });
 
+  
 export const filterAndSumQuantity = (jsonData:any) =>{
   const uniqueEntries = [];
   const sumMap = new Map();
@@ -50,3 +53,59 @@ export const generateOrderNumber = () =>{
   return trackingNumber;
 }
 
+export const limitText = (text: string) => (text.length > 10 ? `${text.slice(0, 10)}...` : text);
+
+export const extracted = (data:any) =>{
+  const arrayData = [];
+  for (let index = 0; index < data.length; index++) {
+    const element = data[index];
+    arrayData.push(element);
+  }
+  return arrayData.sort((a,b)=>b.Quantity - a.Quantity).map((item:any,idx:any)=>{ return item[0]})
+}
+export const fallbackImage = () =>{
+  return `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`;
+}
+
+export const handleError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  event.currentTarget.src = fallbackImage();
+  event.currentTarget.srcset = fallbackImage();
+};
+
+export  const handleLoading = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
+  const path = process.env.NEXT_PUBLIC_PATH || '';
+  event.currentTarget.src = `${path}/Loading.webp`;
+  event.currentTarget.srcset = `${path}/Loading.webp`;
+};
+
+export const createdPath = (data: any) => {
+  const path = process.env.NEXT_PUBLIC_PATH || '';
+  return `${path}Products/${data.id}?data=${encodeURIComponent(btoa(JSON.stringify(data)))}`;
+};
+
+export const imageSource = (item:any) =>{
+  const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
+  return item.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage()
+}
+
+export const imageSourceOrder = (item:any) =>{
+  const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
+  return item.Image ? `${imgPath}${item.Image}` : fallbackImage()
+}
+
+
+
+export const Cart = (viewedProd:any,Manager:any,quantity:any) => {
+  Manager.Success("Added to cart!");
+  return viewedProd.map((item: any) => ({
+    "productCode": item.productCode,
+    "Thumbnail": item.thumbnail,
+    "Name": item.name,
+    "Price": item.price,
+    "Size": item.size,
+    "Color": item.color,
+    "Model": item.model,
+    "Quantity": quantity,  // Assuming there's a quantity property in your item object
+    "agentEmail":item.agentEmail
+  }));
+};

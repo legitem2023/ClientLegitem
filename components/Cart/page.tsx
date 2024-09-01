@@ -2,26 +2,28 @@
 import { Icon } from '@iconify/react'
 import Menu from 'components/Partial/Menu'
 import Image from 'next/image'
-import React,{useState,useEffect, useContext} from 'react'
+import React,{useState,useEffect, useContext, useRef} from 'react'
 import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { extracted, filterAndSumQuantity, formatter } from 'utils/scripts'
 
 const CartBody = () => {
+  const path = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
   const [Storage,setStorage] = useState(null);
   const [useGrandTotal,setGrandTotal] = useState(0);
   const reload = useRouter();
   const [loadingState,setLoading] = useState(false)
 
   const { handleAddToCart, handleRemoveFromCart } = useContext(ShoppingCartContext);
-  const path = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
-  const formatter = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'PHP',
-  });
-useEffect(()=>{
-  setStorage(localStorage.getItem("cartItems"))
-},[])
+  useEffect(() => {
+    try {
+      const storedData = localStorage.getItem("cartItems");
+      setStorage(storedData);
+    } catch (error) {
+      console.error("Failed to load cart items from localStorage", error);
+    }
+  }, []);
   if(!Storage) return (
     <div className='body'>
     <div className='LeftWing'>
@@ -32,42 +34,7 @@ useEffect(()=>{
       </div>
     </div>
   )
-  const data = JSON.parse(Storage);
-  const extracted = () =>{
-    const arrayData = [];
-    for (let index = 0; index < data.length; index++) {
-      const element = data[index];
-      arrayData.push(element);
-    }
-    return arrayData.sort((a,b)=>b.Quantity - a.Quantity).map((item:any,idx:any)=>{ return item[0]})
-  }
-  function filterAndSumQuantity(jsonData:any) {
-    const uniqueEntries = [];
-    const sumMap = new Map();
-    jsonData.forEach((item:any) => {
-      const productCode = item.productCode;
-      const quantity = item.Quantity;
-      const existingEntry = uniqueEntries.find(entry => entry.productCode === productCode);  
-      if (existingEntry) {
-        existingEntry.Quantity += quantity || 0;
-      } else {
-        const uniqueEntry = {
-          productCode,
-          Thumbnail: item.Thumbnail,
-          Name: item.Name,
-          Price: item.Price,
-          Size: item.Size,
-          Color: item.Color,
-          Quantity: quantity || 0,
-        };
-        uniqueEntries.push(uniqueEntry);
-      }
-      const currentSum = sumMap.get(productCode) || 0;
-      sumMap.set(productCode, currentSum + (quantity || 0));
-    });
-  
-    return uniqueEntries;
-  }
+  const data = JSON.parse(localStorage.getItem("cartItems"));
   const updateQuant = (e:any) =>{
     const id = e.target.getAttribute("aria-current");
     const Element = (document.getElementById('CurQuant'+id) as HTMLInputElement)
@@ -85,10 +52,10 @@ useEffect(()=>{
     }
     setGrandTotal(grandTotal);
   }
-const filtered_data = filterAndSumQuantity(extracted());
+
+const filtered_data = filterAndSumQuantity(extracted(data));
 let sumAmount = 0;
 const Cart = (prodCode:any,number:number,e:any) => {
-  
     console.log(prodCode,number);
     const id = e.target.getAttribute("aria-current");
     const Element:any = (document.getElementById('CurQuant'+id) as HTMLInputElement)
@@ -103,10 +70,7 @@ const Cart = (prodCode:any,number:number,e:any) => {
       "Color": item.color,
       "Quantity": number 
     }));
-  
-};
-
-
+  };
 
   return (
     <div className='body'>
@@ -142,8 +106,8 @@ const Cart = (prodCode:any,number:number,e:any) => {
                     <div className='ShareQuantity'>
                       <div>
                         <button aria-current={innerIdx} aria-label={item.Price} onClick={(e:any)=>{
-                              handleAddToCart(Cart(item.productCode,1,e));
-                              updateQuant(e);}}>+</button>
+                            handleAddToCart(Cart(item.productCode,1,e));
+                            updateQuant(e);}}>+</button>
                       </div>
                       <div>
                         <input type='text' id={"CurQuant"+innerIdx} style={{'width':'90%'}} defaultValue={item.Quantity} aria-valuenow={item.Price}/>

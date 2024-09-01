@@ -50,9 +50,9 @@ export default function ProductTabs({data}) {
     <div className="flex flex-col px-4">
       <div className="flex w-full flex-col">
         <div className="grid grid-cols-3 gap-4">
-          {/* <button className="tablink" onClick={() => { setIsActive("Gallery"); openCity('Gallery', 'GalleryBut') }} id="GalleryBut"><Icon icon="pepicons-pop:photo" /> Photos</button>
+          <button className="tablink" onClick={() => { setIsActive("Gallery"); openCity('Gallery', 'GalleryBut') }} id="GalleryBut"><Icon icon="pepicons-pop:photo" /> Photos</button>
           <button className="tablink" onClick={() => { setIsActive("ThreeJS"); openCity('ThreeJS', 'ThreeJSBut') }} id="ThreeJSBut"><Icon icon='fluent-mdl2:cube-shape-solid'></Icon> 3D Model</button>
-          <button className="tablink" onClick={() => { setIsActive("VTO"); openCity('VTO', 'VTOBut') }} id="VTOBut">VTO</button> */}
+          <button className="tablink" onClick={() => { setIsActive("VTO"); openCity('VTO', 'VTOBut') }} id="VTOBut">VTO</button>
         </div>
         <div id="Gallery" className="tabcontent">
           {isActive === "Gallery" ? <Gallery data={data}/> : ""}

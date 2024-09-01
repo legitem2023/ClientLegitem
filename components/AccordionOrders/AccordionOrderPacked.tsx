@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import { useState } from 'react';
-import { formatter } from 'utils/scripts';
+import { formatter, imageSourceOrder } from 'utils/scripts';
 
 const AccordionOrderPacked = ({json}) => {
     const path = process.env.NEXT_PUBLIC_PATH || '';
@@ -26,8 +26,7 @@ const AccordionOrderPacked = ({json}) => {
 
                     {activeIndex === index && (
                         <div className="faq-answer">
-                            <div>{odr.StatusText}</div>
-                            <br></br>
+                            <div className='orderName'>{odr.StatusText}</div>
                             <div className='ClientOrderTable hiddenInmobile'>
                                 <div>Image</div>
                                 <div>Product Code</div>
@@ -39,23 +38,23 @@ const AccordionOrderPacked = ({json}) => {
                             </div>
                             {odr.OrderHistory.map((item:any,idx:number)=>(
                                 <div key={idx} className='ClientOrderTable'>
-                                    <div>
-                                    <Image
-                                        src={item.Image ? `${imgPath}${item.Image}` : `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`}
-                                        height='50'
-                                        width='80'
-                                        quality={1}
-                                        alt={item.id}
-                                        priority
-                                    />
-                                    </div>
-                                    <div>{item.productCode}</div>
-                                    <div>{item.Size}</div>
-                                    <div>{item.Color}</div>
-                                    <div>{formatter.format(item.Price)}</div>
-                                    <div>{item.Quantity}</div>
-                                    <div>{formatter.format(item.Quantity * item.Price)}</div>
+                                <div>
+                                <Image
+                                    src={imageSourceOrder(item)}
+                                    height='50'
+                                    width='80'
+                                    quality={1}
+                                    alt={item.id}
+                                    priority
+                                />
                                 </div>
+                                <div className='grid-in-mobile'><span className='hideInLandscape'>Product Code :</span>{item.productCode}</div>
+                                <div className='grid-in-mobile'><span className='hideInLandscape'>Product Size :</span>{item.Size}</div>
+                                <div className='grid-in-mobile'><span className='hideInLandscape'>Product Color:</span>{item.Color}</div>
+                                <div className='grid-in-mobile'><span className='hideInLandscape'>Product Price:</span>{formatter.format(item.Price)}</div>
+                                <div className='grid-in-mobile'><span className='hideInLandscape'>Product Quantity:</span>{item.Quantity}</div>
+                                <div className='grid-in-mobile'><span className='hideInLandscape'>Product SubTotal:</span>{formatter.format(item.Quantity * item.Price)}</div>
+                            </div>
                             ))}
                         </div>
                     )}
