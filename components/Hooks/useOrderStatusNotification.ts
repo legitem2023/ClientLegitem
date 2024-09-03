@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import { useSubscription } from '@apollo/client';
 import { ORDER_STATUS_SUBSCRIPTION } from 'graphql/subscriptions';
 import { useState, useEffect } from 'react';
@@ -6,22 +7,36 @@ import { useNotification } from 'components/context/NotificationContext';
 
 const OrderStatusNotification = () => {
   const { showNotification } = useNotification();
-  
+
   const [updateNewOrder, setUpdateNewOrder] = useState<number>(0);
   const [updateRecieved, setUpdateRecieved] = useState<number>(0);
   const [updatePacked, setUpdatePacked] = useState<number>(0);
   const [updateLogistic, setUpdateLogistic] = useState<number>(0);
   const [updateDelivery, setUpdateDelivery] = useState<number>(0);
   const [updateDelivered, setUpdateDelivered] = useState<number>(0);
+  const [audioEnabled, setAudioEnabled] = useState<boolean>(false);
+
+  const enableAudio = () => {
+    setAudioEnabled(true);
+    // Play a silent audio to enable future sound playback
+    const audio = new Audio('/newNot.mp3');
+    audio.play().catch(error => console.error('Audio enable failed:', error));
+  };
+
   const playSound = (soundUrl: string) => {
-    const audio = new Audio(soundUrl);
-    audio.play().catch(error => {
-      console.error('Playback failed:', error);
-  });
+    if (audioEnabled) {
+      const audio = new Audio(soundUrl);
+      audio.play().catch(error => {
+        console.error('Playback failed:', error);
+      });
+    }
   };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      // Prompt user to click to enable audio
+      window.addEventListener('click', enableAudio, { once: true });
+
       setUpdateNewOrder(parseInt(localStorage.getItem('NewOrder') || '0', 10));
       setUpdateRecieved(parseInt(localStorage.getItem('Recieved') || '0', 10));
       setUpdatePacked(parseInt(localStorage.getItem('Packed') || '0', 10));
