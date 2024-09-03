@@ -1,6 +1,6 @@
 import Pagination from 'components/Pagination/Pagination';
 import Image from 'next/image';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useState } from 'react';
 import { setGlobalState, useGlobalState } from 'state';
 import { formatter, imageSourceOrder } from 'utils/scripts';
