@@ -30,7 +30,7 @@ const Pagination = ({
   );
 
   return (
-    <div className='flex justify-center my-4 bg-stone-400 border-4 border-stone-500 p-2'>
+    <div className='flex justify-center my-4 bg-stone-400 border-4 border-stone-500 p-2 pagination'>
       <button
         aria-label='pagination'
         className="transformRotate"

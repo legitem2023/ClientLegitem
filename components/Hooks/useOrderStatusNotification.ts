@@ -1,3 +1,4 @@
+'use client'
 import { useSubscription } from '@apollo/client';
 import { ORDER_STATUS_SUBSCRIPTION } from 'graphql/subscriptions';
 import { useState, useEffect } from 'react';
@@ -12,6 +13,10 @@ const OrderStatusNotification = () => {
   const [updateLogistic, setUpdateLogistic] = useState<number>(0);
   const [updateDelivery, setUpdateDelivery] = useState<number>(0);
   const [updateDelivered, setUpdateDelivered] = useState<number>(0);
+  const playSound = (soundUrl: string) => {
+    const audio = new Audio(soundUrl);
+    audio.play();
+  };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -41,6 +46,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('NewOrder', newValue.toString());
                 }
+                playSound('/newNot.mp3');
                 showNotification('New Order', 'A new order has arrived.');
                 return newValue;
               });
@@ -51,6 +57,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Recieved', newValue.toString());
                 }
+                playSound('/newNot.mp3');
                 showNotification('Order Received', 'An order has been received.');
                 return newValue;
               });
@@ -61,6 +68,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Packed', newValue.toString());
                 }
+                playSound('/newNot.mp3');
                 showNotification('Order Packed', 'An order has been packed.');
                 return newValue;
               });
@@ -71,6 +79,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Logistic', newValue.toString());
                 }
+                playSound('/newNot.mp3');
                 showNotification('Order in Transit', 'An order is in logistic.');
                 return newValue;
               });
@@ -81,6 +90,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Delivery', newValue.toString());
                 }
+                playSound('/newNot.mp3');
                 showNotification('Out for Delivery', 'An order is out for delivery.');
                 return newValue;
               });
@@ -91,6 +101,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Delivered', newValue.toString());
                 }
+                playSound('/newNot.mp3');
                 showNotification('Order Delivered', 'An order has been delivered.');
                 return newValue;
               });

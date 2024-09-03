@@ -5,7 +5,6 @@ const Notification = ({ onClose }) => {
   const { notificationCount } = useCartGlobalState();
   const router = useRouter();
   if (notificationCount === 0) return null;
-
   return (
     <div className="Notification" onClick={()=>router.push('/Cart')} style={{'display':notificationCount < 1?'none':'flex'}}>
       {notificationCount}

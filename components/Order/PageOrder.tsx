@@ -18,8 +18,6 @@ import AccordionOrderDelivered from 'components/AccordionOrders/AccordionOrderDe
 import AccordionOrderDeliver from 'components/AccordionOrders/AccordionOrderDeliver'
 import useOrderStatusNotification from 'components/Hooks/useOrderStatusNotification'
 
-
-
 const PageOrder = () => {
   const [drawerState] = useGlobalState("drawer");
   const { updateNewOrder,updateRecieved,updateLogistic,updateDelivery,updateDelivered } = useOrderStatusNotification();
@@ -29,15 +27,14 @@ const PageOrder = () => {
   })
   const [CurrentOrderStage] = useGlobalState("CurrentOrderStage");
   const [cookieEmailAddress] = useGlobalState("cookieEmailAddress");
-  const { data:newOrder,loading:newOrderLoading,error} = useQuery(READ_ORDERS,{variables:{emailAddress:cookieEmailAddress}});
-  const { data:recievedOrder,loading:recievedOrderLoading} = useQuery(READ_ORDERS_RECIEVED,{variables:{emailAddress:cookieEmailAddress}});
-  const { data:packedOrder,loading:packedOrderLoading} = useQuery(READ_ORDERS_PACKED,{variables:{emailAddress:cookieEmailAddress}});
-  const { data:logisticOrder,loading:logisticOrderLoading} = useQuery(READ_ORDERS_LOGISTIC,{variables:{emailAddress:cookieEmailAddress}});
-  const { data:deliverOrder,loading:deliverOrderLoading} = useQuery(READ_ORDERS_DELIVER,{variables:{emailAddress:cookieEmailAddress}});
-  const { data:deliveredOrder,loading:deliveredOrderLoading} = useQuery(READ_ORDERS_DELIVERED,{variables:{emailAddress:cookieEmailAddress}});
+  const { data:newOrder,loading:newOrderLoading,error,refetch:refetchNew} = useQuery(READ_ORDERS,{variables:{emailAddress:cookieEmailAddress}});
+  const { data:recievedOrder,loading:recievedOrderLoading,refetch:refetchrecieved} = useQuery(READ_ORDERS_RECIEVED,{variables:{emailAddress:cookieEmailAddress}});
+  const { data:packedOrder,loading:packedOrderLoading,refetch:refetchpacked} = useQuery(READ_ORDERS_PACKED,{variables:{emailAddress:cookieEmailAddress}});
+  const { data:logisticOrder,loading:logisticOrderLoading,refetch:refetchlogistic} = useQuery(READ_ORDERS_LOGISTIC,{variables:{emailAddress:cookieEmailAddress}});
+  const { data:deliverOrder,loading:deliverOrderLoading,refetch:refetchdeliver} = useQuery(READ_ORDERS_DELIVER,{variables:{emailAddress:cookieEmailAddress}});
+  const { data:deliveredOrder,loading:deliveredOrderLoading,refetch:refetchdelivered} = useQuery(READ_ORDERS_DELIVERED,{variables:{emailAddress:cookieEmailAddress}});
 
-
-  if(newOrderLoading) return <Loading/>
+  if(newOrderLoading) return <Loading/> 
   if(recievedOrderLoading) return <Loading/>
   if(packedOrderLoading) return <Loading/>
   if(logisticOrderLoading) return <Loading/>
@@ -45,8 +42,12 @@ const PageOrder = () => {
   if(deliveredOrderLoading) return <Loading/>
   if(error) return "Connection Error";
 
-console.log(updateNewOrder)
-
+  refetchNew();
+  refetchrecieved();
+  refetchpacked();
+  refetchlogistic();
+  refetchdeliver();
+  refetchdelivered();
 
   // const [isVisible, setIsVisible] = useState(false);
   const scrollToTop = () => {
