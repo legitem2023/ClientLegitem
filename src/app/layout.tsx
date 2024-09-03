@@ -9,7 +9,7 @@ import * as React from "react";
 import Script from 'next/script'
 import Head from 'next/head'
 import { ToastContainer } from 'react-toastify'
-
+import { NotificationProvider } from 'components/context/NotificationContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -26,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"></meta> */}
       </head>
       <body className={inter.className}>
+        <NotificationProvider>
         <ShoppingCartProvider>
         <Script
           type="module"
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </Provider>
         </ShoppingCartProvider>
+        </NotificationProvider>
       </body>
     </html>
   )

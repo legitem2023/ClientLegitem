@@ -5,7 +5,7 @@ import AccountMenu from 'components/Account/AccountMenu'
 import transactionData from '../../json/transactionStages_client.json'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useQuery } from '@apollo/client'
+import { useQuery, useSubscription } from '@apollo/client'
 import { READ_ORDERS,READ_ORDERS_RECIEVED,READ_ORDERS_PACKED,READ_ORDERS_LOGISTIC,READ_ORDERS_DELIVER,READ_ORDERS_DELIVERED } from 'graphql/queries'
 import { setGlobalState, useGlobalState } from 'state'
 import { cookies } from 'components/cookies/cookie'
@@ -16,10 +16,14 @@ import AccordionOrderPacked from 'components/AccordionOrders/AccordionOrderPacke
 import AccordionOrderLogistic from 'components/AccordionOrders/AccordionOrderLogistic'
 import AccordionOrderDelivered from 'components/AccordionOrders/AccordionOrderDelivered'
 import AccordionOrderDeliver from 'components/AccordionOrders/AccordionOrderDeliver'
+import useOrderStatusNotification from 'components/Hooks/useOrderStatusNotification'
+
 
 
 const PageOrder = () => {
   const [drawerState] = useGlobalState("drawer");
+  const { updateNewOrder,updateRecieved,updateLogistic,updateDelivery,updateDelivered } = useOrderStatusNotification();
+
   useEffect(()=>{
     cookies();
   })
@@ -40,6 +44,9 @@ const PageOrder = () => {
   if(deliverOrderLoading) return <Loading/>
   if(deliveredOrderLoading) return <Loading/>
   if(error) return "Connection Error";
+
+console.log(updateNewOrder)
+
 
   // const [isVisible, setIsVisible] = useState(false);
   const scrollToTop = () => {
@@ -86,10 +93,14 @@ const PageOrder = () => {
 
               <div className='OrderStages'>{
                   transactionData.map((item:any,idx:any)=>(
-                      <span key={idx} onClick={()=>setGlobalState("CurrentOrderStage",item.URL)}> 
+                      <span key={idx} onClick={()=>setGlobalState("CurrentOrderStage",item.URL)}>                    
+                          {item.Name === 'New Order'?<span className='OrderStageNotification' style={{'display':updateNewOrder===0?'none':'flex'}}>{updateNewOrder}</span>:null}
+                          {item.Name === 'Recieve'?<span className='OrderStageNotification' style={{'display':updateRecieved===0?'none':'flex'}}>{updateRecieved}</span>:null}
+                          {item.Name === 'Logistic'?<span className='OrderStageNotification' style={{'display':updateLogistic===0?'none':'flex'}}>{updateLogistic}</span>:null}
+                          {item.Name === 'Delivery'?<span className='OrderStageNotification' style={{'display':updateDelivery===0?'none':'flex'}}>{updateDelivery}</span>:null}
+                          {item.Name === 'Delivered'?<span className='OrderStageNotification' style={{'display':updateDelivered===0?'none':'flex'}}>{updateDelivered}</span>:null}
                           <Image src={item.Image} height='50' width='50' alt={idx} className='TransactionImage'></Image>
                       </span>
-                      
                   ))
                   }
               </div>

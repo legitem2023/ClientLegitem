@@ -1,12 +1,15 @@
+import Pagination from 'components/Pagination/Pagination';
 import Image from 'next/image';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useState } from 'react';
+import { setGlobalState, useGlobalState } from 'state';
 import { formatter, imageSourceOrder } from 'utils/scripts';
 
 const AccordionOrderLogistic = ({json}) => {
     const path = process.env.NEXT_PUBLIC_PATH || '';
     const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
     const [activeIndex, setActiveIndex] = useState(null);
+    const [CurrentPage] = useGlobalState('CurrentPage');
 
     const toggleAccordion = (index:any) => {
         if (activeIndex === index) {
@@ -15,9 +18,24 @@ const AccordionOrderLogistic = ({json}) => {
             setActiveIndex(index); // Expand clicked item
         }
     };
+    const itemsPerPage = 10;
+
+    const paginatedProducts = json.slice(
+        (CurrentPage - 1) * itemsPerPage,
+        CurrentPage * itemsPerPage);
+  
+    const totalPages = useMemo(() => {
+      const itemsPerPage = 10;
+      return Math.ceil((json?.length || 0) / itemsPerPage);
+    }, [json]);
+  
+    const handlePageChange = (page: number) => {
+      setGlobalState('CurrentPage', page);
+    };
+
     return (
         <div className="faq-accordion">
-            {json.map((odr:any, index:number) => (
+            {paginatedProducts.map((odr:any, index:number) => (
                 <div className="faq-item" key={index}>
                     <div className="faq-question" onClick={() => toggleAccordion(index)}>
                         {odr.TrackingNo}
@@ -60,6 +78,11 @@ const AccordionOrderLogistic = ({json}) => {
                     )}
                 </div>
             ))}
+                    <Pagination
+          currentPage={CurrentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
         </div>
     );
 };

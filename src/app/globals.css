@@ -9,6 +9,14 @@ body {
 }
 .Messenger_inputs{
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end!important;
+  align-items: flex-end!important;
+}
+.Messenger_inputs button{
+  width: 100px;
+  padding:5px;
 }
 .swiper {
   width: 100%;
@@ -216,8 +224,6 @@ body {
 
 .messagesLI_1 div {
   display: flex;
-  padding-left: 15px;
-  padding-right: 15px;
   /* background-color: red; */
   margin: 5px;
   width: 100%;
@@ -241,11 +247,13 @@ body {
 
 #textarea {
   width: 100%;
-  height: 20px;
+  height: 100px;
   padding: 10px;
+  margin-bottom:5px;
   display: flex;
   align-items: center;
   outline: 0;
+  box-sizing: border-box;
 }
 
 .dateSent {
@@ -2869,4 +2877,15 @@ body {
   display:flex;
   justify-content: center!important;
   align-items: center!important;
+  }
+  .OrderStageNotification{
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: red;
+    color: white;
+    position: absolute;
+    width:25px;
+    height: 25px;
+    border-radius: 100%;
   }

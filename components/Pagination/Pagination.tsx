@@ -34,7 +34,7 @@ const Pagination = ({
       <button
         aria-label='pagination'
         className="transformRotate"
-        onClick={() => {onPageChange(1);setGlobalState("CurrentPage",currentPage + 1)}}
+        onClick={() => {onPageChange(1);setGlobalState("CurrentPage",1)}}
         disabled={currentPage === 1}>
         <Icon icon="gg:chevron-double-right" style={{transform:'scaleX(-1)'}} />
       </button>

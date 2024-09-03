@@ -28,7 +28,6 @@ query GetGroupedOrderHistory($emailAddress: String) {
     }
   }
 }`
-
 export const READ_ORDERS_RECIEVED = gql`
 query GetGroupedOrderHistoryRecieved($emailAddress: String) {
   getGroupedOrderHistoryRecieved(emailAddress: $emailAddress) {
@@ -56,7 +55,6 @@ query GetGroupedOrderHistoryRecieved($emailAddress: String) {
     }
   }
 }`
-
 export const READ_ORDERS_PACKED = gql`
 query GetGroupedOrderHistoryPacked($emailAddress: String) {
   getGroupedOrderHistoryPacked(emailAddress: $emailAddress) {
@@ -84,7 +82,6 @@ query GetGroupedOrderHistoryPacked($emailAddress: String) {
     }
   }
 }`
-
 export const READ_ORDERS_LOGISTIC = gql`
 query GetGroupedOrderHistoryLogistic($emailAddress: String) {
   getGroupedOrderHistoryLogistic(emailAddress: $emailAddress) {
@@ -112,7 +109,6 @@ query GetGroupedOrderHistoryLogistic($emailAddress: String) {
     }
   }
 }`
-
 export const READ_ORDERS_DELIVER = gql`
 query GetGroupedOrderHistoryDelivery($emailAddress: String) {
   getGroupedOrderHistoryDelivery(emailAddress: $emailAddress) {
@@ -140,7 +136,6 @@ query GetGroupedOrderHistoryDelivery($emailAddress: String) {
     }
   }
 }`
-
 export const READ_ORDERS_DELIVERED = gql`
 query GetGroupedOrderHistoryDelivered($emailAddress: String) {
   getGroupedOrderHistoryDelivered(emailAddress: $emailAddress) {
@@ -168,24 +163,6 @@ query GetGroupedOrderHistoryDelivered($emailAddress: String) {
     }
   }
 }`
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const GET_MESSAGES = gql`
 query Messages {
   messages {

@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
 import { MESSAGE_ADDED, GET_MESSAGES, SEND_MESSAGE } from 'graphql/queries'
 import { Icon } from '@iconify/react'
@@ -12,18 +12,16 @@ const Messages = () => {
     const [deviceId, setDeviceId] = useState(null);
     const { loading, error, data, subscribeToMore } = useQuery(GET_MESSAGES);
     const [insertMessage] = useMutation(SEND_MESSAGE);
+    const [isLoading, setIsLoading] = useState(false);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
         const getDeviceId = async () => {
-            // Check for existing device ID in local storage
             let storedDeviceId = localStorage.getItem('deviceId');
             if (!storedDeviceId) {
-                // Load the FingerprintJS agent
                 const fp = await FingerprintJS.load();
-                // Get the visitor identifier
                 const result = await fp.get();
                 storedDeviceId = result.visitorId;
-                // Store the new ID in local storage
                 localStorage.setItem('deviceId', storedDeviceId);
             }
             setDeviceId(storedDeviceId);
@@ -48,19 +46,21 @@ const Messages = () => {
     if (loading) return <Loading />
     if (error) return <p>{error.message}</p>
     const handleSubmit = async (e: any) => {
-
         e.preventDefault();
-        const message = (document.getElementById("textarea") as HTMLInputElement)?.value;
-        if (message !== null && message !== "" && message !== undefined) {
+        setIsLoading(true);
+        const message = textareaRef.current?.value;
+        if (message) {
             await insertMessage({
                 variables: {
                     message: message,
-                    sender: deviceId
-                }
+                    sender: deviceId,
+                },
             });
-            (document.getElementById("textarea") as HTMLInputElement).value = "";
+            setIsLoading(false);
+            if (textareaRef.current) textareaRef.current.value = '';
         } else {
-            (document.getElementById("textarea") as HTMLInputElement).focus();
+            setIsLoading(false);
+            textareaRef.current?.focus();
         }
     }
 
@@ -69,8 +69,18 @@ const Messages = () => {
             <ul className='messagesUL'>
                 <li className='messagesLI_1'>
                     <div className='Messenger_inputs'>
-                        <textarea id='textarea' placeholder="Message"></textarea>
-                        <button type='submit' onClick={handleSubmit} className='submit'><Icon icon="material-symbols:send" /></button>
+                        <textarea ref={textareaRef} id='textarea' placeholder="Message"></textarea>
+                        <button
+                            type="submit"
+                            onClick={handleSubmit}
+                            disabled={isLoading}
+                            >
+                            {isLoading ? (
+                                <Icon icon="eos-icons:loading" />
+                            ) : (
+                                <Icon icon="material-symbols:send" /> // Original send icon
+                            )}
+                            </button>
                     </div>
                 </li>
             </ul>
