@@ -57,7 +57,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('NewOrder', newValue.toString());
                 }
-                playSound('/newNot.mp3');
+                // playSound('/newNot.mp3');
                 showNotification('New Order', 'A new order has arrived.');
                 return newValue;
               });
@@ -68,7 +68,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Recieved', newValue.toString());
                 }
-                playSound('/newNot.mp3');
+                // playSound('/newNot.mp3');
                 showNotification('Order Received', 'An order has been received.');
                 return newValue;
               });
@@ -79,7 +79,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Packed', newValue.toString());
                 }
-                playSound('/newNot.mp3');
+                //playSound('/newNot.mp3');
                 showNotification('Order Packed', 'An order has been packed.');
                 return newValue;
               });
@@ -90,7 +90,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Logistic', newValue.toString());
                 }
-                playSound('/newNot.mp3');
+                //playSound('/newNot.mp3');
                 showNotification('Order in Transit', 'An order is in logistic.');
                 return newValue;
               });
@@ -101,7 +101,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Delivery', newValue.toString());
                 }
-                playSound('/newNot.mp3');
+                //playSound('/newNot.mp3');
                 showNotification('Out for Delivery', 'An order is out for delivery.');
                 return newValue;
               });
@@ -112,7 +112,7 @@ const OrderStatusNotification = () => {
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Delivered', newValue.toString());
                 }
-                playSound('/newNot.mp3');
+                //playSound('/newNot.mp3');
                 showNotification('Order Delivered', 'An order has been delivered.');
                 return newValue;
               });
