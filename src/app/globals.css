@@ -16,7 +16,11 @@ body {
 }
 .Messenger_inputs button{
   width: 100px;
-  padding:5px;
+  padding:2px;
+  font-size: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .swiper {
   width: 100%;
