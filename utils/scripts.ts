@@ -64,7 +64,9 @@ export const extracted = (data:any) =>{
   return arrayData.sort((a,b)=>b.Quantity - a.Quantity).map((item:any,idx:any)=>{ return item[0]})
 }
 export const fallbackImage = () =>{
-  return `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`;
+  const path = process.env.NEXT_PUBLIC_PATH || '';
+
+  return `${path}/Thumbnail.png`;
 }
 
 export const handleError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
@@ -85,7 +87,7 @@ export const createdPath = (data: any) => {
 
 export const imageSource = (item:any) =>{
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-  return item.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage()
+  return item?.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage()
 }
 
 export const imageSourceOrder = (item:any) =>{

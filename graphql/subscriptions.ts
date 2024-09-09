@@ -29,3 +29,15 @@ subscription MessageToOrder {
   }
 }
 `;
+
+export const READ_NEWS_SUBSCRIPTION = gql`
+subscription MessageNews {
+  messageNews {
+    id
+    title
+    thumbnail
+    summary
+    postedBy
+    dateCreated
+  }
+}`

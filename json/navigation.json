@@ -6,9 +6,9 @@
         "Link":"./Products"
     },
     {
-        "Name":"Real State",
-        "icon":"material-symbols:real-estate-agent-sharp",
-        "Link":"./RealState"
+        "Name":"News",
+        "icon":"fa6-solid:newspaper",
+        "Link":"./News"
     },
     {
         "Name":"Crowd",

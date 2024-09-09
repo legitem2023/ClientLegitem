@@ -12,6 +12,9 @@ import { createdPath, formatter, handleError, handleLoading, imageSource, limitT
 
 const Thumbnails: React.FC = () => {
   const [thumbnailCategory] = useGlobalState('thumbnailCategory');
+  const [thumbnailProductTypes] = useGlobalState('thumbnailProductTypes');
+
+
   const [CurrentPage] = useGlobalState('CurrentPage');
   const [thumbnailSearch] = useGlobalState('thumbnailSearch');
   const [sortBy] = useGlobalState('sortBy');
@@ -19,18 +22,21 @@ const Thumbnails: React.FC = () => {
   const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY,{
     fetchPolicy: 'cache-and-network',
   });
-
+  // console.log(Products)
   const filteredProducts = useMemo(() => {
     if (!Products) return [];
-
+    
     return Products.getChildInventory
       ?.filter((item: any) =>
         item?.name?.toLowerCase()?.includes(thumbnailSearch.toLowerCase())
       )
       ?.filter((item: any) =>
         item?.category?.toLowerCase()?.includes(thumbnailCategory.toLowerCase())
-      );
-  }, [Products, thumbnailSearch, thumbnailCategory]);
+      )
+      // ?.filter((item: any) =>
+      //   item?.productType?.toLowerCase()?.includes(thumbnailProductTypes.toLowerCase())
+      // )
+  }, [Products, thumbnailSearch, thumbnailCategory,thumbnailProductTypes]);
 
   const sortedProducts = useMemo(() => {
     if (!filteredProducts) return [];

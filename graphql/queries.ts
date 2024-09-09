@@ -163,6 +163,40 @@ query GetGroupedOrderHistoryDelivered($emailAddress: String) {
     }
   }
 }`
+
+export const READ_CATEGORY = gql`
+query GetCategory {
+  getCategory {
+    id
+    Name
+    status
+    icon
+    image
+  }
+}
+`
+export const READ_PRODUCT_TYPES = gql`
+query GetProductTypes {
+  getProductTypes {
+    id
+    Category
+    Name
+  }
+}
+`
+
+export const READ_NEWS = gql`
+query ReadNews {
+  readNews {
+    id
+    title
+    thumbnail
+    summary
+    dateCreated
+  }
+}
+`
+
 export const GET_MESSAGES = gql`
 query Messages {
   messages {
@@ -182,8 +216,8 @@ query GetNameofStore {
   }
 }`
 export const GET_CHILD_INVENTORY = gql`
-query GetChildInventory($skip: String, $take: String) {
-  getChildInventory(skip: $skip, take: $take) {
+query GetChildInventory {
+  getChildInventory {
     id
     thumbnail
     price

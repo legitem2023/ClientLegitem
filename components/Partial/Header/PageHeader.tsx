@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navigation from '../../../json/navigation.json'
 import Link from 'next/link'
 import { Icon } from '@iconify/react';
@@ -7,6 +7,7 @@ import { setGlobalState, useGlobalState } from 'state';
 import { cookies, deletecookies } from 'components/cookies/cookie';
 import { useRouter,usePathname } from 'next/navigation';
 import OrderNotification from 'components/Notification/OrderNotification'
+import NewsNotification from 'components/Notification/NewsNotification';
 
 const PageHeader = () => {
   const path = process.env.NEXT_PUBLIC_PATH
@@ -21,7 +22,9 @@ const PageHeader = () => {
   }
   const pathName = usePathname();
   const redirect = useRouter();
-  
+    useEffect(() => {
+      // console.log(localStorage.getItem('News'))
+    })
   return (
     <div className='Header'>
       {/* This part is for mobile start here*/}
@@ -51,7 +54,8 @@ const PageHeader = () => {
                   </div> : ""}
           </nav> :<Link href={item.Link} key={idx} className={item.Name === 'Account' ? 'Account' : ''}>
                     <Icon icon={item.icon} />
-                    <span className='hideInmobile'>{item.Name}</span>
+                    <span className='hideInmobile'>{item.Name}{item.Name==='News'?<NewsNotification/>:""}</span>
+                    
                   </Link>
 
         ))}
