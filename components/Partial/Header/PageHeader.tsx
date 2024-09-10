@@ -8,6 +8,7 @@ import { cookies, deletecookies } from 'components/cookies/cookie';
 import { useRouter,usePathname } from 'next/navigation';
 import OrderNotification from 'components/Notification/OrderNotification'
 import NewsNotification from 'components/Notification/NewsNotification';
+import InstallPWAButton from '../InstallationApp/InstallPWAButton';
 
 const PageHeader = () => {
   const path = process.env.NEXT_PUBLIC_PATH
@@ -22,20 +23,14 @@ const PageHeader = () => {
   }
   const pathName = usePathname();
   const redirect = useRouter();
-    useEffect(() => {
-      // console.log(localStorage.getItem('News'))
-    })
+
   return (
     <div className='Header'>
-      {/* This part is for mobile start here*/}
+      <InstallPWAButton/>
         <div className='HeaderNav'>
           <Icon icon='iconamoon:menu-burger-horizontal-duotone' onClick={()=>drawer()}/>  
         </div>
-      {/* This part is for mobile end here*/}
-
-      {/* This part is for desktop start here*/}
         <span className='Logo openDrawer' onClick={()=>redirect.push('/Home')}></span>
-      {/* This part is for desktop end here*/}
       <div className='Navigation'>
         {Navigation.map((item: any, idx: any) => (
           item.Name === 'Account' ? 

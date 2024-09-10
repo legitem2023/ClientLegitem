@@ -299,4 +299,7 @@
         width: 100vw !important;
         height: auto !important;
     }
+    .searchContaier button {
+        height: 78%;
+    }
 }
