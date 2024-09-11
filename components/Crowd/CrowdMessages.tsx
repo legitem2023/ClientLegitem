@@ -4,6 +4,7 @@ import Messages from './Messages'
 import StoreProduct from './StoreProduct'
 import { useGlobalState } from 'state'
 import ActiveUsers from './ActiveUsers'
+import { Icon } from '@iconify/react'
 
 const CrowdMessages = () => {
     const [drawerState] = useGlobalState("drawer");
@@ -14,6 +15,8 @@ const CrowdMessages = () => {
                 <ActiveUsers/>
             </div>
             <div className='middlecontainer_messages'>
+            <div className='LabelHead carouselLabel'><Icon icon="jam:messages-f" /> Messaging</div>
+
                 <div className='messages_container'>
                     <Messages />
                 </div>

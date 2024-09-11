@@ -45,6 +45,8 @@ const PageBody = () => {
         <Icon icon="emojione-monotone:up-arrow" className='goUp' onClick={() => scrollToTop()} />
       </div>
       <div className='middlecontainer'>
+      <div className='LabelHead carouselLabel'><Icon icon="bi:tags-fill" /> Products</div>
+
         <div className='searchContaier'>
           <div><input type='text' placeholder='Search' onChange={(e: any) => searchEngine(e)}></input></div>
           <div>
@@ -61,7 +63,6 @@ const PageBody = () => {
               </button>
           </div>
         </div>
-        <div className='LabelHead carouselLabel'><Icon icon="bi:tags-fill" /> Products</div>
         <Thumbnails />
       </div>
       <div className='RightWing'>

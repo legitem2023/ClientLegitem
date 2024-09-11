@@ -1031,6 +1031,8 @@ body {
   justify-content: center;
   align-items: center;
   padding:5px;
+  box-shadow: 0.5px 0.5px 2px #353535;
+  margin-bottom:10px;
   /* background:linear-gradient(to right, rgba(206, 219, 233, 1) 0%, rgba(57, 191, 144, 1) 0%, rgba(97, 198, 154, 1) 30%, rgba(67, 216, 151, 1) 44%, rgba(76, 239, 158, 1) 61%, rgba(58, 196, 148, 1) 84%, rgba(39, 140, 74, 1) 100%); */
 }
 .searchContaier div {
@@ -1838,7 +1840,7 @@ body {
 .carouselLabel {
   grid-column: 1 / span 2;
   display: grid;
-  grid-template-columns: 2.5% 97.5%;
+  grid-template-columns: 3.5% 96.5%;
   align-items: center;
 }
 
