@@ -262,7 +262,9 @@
     .Account:hover .DroppedDown {
         transform: scaleX(1);
     }
-
+    .NewsContainerItem{
+        grid-template-columns: 50% 50%;
+    }
     .DroppedDown {
         width: 100vw;
         top: 8vh;
