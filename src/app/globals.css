@@ -1319,12 +1319,14 @@ body {
   box-shadow: 0.5px 0.5px 3px #000;
   display: grid;
   grid-template-columns: 33.33% 66%;
-  grid-template-rows: 15% auto auto;
+  /* grid-template-rows: 15% auto auto; */
   justify-content: center;
   align-items: center;
-  height: 400px;
+  /* height: 400px; */
   background-color: #f1f1f1;
   margin:10px;
+  border-radius: 10px;
+  padding:10px;
 }
 .NewsContainerHead,.NewsContainerFooter {
  grid-column: 1 / span 2;
