@@ -3,7 +3,7 @@ import Ratings from 'components/Partial/Ratings/Ratings';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback } from 'react';
-import { formatter } from 'utils/scripts';
+import { formatter, imageSource } from 'utils/scripts';
 
 interface RelatedProductsProps {
   data: Array<{
@@ -36,7 +36,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
         <div key={idx} className='MainView_RelatedProductsThumbs'>
             <Link href={createdPath(item)}>
               <Image
-                src={item.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage}
+                src={imageSource(item)}
                 height='200'
                 width='200'
                 quality={1}

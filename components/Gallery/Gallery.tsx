@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import Image from 'next/image';
+import { handleError, handleLoading, imageSourceGallery } from 'utils/scripts';
 export const Gallery = ({data}) => {
   const imagepath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
   const urlData = data[0].id;
@@ -18,7 +19,11 @@ export const Gallery = ({data}) => {
       loop={true}>
       {ImageData.getInv_subImage.filter((item:any)=>{ return item.subImageRelationChild===urlData}).map((item:any, i:any) => (
         <SwiperSlide key={i}>
-            <Image key={i} src={imagepath+item.ImagePath} alt={"alt" + i} width='400' height='350' />
+            <Image key={i} 
+                   src={imageSourceGallery(item)} 
+                   onError={handleError}
+                   alt={"alt" + i} 
+                   width='400' height='350' />
             {item.title}
         </SwiperSlide>
         ))}

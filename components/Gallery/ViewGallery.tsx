@@ -7,10 +7,7 @@ import { useGlobalState } from 'state';
 import { useQuery } from '@apollo/client';
 import { GET_INVENTORY_SUB_IMAGES } from 'graphql/queries';
 import  { useState, useEffect, useRef } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Image from 'next/image';
+
 export const ViewGallery = () => {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
@@ -58,19 +55,6 @@ const settings_B = {
     slidesToShow: 1,
     slidesToScroll: 3
 }
-  return (
-    <div>
-      <div className="slider-container">
-      <Slider {...settings_B}>
-        {images.map((item, i) => (
-          <div className='slick-thumb-parent' key={i}>
-              <Image key={i} src={item.original} alt={"alt" + i} width='385' height='200' />
-              {item.title}
-          </div>
-          ))}
-      </Slider>
-      </div>
-    </div>
-  );
+  return (<ImageGallery items={images} />);
 }
 

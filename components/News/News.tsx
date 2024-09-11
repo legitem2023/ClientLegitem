@@ -8,8 +8,9 @@ import React from 'react'
 import { imageSource } from 'utils/scripts';
 
 const News = () => {
-    const {data:News,loading:NewsLoading} = useQuery(READ_NEWS);
+    const {data:News,loading:NewsLoading,error:NewsEror} = useQuery(READ_NEWS);
     if(NewsLoading) return <Loading/>
+    if(NewsEror) return "Connection Error";
   return (
     <div className='NewsContainer'>
         {News.readNews.map((item:any,idx:number)=>(

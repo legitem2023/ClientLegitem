@@ -2,6 +2,15 @@
     body {
         overflow: hidden;
     }
+    .FootCenter{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .FootCenter div{
+        margin:10px;
+    }
     .Navigation a,.Navigation nav,.HeaderNav{
         font-size: 25px;
     }
@@ -47,14 +56,14 @@
         width: 100vw;
     }
 
-    .Main {
+    /* .Main {
         overflow-x: hidden;
         grid-template-rows: 10vh auto 30vh;
-    }
+    } */
 
     .Header {
         grid-template-columns: 16.70vw 83.33vw 0vw;
-        height: 10vh;
+        height: 8vh;
     }
 
     .dropdown {
@@ -72,7 +81,7 @@
     .body {
         grid-template-columns: 100vw 100vw 0vw;
         width: 100vw;
-        grid-template-rows: 6vh auto auto auto;
+        /* grid-template-rows: 6vh auto auto auto; */
     }
 
     .body_messages {
@@ -256,7 +265,7 @@
 
     .DroppedDown {
         width: 100vw;
-        top: 10vh;
+        top: 8vh;
         left: 0px !important;
         right: 0px !important;
         margin: auto;

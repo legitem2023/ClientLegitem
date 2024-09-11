@@ -1,10 +1,16 @@
 import { useState } from 'react';
 import AboutJson from 'json/About.json'
 import { Icon } from '@iconify/react';
+import { useGlobalState } from 'state';
 const About = () => {
-
+    const [drawerState] = useGlobalState("drawer");
     return (
-    <div className=''>
+        <div className='body'>
+        <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>
+          
+        </div>
+        <div className='middlecontainer'>
+        <div className=''>
         <div className='LabelHead carouselLabel'><Icon icon="mdi:about" /><span>About</span></div>
             <div className='Privacy'>
                 <div className="About">
@@ -23,6 +29,11 @@ const About = () => {
             </video>
         </div>
     </div>
+
+        </div>
+        <div>
+        </div>
+      </div>
     );
 };
 

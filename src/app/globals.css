@@ -747,9 +747,9 @@ body {
   align-items: center;
 }
 
-.cropperControlsContainer_gallery .image-gallery {
+/* .cropperControlsContainer_gallery .image-gallery {
   width: 100%;
-}
+} */
 
 .CropperImageContrainer {
   display: flex;
@@ -765,7 +765,7 @@ body {
 }
 
 .Mobile_footer {
-  display: none;
+  /* display: none; */
   grid-template-columns: 25% 25% 25% 25%;
   grid-column: 1 / span 4;
   align-items: center;
@@ -844,9 +844,9 @@ body {
   grid-template-rows: auto auto auto auto auto;
 }
 
-.image-gallery-image {
+/* .image-gallery-image {
   width: 30vw !important;
-}
+} */
 
 .backIcon {
   font-size: 30px;
@@ -857,7 +857,7 @@ body {
 .LabelBack {
   background-color: transparent;
   display: grid;
-  grid-template-columns: 2.5vw auto;
+  grid-template-columns: 3.5vw auto;
   align-items: center;
   cursor: pointer;
   width: 50%;
@@ -883,14 +883,12 @@ body {
   cursor: pointer;
 }
 
-.image-gallery {
+/* .image-gallery {
   background-color: #ffffff;
-  display: flex;
   justify-content: center;
   align-items: center;
   width: 95%;
   height: 23vw;
-  overflow: hidden;
 }
 
 .image-gallery-image {
@@ -899,7 +897,7 @@ body {
 
 .image-gallery-content {
   background-color: rgb(2, 31, 2);
-}
+} */
 
 .MainView_LchildGalleryDetails {
   display: flex;
@@ -989,7 +987,7 @@ body {
 .Main {
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 8vh auto 30vh;
+  grid-template-rows: 8vh auto auto;
   min-width: 100vw;
   top: 0px;
   bottom: 0px;
@@ -998,7 +996,6 @@ body {
   margin: auto;
   position: absolute;
   background-color: #00a380;
-  overflow-y: auto;
   overflow-x: hidden;
 }
 
@@ -1075,41 +1072,57 @@ body {
 }
 
 .footer {
-  height: 30vh;
-  width: 100vw;
+  width: 100%;
   background-color: #00a380;
   display: grid;
-  grid-template-columns: 25vw 25vw 25vw 25vw;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 100%;
   text-align: center;
   color: #002c23;
-  display: none;
 }
+.FootHeader,
+.FootFooter {
+  grid-column: 1 / span 4;
+  width: 100%;
+  padding:20px;
+  border-bottom: solid 1px #749e95;
 
-.footer ul {
-  list-style-type: none;
-  font-weight: 600;
-  font-size: 18px;
-  padding-left: 0px;
-  color: #004437;
+}
+.FootHeader{
+  display: flex;
+  flex-direction: row;
+  font-size: 40px;
+  justify-content: center;
+  align-items: center;
+  transition: ease 0.5s;
+}
+.FootHeader svg{
+  margin:10px;
   cursor: pointer;
 }
-
-.footer ul li {
-  padding: 10px;
+.FootHeader svg:hover{
+  filter: drop-shadow(0.5px 0.5px 1px #000000);
 }
-
 .foot_label {
   font-size: 20px;
-  font-weight: bold;
+  /* font-weight: bold; */
+  margin:10px;
 }
 
-.footer div {
-  margin: 1vw;
+.FootCenter {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  width: 100%;
+  border-bottom: solid 1px #749e95;
 }
-
+.FootCenter a{
+  text-decoration: none;
+  color: #002c23;
+}
 .body {
   display: grid;
   grid-template-columns: 20% auto 20%;
+  background-color: #00a380;
 }
 
 .body_messages {
@@ -1230,11 +1243,11 @@ body {
 .LeftWing,
 .RightWing {
   background-color: rgba(255, 255, 255, 0);
-  min-height: 100vh;
 }
 
 .middlecontainer {
   height: 100%;
+  position: relative;
 }
 
 .middlecontainer_messages {
@@ -1281,6 +1294,10 @@ body {
 }
 
 #collapsecategory1:checked~.category_list {
+  max-height: 800px;
+}
+
+#collapsecollectionitems2:checked~.category_list {
   max-height: 800px;
 }
 
@@ -1451,13 +1468,13 @@ body {
   text-align: center;
 }
 
-.image-gallery-description a {
+/* .image-gallery-description a {
   text-decoration: none;
   color: #008793;
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
   text-shadow: 0.5px 0.5px 3px #ffffff;
-}
+} */
 
 .Rates {
   padding: 0px !important;
@@ -1700,7 +1717,7 @@ body {
 }
 
 .DroppedDown {
-  background-color: #007c4c;
+  background-color: #53e2ab;
   position: absolute;
   top: 8vh;
   z-index: 999;
@@ -1727,11 +1744,15 @@ body {
 }
 .DroppedDown ul li a{
   display: grid;
-  grid-template-columns: 10% 90%;
+  grid-template-columns: 15% 85%;
   width: 100%;
   justify-content: flex-start;
-  align-items: flex-start;
-  margin:10px;
+  align-items: center;
+  /* margin:10px; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%; /* Or set a specific width depending on your design */
 }
 .DroppedDown ul li a span{
   text-align: left;
@@ -1760,7 +1781,7 @@ body {
 .Navigation {
   display: grid;
   grid-template-columns: 20% 20% 20% 20% 20%;
-  position: relative;
+  /* position: relative; */
 }
 .HeaderNav{
   display: flex;

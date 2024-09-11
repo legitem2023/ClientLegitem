@@ -61,10 +61,6 @@ const PageBody = () => {
               </button>
           </div>
         </div>
-        {/* <div className='LabelHead carouselLabel'><Icon icon="dashicons:store" /> Stores</div>
-        <div className='carousel'>
-          <Carousel></Carousel>
-        </div> */}
         <div className='LabelHead carouselLabel'><Icon icon="bi:tags-fill" /> Products</div>
         <Thumbnails />
       </div>

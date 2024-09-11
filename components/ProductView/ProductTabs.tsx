@@ -4,6 +4,7 @@ import ModelViewer from "components/Partial/ThreeJS/ModelViewer";
 import 'react-tabs/style/react-tabs.css';
 import { Icon } from "@iconify/react";
 import EffectsRenderer from "components/Partial/VTO/EffectsRenderer";
+import { ViewGallery } from "components/Gallery/ViewGallery";
 
 export default function ProductTabs({data}) {
   const [isActive, setIsActive] = React.useState("Gallery");
@@ -56,6 +57,7 @@ export default function ProductTabs({data}) {
         </div>
         <div id="Gallery" className="tabcontent">
           {isActive === "Gallery" ? <Gallery data={data}/> : ""}
+          {/* <ViewGallery/> */}
         </div>
         <div id="ThreeJS" className="tabcontent">
           {isActive === "ThreeJS" ? <div className='ThreeJS' id='ThreeJS'>

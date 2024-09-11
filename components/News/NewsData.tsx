@@ -20,6 +20,8 @@ const NewsData = () => {
         
       </div>
       <div className='middlecontainer'>
+      <div className='LabelHead carouselLabel'><Icon icon="fa6-solid:newspaper" /><span>News</span></div>
+
             <News/>
       </div>
       <div>

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React from "react";
 import {StackedCarousel,ResponsiveContainer} from "react-stacked-center-carousel";
+import { imageSource } from "utils/scripts";
 
 export default function Carousel(props:any) {
   const ref:any = React.useRef(StackedCarousel);
@@ -35,7 +36,7 @@ export default function Carousel(props:any) {
           className="carouselImage"
           draggable={false}
           priority={true}
-          src={imgPath+image}
+          src={imageSource(image)}
         />
       </div>
       </div>

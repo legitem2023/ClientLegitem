@@ -26,6 +26,7 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     thumbnailData: null,
     thumbnailCategory: "",
     thumbnailProductTypes: "",
+    thumbnailCollectionItems:"",
     descAsc: null,
     activeModel: "http://localhost:3000/models/NoModel.glb",
     saveDeviceid: "",

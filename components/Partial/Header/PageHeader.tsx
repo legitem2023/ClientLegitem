@@ -49,7 +49,7 @@ const PageHeader = () => {
                   </div> : ""}
           </nav> :<Link href={item.Link} key={idx} className={item.Name === 'Account' ? 'Account' : ''}>
                     <Icon icon={item.icon} />
-                    <span className='hideInmobile'>{item.Name}{item.Name==='News'?<NewsNotification/>:""}</span>
+                    <span className='hideInmobile'>{item.Name}</span>
                     
                   </Link>
 

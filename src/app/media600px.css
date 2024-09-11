@@ -1,7 +1,7 @@
 @media only screen and (max-width : 600px) {
-    .Main {
+    /* .Main {
         overflow-x: hidden !important;
-    }
+    } */
     .LabelBack{
         width:100%;
     }

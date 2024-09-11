@@ -1,10 +1,17 @@
 import React from 'react'
 import DisclaimerJson from 'json/Disclaimer.json'
 import { Icon } from '@iconify/react'
+import { useGlobalState } from 'state';
 const Disclaimer = () => {
-  return (
-    <div className=''>
-      <div className='LabelHead carouselLabel'><Icon icon="ion:hand-right-outline" /><span>Disclaimer</span></div>
+    const [drawerState] = useGlobalState("drawer");
+    return (
+      <div className='body'>
+        <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>
+          
+        </div>
+        <div className='middlecontainer'>
+        <div className=''>
+        <div className='LabelHead carouselLabel'><Icon icon="ion:hand-right-outline" /><span>Disclaimer</span></div>
         <div className='Privacy'>
           <div>
               <div>{DisclaimerJson['General_Disclaimer'].content}</div>
@@ -15,7 +22,11 @@ const Disclaimer = () => {
           </div>
         </div>
     </div>
-  )
+        </div>
+        <div>
+        </div>
+      </div>
+    );
 }
 
 export default Disclaimer

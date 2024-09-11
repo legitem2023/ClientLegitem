@@ -95,6 +95,11 @@ export const imageSourceOrder = (item:any) =>{
   return item.Image ? `${imgPath}${item.Image}` : fallbackImage()
 }
 
+export const imageSourceGallery = (item:any) =>{
+  const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
+  return item.ImagePath ? `${imgPath}${item.ImagePath}` : fallbackImage()
+}
+
 
 
 export const Cart = (viewedProd:any,Manager:any,quantity:any) => {
