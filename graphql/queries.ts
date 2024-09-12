@@ -281,6 +281,7 @@ query GetRelatedProduct {
     color
     name
     model
+    productDescription
   }
 }`
 export const GET_VIEW_PRODUCT = gql`query GetToviewProduct($getToviewProductId: Int) {

@@ -83,7 +83,6 @@ export  const handleLoading = (event: React.SyntheticEvent<HTMLImageElement, Eve
 
 export const createdPath = (data: any) => {
   const path = process.env.NEXT_PUBLIC_PATH || '';
-  console.log(data);
   const jsonData = {
     "agentEmail":data.agentEmail,
     "category":data.category,
@@ -134,3 +133,21 @@ export const Cart = (viewedProd:any,Manager:any,quantity:any) => {
     "agentEmail":item.agentEmail
   }));
 };
+
+export const replaceOembedWithIframe = (htmlContent) =>{
+  if (!htmlContent) return '';
+
+  // Regular expression to detect <oembed> tags with YouTube URLs
+  const oembedRegex = /<oembed url="https:\/\/youtu\.be\/(.*)"><\/oembed>/g;
+
+  // Replace <oembed> with corresponding <iframe>
+  const updatedContent = htmlContent.replace(
+    oembedRegex,
+    (match, videoId) => {
+      // Return the iframe for YouTube videos
+      return `<iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+    }
+  );
+
+  return updatedContent;
+}

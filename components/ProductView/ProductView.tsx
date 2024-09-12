@@ -9,7 +9,7 @@ import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import ProductTabs from './ProductTabs';
 import { GET_RELATED_PRODUCTS } from 'graphql/queries';
 import { useQuery } from '@apollo/client';
-import { Cart, formatter } from 'utils/scripts';
+import { Cart, formatter, replaceOembedWithIframe } from 'utils/scripts';
 import RelatedProducts from './RelatedProducts';
 import Notification from 'components/Notification/Notification';
 import HtmlRenderer from 'components/Html/HtmlRenderer';
@@ -91,9 +91,9 @@ const ProductView: React.FC = () => {
             </div>
             <div className='LabelHead'>Product Details</div>
             <div className='longtext'>
-              <HtmlRenderer htmlContent={decode(viewItem.productDescription)} />
+              <HtmlRenderer htmlContent={decode(replaceOembedWithIframe(viewItem.productDescription))} />
               
-          
+              {/* <embed url="https://youtu.be/6waK6TYDGOA"></embed> */}
             </div>
             <div className='LabelHead'>Product Review</div>
             <div className='longtext'>

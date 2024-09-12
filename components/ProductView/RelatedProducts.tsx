@@ -3,7 +3,7 @@ import Ratings from 'components/Partial/Ratings/Ratings';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback } from 'react';
-import { formatter, imageSource } from 'utils/scripts';
+import { createdPath, formatter, imageSource } from 'utils/scripts';
 
 interface RelatedProductsProps {
   data: Array<{
@@ -27,9 +27,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
     event.target.srcset = path +`/Loading.webp`;
   }, []);
 
-  const createdPath = useCallback((data: any) => {
-    return `${path}Products/${data.id}?data=${encodeURIComponent(btoa(JSON.stringify(data)))}`;
-  }, []);
+
   return (
     <div>
       {data.map((item, idx) => (

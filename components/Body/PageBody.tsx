@@ -5,6 +5,7 @@ import Thumbnails from '../Products/Thumbnails'
 import Carousel from 'components/Carousel'
 import { Icon } from '@iconify/react'
 import { setGlobalState, useGlobalState } from 'state'
+import Commercial3DModel from 'components/Partial/ThreeJS/Commercial3DModel'
 const PageBody = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [drawerState] = useGlobalState("drawer");
@@ -63,6 +64,7 @@ const PageBody = () => {
               </button>
           </div>
         </div>
+        <Commercial3DModel data={"https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/model_houses/cb500x/source/CB500X.glb"}/>
         <Thumbnails />
       </div>
       <div className='RightWing'>
