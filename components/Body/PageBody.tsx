@@ -11,6 +11,8 @@ const PageBody = () => {
   const [drawerState] = useGlobalState("drawer");
   const [sortDirection] = useGlobalState("sortDirection");
   const [sortBy] = useGlobalState("sortBy");
+  const [activeModel] = useGlobalState("activeModel")
+
   const scrollToTop = () => {
 
     window.scrollTo({
@@ -64,7 +66,7 @@ const PageBody = () => {
               </button>
           </div>
         </div>
-        <Commercial3DModel data={"https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/model_houses/cb500x/source/CB500X.glb"}/>
+        <Commercial3DModel data={activeModel}/>
         <Thumbnails />
       </div>
       <div className='RightWing'>

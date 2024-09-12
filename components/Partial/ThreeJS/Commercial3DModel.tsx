@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 const Commercial3DModel = ({data}) => {
     const [useHeight, setHeight] = useState('100vw');
     const [useWidth, setWidth] = useState('100vw');
@@ -31,11 +31,14 @@ const Commercial3DModel = ({data}) => {
                 alt="A 3D model"
                 ar
                 ar-scale="fixed"
-                camera-controls touch-action="pan-y"
+                id="modelViewer"
+                autoplay
+                camera-controls 
+                touch-action="pan-y"
                 shadow-intensity="2"
                 skybox-image="https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/hdr/symmetrical_garden_02_1k.hdr"
                 skybox-height="2m"
-                max-camera-orbit="auto 90deg auto"
+                max-camera-orbit={"0deg 90deg 0deg"}
                 style={{ width: useWidth, height: useHeight }}>
             </model-viewer>
         </div>
