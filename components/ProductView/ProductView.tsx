@@ -12,6 +12,8 @@ import { useQuery } from '@apollo/client';
 import { Cart, formatter } from 'utils/scripts';
 import RelatedProducts from './RelatedProducts';
 import Notification from 'components/Notification/Notification';
+import HtmlRenderer from 'components/Html/HtmlRenderer';
+import { decode } from 'js-base64';
 
 const path = process.env.NEXT_PUBLIC_PATH;
 const Manager = new DataManager();
@@ -89,7 +91,9 @@ const ProductView: React.FC = () => {
             </div>
             <div className='LabelHead'>Product Details</div>
             <div className='longtext'>
-              {/* Product details content */}
+              <HtmlRenderer htmlContent={decode(viewItem.productDescription)} />
+              
+          
             </div>
             <div className='LabelHead'>Product Review</div>
             <div className='longtext'>

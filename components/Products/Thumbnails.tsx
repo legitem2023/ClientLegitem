@@ -72,6 +72,7 @@ const Thumbnails: React.FC = () => {
   if (productsLoading) return <Loading />;
   if (productsError) return <h1>Connection Error</h1>;
 
+  console.log(paginatedProducts)
   return (
     <div className="Thumbnails">
       {paginatedProducts.map((item: any, idx: number) => (

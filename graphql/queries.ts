@@ -228,6 +228,7 @@ query GetChildInventory {
     color
     model
     agentEmail
+    productDescription
   }
 }`
 export const GET_CHILD_INVENTORY_DETAIL = gql`
