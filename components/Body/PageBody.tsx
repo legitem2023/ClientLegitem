@@ -66,7 +66,7 @@ const PageBody = () => {
               </button>
           </div>
         </div>
-        <Commercial3DModel data={activeModel}/>
+        {/* <Commercial3DModel data={activeModel}/> */}
         <Thumbnails />
       </div>
       <div className='RightWing'>
