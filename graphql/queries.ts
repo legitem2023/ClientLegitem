@@ -164,8 +164,8 @@ query GetGroupedOrderHistoryDelivered($emailAddress: String) {
   }
 }`
 export const READ_ACTIVE_USER = gql`
-query ReadActiveUsers {
-  readActiveUsers {
+query ReadActiveUsers($emailAddress: String) {
+  readActiveUsers(emailAddress: $emailAddress) {
     fullname
     accountEmail
   }

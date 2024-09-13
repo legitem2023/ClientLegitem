@@ -19,19 +19,15 @@ const PageFooter = () => {
         <Link href="./Likes">
           <Icon icon="mdi:like" />
         </Link>
-        <Link href="">
+        <Link href="./Reviews">
           <Icon icon="ic:sharp-reviews" />
         </Link>
-        <Link href="">
+        <Link href="./Messages">
           <Icon icon="ic:baseline-message" />
         </Link>
         <Link href="./Cart">
           <Icon icon="mdi:cart" />        
         </Link>
-
-          
-          
-
       </div>
       {showNotification && (
               <Notification onClose={handleCloseNotification} />
