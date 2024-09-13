@@ -24,8 +24,9 @@ const PageHeader = () => {
   }
   const redirect = useRouter();
   return (
-    <div className='Header'>
+    <>
       <InstallPWAButton/>
+    <div className='Header'>
         <div className='HeaderNav'>
           <Icon icon='iconamoon:menu-burger-horizontal-duotone' onClick={()=>drawer()}/>  
         </div>
@@ -57,6 +58,7 @@ const PageHeader = () => {
       </div>
       <div></div>
     </div>
+    </>
   )
 }
 

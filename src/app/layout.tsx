@@ -9,6 +9,7 @@ import * as React from "react";
 import Script from 'next/script'
 
 import { NotificationProvider } from 'components/context/NotificationContext'
+import InstallPWAButton from 'components/Partial/InstallationApp/InstallPWAButton'
 const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Legitem',

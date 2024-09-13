@@ -31,7 +31,7 @@ const InstallPWAButton: React.FC = () => {
   };
 
   return deferredPrompt ? (
-    <button onClick={handleInstallClick} style={{ padding: '10px', backgroundColor: 'blue', color: 'white',position: 'fixed', top: '20px', right: '20px',zIndex:'9999999999' }}>
+    <button onClick={handleInstallClick} style={{ border:"none", borderRadius: '5px',padding: '10px', backgroundColor: '#00a380', color: 'white',position: 'relative', top: '20px', right: '20px',zIndex:'9999999999' }}>
       Install App
     </button>
   ) : null;
