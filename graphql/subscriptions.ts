@@ -42,6 +42,19 @@ subscription MessageNews {
   }
 }`
 
+export const PERSONAL_MESSAGES_ADDED = gql`
+subscription MessagesPersonal {
+  messagesPersonal {
+    id
+    Messages
+    Sender
+    Reciever
+    dateSent
+  }
+}
+`
+
+
 export const ACTIVE_USERS = gql`
 subscription ActiveUserList {
   ActiveUserList {

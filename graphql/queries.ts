@@ -190,7 +190,6 @@ query GetProductTypes {
   }
 }
 `
-
 export const READ_NEWS = gql`
 query ReadNews {
   readNews {
@@ -202,6 +201,20 @@ query ReadNews {
   }
 }
 `
+
+export const READ_PERSONAL_MESSAGES = gql`
+query PersonalMessages($emailAddress: String) {
+  personalMessages(emailAddress: $emailAddress) {
+    id
+    Messages
+    Sender
+    Reciever
+    dateSent
+  }
+}
+`
+
+
 
 export const GET_MESSAGES = gql`
 query Messages {

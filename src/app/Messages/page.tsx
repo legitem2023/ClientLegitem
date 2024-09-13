@@ -1,12 +1,12 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import CrowdMessages from 'components/Crowd/CrowdMessages'
 
 import PageHeader from '../../../components/Partial/Header/PageHeader'
 import PageFooter from '../../../components/Partial/Footer/PageFooter'
 import HomeBody from '../../../components/Home/HomeBody'
 import { useRouter } from 'next/navigation'
 import { cookies } from 'components/cookies/cookie'
+import PersonalMessages from 'components/PersonalMessages/PersonalMessages'
 
 const Messages = () => {
     const router = useRouter();
@@ -20,7 +20,7 @@ const Messages = () => {
   return (
     <div className='Main'>
       <PageHeader />
-      {/* <CrowdMessages /> */}
+      <PersonalMessages/>
       <PageFooter />
     </div>
   )

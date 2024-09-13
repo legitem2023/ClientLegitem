@@ -39,3 +39,14 @@ mutation ContactUs($messagebody: messagebody) {
   }
 }
 `
+export const POSTPERSONAL_MESSAGES = gql`
+mutation PostPersonalMessage($message: String, $sender: String, $reciever: String) {
+  postPersonalMessage(Message: $message, Sender: $sender, Reciever: $reciever) {
+    id
+    Messages
+    Sender
+    Reciever
+    dateSent
+  }
+}
+`
