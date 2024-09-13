@@ -543,6 +543,18 @@ mutation PostMessage($message: String, $sender: String) {
   }
 }`
 
+export const GROUP_SENDER = gql`
+query ReadGroupSender($emailAddress: String) {
+  readGroupSender(emailAddress: $emailAddress) {
+    id
+    Messages
+    Sender
+    Reciever
+    dateSent
+  }
+}
+`
+
 //*************** MUTATION ***************/
 
 export const MESSAGE_ADDED = gql`
