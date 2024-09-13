@@ -14,6 +14,7 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     ItemPerpage: "10",
     AgentPerpage: "Select Email Address",
     // setInitSlice:"0",
+    SelectedReciever:"",
     setItemID: 0,
     message: "",
     useEmail: "",

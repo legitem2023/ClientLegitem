@@ -16,6 +16,8 @@ const Messages = () => {
     const { loading, error, data, subscribeToMore } = useQuery(READ_PERSONAL_MESSAGES,{variables:{emailAddress:cookieEmailAddress}});
     const [insertMessage] = useMutation(POSTPERSONAL_MESSAGES);
     const [isLoading, setIsLoading] = useState(false);
+    const [SelectedReciever] = useGlobalState("SelectedReciever");
+
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     useEffect(() => {
         cookies();
@@ -44,7 +46,7 @@ const Messages = () => {
         if (message) {
             await insertMessage({
                 variables: {
-                    reciever:"Legitem2023@gmail.com",
+                    reciever:SelectedReciever,
                     message: message,
                     sender: cookieEmailAddress,
                 },
@@ -57,7 +59,9 @@ const Messages = () => {
         }
     }
 
-    
+    const Messages = () =>{
+        return data.personalMessages.filter((item:any)=>item.Reciever===SelectedReciever)
+    }
 
     return (
         <div>
@@ -81,7 +85,7 @@ const Messages = () => {
             </ul>
             <ul className='messagesUL'>
                 {
-                    data?.personalMessages.map((item: any, id: any) => (
+                    Messages().map((item: any, id: any) => (
                         <li key={id} className='messagesLI'>
                             <div>
                                 <div>Sender:{item.Sender}</div>
