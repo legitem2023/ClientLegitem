@@ -30,6 +30,16 @@ const Menu = () => {
     setGlobalState("thumbnailCollectionItems", e.target.getAttribute("value"));
   };
 
+
+  const ShowAll = (name:any) =>{
+    if(name==='All Products'){
+      setGlobalState('thumbnailCategory',"");
+      setGlobalState('thumbnailProductTypes',"");
+      setGlobalState('thumbnailSearch',"");
+    }
+    setGlobalState("drawer", true)
+  }
+
   return (
     <ul className='Menu'>
       <li className='Menu_label'>Menu</li>
@@ -45,7 +55,7 @@ const Menu = () => {
               <Icon icon='bxs:chevron-down' />
             </label>
           ) : (
-            <label onClick={() => setGlobalState("drawer", true)} className='menulabel'>
+            <label onClick={() => ShowAll(item.Name)} className='menulabel'>
               <Icon icon={item.icon} />{item.Name}
             </label>
           )}

@@ -65,7 +65,29 @@
         grid-template-columns: 16.70vw 83.33vw 0vw;
         height: 8vh;
     }
-
+    .FootRoutes{
+        display: grid;
+        grid-template-columns: 20% 20% 20% 20% 20%;
+        font-size: 30px;
+        justify-content: center;
+        align-items: center;
+        transition: ease 0.5s;
+        position: fixed;
+        bottom:0px;
+        width: 100vw;
+        text-align: center;
+        box-shadow: 0.5px 0.5px 3px #000;
+        background-color: #00795f;
+        transform: scale(1);
+    }
+    .FootRoutes a{   
+        text-align: center;
+        left:0px;
+        right:0px;
+        margin:auto;
+        padding: 15px;
+        color: #002c23;
+    }
     .dropdown {
         display: flex;
     }
@@ -248,7 +270,7 @@
     }
 
     .carouselImage {
-        transform: scale(1);
+        transform: scale(0.7);
     }
 
     .CartColsHead {
@@ -303,7 +325,7 @@
     .canvas {
         width: 100vw !important;
         height: auto !important;
-        position: absolute;
+        position: relative;
     }
 
     #canvas {

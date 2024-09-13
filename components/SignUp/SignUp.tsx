@@ -4,9 +4,11 @@ import { useRouter } from 'next/navigation';
 import { useMutation } from '@apollo/client';
 import { INSERT_SIGNUP } from '../../graphql/mutation'
 import Link from 'next/link';
+import { Icon } from '@iconify/react';
 
 const SignUpForm = () => {
   const router = useRouter();
+  const [isLoading,setLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullname: '',
     contactNo: '',
@@ -51,10 +53,9 @@ const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) return;
-
     try {
+      setLoading(true);
       const { data } = await signUp({
         variables: {
             "signUpParameters": [
@@ -69,8 +70,10 @@ const SignUpForm = () => {
       });
       if(data.insertSignUp.statusText==="Email already exists"){
         setErrors(data.insertSignUp.statusText);
+        setLoading(false);
       }else if(data.insertSignUp.statusText==="Successfully Saved!"){
-        router.push("./Login")
+        setLoading(false);
+        router.push("./Login");
       }else{
         setErrors(data.insertSignUp.statusText);
       }
@@ -152,7 +155,9 @@ const SignUpForm = () => {
             </div>
 
             <div className='divButton'>
-              <button type='submit'>Sign Up</button>
+              <button type='submit' disabled={isLoading}>
+              {isLoading?<>Sign Up <Icon icon="eos-icons:loading" /></>:<>Sign Up</>}
+              </button>
               <button type='button' onClick={() => router.push('/')}>Cancel</button>
             </div>
           </form>

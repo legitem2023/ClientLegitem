@@ -19,7 +19,6 @@ const path = process.env.NEXT_PUBLIC_PATH;
 const Manager = new DataManager();
 
 const ProductView: React.FC = () => {
-  const [showNotification, setShowNotification] = useState(true);
   const [searchParameter, setSearchParameter] = useState<any[]>([]);
   const [take, setTake] = useState(10);
   const [quantity, setQuantity] = useState(1);
@@ -27,9 +26,6 @@ const ProductView: React.FC = () => {
   const { handleAddToCart } = useContext(ShoppingCartContext);
   const { data: Products, loading, error } = useQuery(GET_RELATED_PRODUCTS);
 
-  const handleCloseNotification = () => {
-    setShowNotification(false);
-  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -56,9 +52,6 @@ const ProductView: React.FC = () => {
             <div className='LabelBack' onClick={() => router.push(path + `Products`)}>
               <Icon icon="ic:sharp-double-arrow" rotate={2} className='backIcon' /> Back
             </div>
-            {showNotification && (
-              <Notification onClose={handleCloseNotification} />
-            )}
             <div className='MainView_LchildGallery'>
               <ProductTabs data={viewedProd} />
               <div className='MainView_LchildGalleryDetails'>
@@ -91,7 +84,7 @@ const ProductView: React.FC = () => {
             </div>
             <div className='LabelHead'>Product Details</div>
             <div className='longtext'>
-              <HtmlRenderer htmlContent={decode(replaceOembedWithIframe(viewItem.productDescription))} />
+              <HtmlRenderer htmlContent={decode(viewItem.productDescription)} />
               
               {/* <embed url="https://youtu.be/6waK6TYDGOA"></embed> */}
             </div>

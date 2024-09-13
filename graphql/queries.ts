@@ -163,7 +163,13 @@ query GetGroupedOrderHistoryDelivered($emailAddress: String) {
     }
   }
 }`
-
+export const READ_ACTIVE_USER = gql`
+query ReadActiveUsers {
+  readActiveUsers {
+    fullname
+    accountEmail
+  }
+}`
 export const READ_CATEGORY = gql`
 query GetCategory {
   getCategory {
@@ -229,6 +235,8 @@ query GetChildInventory {
     model
     agentEmail
     productDescription
+    productType
+    brandname
   }
 }`
 export const GET_CHILD_INVENTORY_DETAIL = gql`

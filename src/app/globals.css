@@ -939,7 +939,7 @@ body {
 }
 
 .canvas {
-  position: absolute;
+  /* position: absolute; */
   top: 0px;
   height: 23vw;
   width: 33vw;
@@ -1268,7 +1268,7 @@ body {
 .Menu li {
   padding-left: 0px;
   padding: 10px;
-  display: grid;
+  display: block;
   grid-template-columns: 10% 90%;
   justify-content: center;
   align-items: center;
@@ -1281,6 +1281,8 @@ body {
 .menu_li,
 .category_li {
   border-bottom: solid 4px rgb(30, 145, 28);
+  overflow: hidden; /* Hide any overflowed text */
+  text-overflow: ellipsis; /* Add ellipsis (...) when the text overflows */
 }
 
 .Menu li label {
@@ -1434,11 +1436,23 @@ body {
   height: auto;
   border-radius: 0px 0px 8px 8px;
   overflow: hidden;
+  overflow: hidden; /* Hide any overflowed text */
+  text-overflow: ellipsis; /* Add ellipsis (...) when the text overflows */
+  white-space: nowrap; /* Ensure the text doesn't wrap to a new line */
   display: grid;
   grid-template-rows: auto auto auto auto auto;
   font-size: 0.9vw;
 }
-
+.prodName {
+  display: flex;
+  flex-direction: row;
+}
+.prodName .span{
+  display: block;
+  overflow: hidden; /* Hide any overflowed text */
+  text-overflow: ellipsis; /* Add ellipsis (...) when the text overflows */
+  white-space: nowrap; /* Ensure the text doesn't wrap to a new line */
+}
 .ReactStars {
   display: grid;
   grid-template-columns: 20% 20% 20% auto auto;
@@ -1546,8 +1560,8 @@ body {
   height:50px;
   background-color: transparent;
   position:fixed;
-  right:38vw;
-  top:10vw;
+  right:22vw;
+  top:1vw;
   color:#ffffff;
   display: flex;
   font-weight: bold;
@@ -1567,6 +1581,12 @@ body {
 .Header {
   display: grid;
   grid-template-columns: 20% auto 20%;
+}
+.media {
+  margin: 0px!important;
+}
+.media iframe{
+  width:100%;
 }
 .viewmore div{
   width:100%;
@@ -1740,22 +1760,25 @@ body {
 }
 
 .DroppedDown ul li {
-  display: flex;
+  display: block;
   transition: ease 0.5s;
   text-align: left;
   justify-content: left;
   align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .DroppedDown ul li a{
+
+
+  padding:10px;
   display: grid;
-  grid-template-columns: 15% 85%;
+  grid-template-columns: 20% 80%;
   width: 100%;
   justify-content: flex-start;
   align-items: center;
   /* margin:10px; */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   max-width: 100%; /* Or set a specific width depending on your design */
 }
 .DroppedDown ul li a span{
@@ -1859,6 +1882,8 @@ body {
 .my-slide-component {
   -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(10%, transparent), to(rgba(255, 255, 255, 0.1)));
 }
+.my-slide-component {
+}
 
 .react-stacked-center-carousel {
   height: 50vh !important;
@@ -1961,7 +1986,7 @@ body {
   grid-template-rows: 51px auto auto auto auto auto;
   /* justify-content: center; */
   align-items: center;
-  position: absolute;
+  /* position: absolute; */
   background-color: #85afa5;
 }
 .forgot{
@@ -2049,7 +2074,7 @@ body {
   grid-template-rows: auto auto auto auto auto auto auto;
   /* justify-content: center; */
   align-items: center;
-  position: absolute;
+  /* position: absolute; */
   padding-bottom: 10px;
   background-color: #85afa5;
 }
@@ -2132,7 +2157,10 @@ body {
 }
 
 
-
+.FootRoutes{
+  /* display: none; */
+  transform: scale(0);
+}
 
 
 
@@ -2152,6 +2180,9 @@ body {
 }
 .divButton button{
   width:90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .ErrorHandling {
   background-color: #c1fcf5;

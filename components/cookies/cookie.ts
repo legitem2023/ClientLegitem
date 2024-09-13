@@ -1,3 +1,4 @@
+import { useMutation } from '@apollo/client';
 import jwt, { JwtPayload as DefaultJwtPayload } from 'jsonwebtoken';
 import { setGlobalState } from 'state';
 import DataManager from 'utils/DataManager';
@@ -33,7 +34,6 @@ export const cookies = () => {
         document.location.href = '../Login';
         return;
     }
-
     setGlobalState("cookieEmailAddress", token.user.emailAddress);
     setGlobalState("cookieUserLevel", token.user.userLevel);
     setGlobalState("cookieActiveUser", token.user.id);

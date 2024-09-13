@@ -16,14 +16,13 @@ const ThreeJS = () => {
   let model: any
   const Manager = new DataManager();
   useEffect(() => {
-    const Element = (document.getElementById("ThreeJS") as HTMLDivElement);
 
-    const width = Element.clientWidth;
-    const height = Element.clientHeight;
 
     // Create a scene
     const scene = new THREE.Scene();
     const canvas = sceneRef.current;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
     // Create a camera
     const camera: any = new THREE.PerspectiveCamera(35, width / height, 0.1, 1000);
     camera.position.z = 5;
@@ -47,7 +46,7 @@ const ThreeJS = () => {
       return HDR;
     }
 
-    HDRLighting(`${path_1}/hdr/brown_photostudio_02_1k.hdr`);
+    HDRLighting(`/symmetrical_garden_02_1k.hdr`);
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -76,8 +75,11 @@ const ThreeJS = () => {
   }, [Manager,activeModel,model]);
 
   return <div className="canvas" >
-    <canvas id="canvas" ref={sceneRef} width={1108} height={1108}></canvas>
-  </div>;
+          <div id="Loading">
+            <div id="progress"></div>
+          </div>
+            <canvas id="canvas" ref={sceneRef} width={1108} height={1108}></canvas>
+        </div>;
 };
 
 export default ThreeJS;

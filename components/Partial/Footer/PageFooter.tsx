@@ -1,11 +1,41 @@
 'use client'
 import { Icon } from '@iconify/react'
-import React from 'react'
+import React, { useState } from 'react'
 import Share from '../Share/Share'
 import Link from 'next/link'
+import Notification from 'components/Notification/Notification'
 const PageFooter = () => {
+  const [showNotification, setShowNotification] = useState(true);
+  const handleCloseNotification = () => {
+    setShowNotification(false);
+  };
+
   return (
     <div className='footer'>
+      <div className='FootRoutes'>
+        <Link href="./Home">
+          <Icon icon="ic:baseline-home" />
+        </Link>
+        <Link href="./Likes">
+          <Icon icon="mdi:like" />
+        </Link>
+        <Link href="">
+          <Icon icon="ic:sharp-reviews" />
+        </Link>
+        <Link href="">
+          <Icon icon="ic:baseline-message" />
+        </Link>
+        <Link href="./Cart">
+          <Icon icon="mdi:cart" />        
+        </Link>
+
+          
+          
+
+      </div>
+      {showNotification && (
+              <Notification onClose={handleCloseNotification} />
+        )}
       <div className='FootHeader'>
         <Icon icon="entypo-social:facebook" style={{color:'#104291'}}/>
         <Icon icon="entypo-social:instagram" style={{color:'#d609ad'}}/>
@@ -15,12 +45,6 @@ const PageFooter = () => {
       <Link href='./About' className='foot_label'>
         About Legitem
       </Link>
-      {/* <Link href='./ShoppingGuide' className='foot_label'>
-        Shopping Guide
-      </Link>
-      <Link href='./Services' className='foot_label'>
-        Service
-      </Link> */}
       <Link href='./FAQ' className='foot_label'>
         FAQ
       </Link>

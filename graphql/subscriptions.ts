@@ -41,3 +41,12 @@ subscription MessageNews {
     dateCreated
   }
 }`
+
+export const ACTIVE_USERS = gql`
+subscription ActiveUserList {
+  ActiveUserList {
+    accountEmail
+    fullname
+  }
+}
+`

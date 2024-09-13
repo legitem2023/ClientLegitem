@@ -28,7 +28,7 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     thumbnailProductTypes: "",
     thumbnailCollectionItems:"",
     descAsc: null,
-    activeModel: "/honda_pcx.glb",
+    activeModel: "/modern_luxury_villa_house_building_home.glb",
     saveDeviceid: "",
     drawer:true,
     checkoutAddress:"",

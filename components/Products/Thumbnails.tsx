@@ -13,10 +13,9 @@ import { createdPath, formatter, handleError, handleLoading, imageSource, limitT
 const Thumbnails: React.FC = () => {
   const [thumbnailCategory] = useGlobalState('thumbnailCategory');
   const [thumbnailProductTypes] = useGlobalState('thumbnailProductTypes');
-
+  const [thumbnailSearch] = useGlobalState('thumbnailSearch');
 
   const [CurrentPage] = useGlobalState('CurrentPage');
-  const [thumbnailSearch] = useGlobalState('thumbnailSearch');
   const [sortBy] = useGlobalState('sortBy');
   const [sortDirection] = useGlobalState('sortDirection');
   const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY,{
@@ -72,7 +71,6 @@ const Thumbnails: React.FC = () => {
   if (productsLoading) return <Loading />;
   if (productsError) return <h1>Connection Error</h1>;
 
-  console.log(paginatedProducts)
   return (
     <div className="Thumbnails">
       {paginatedProducts.map((item: any, idx: number) => (
@@ -96,9 +94,13 @@ const Thumbnails: React.FC = () => {
               <span>Price :</span>
               <span>{formatter.format(item.price)}</span>
             </div>
-            <div>
+            <div className="prodName">
               <span>Name :</span>
-              <span>{item.name ? limitText(item.name) : 'Untitled'}</span>
+              <span className="span">{item.name ? item.name : 'Untitled'}</span>
+            </div>
+            <div className="prodName">
+              <span>Sold :</span>
+              <span className="span">{item.Stock ? item.Stock : 'No Stock'}</span>
             </div>
             <div className="ViewsLikes">
               <span>Views :</span>
