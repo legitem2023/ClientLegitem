@@ -22,7 +22,9 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     cookieEmailAddress: "",
     cookieUserLevel: "",
     cookieActiveUser: "",
-    cookieArray:[],
+    cookieArray:{
+        accountEmail:""
+    },
     thumbnailSearch: "",
     thumbnailData: null,
     thumbnailCategory: "",

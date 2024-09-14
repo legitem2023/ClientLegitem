@@ -20,9 +20,19 @@ const PageHeader = () => {
   const [cookieEmailAddress]:any = useGlobalState("cookieEmailAddress");
   const [insertMessage] = useMutation(SET_ACTIVE_USERS,{
     onCompleted: (data) => {
-        data.setActiveUsers.map((item:any)=>{
-          setGlobalState("cookieArray",item.accountEmail);
+
+      if(!data) return
+
+        const distinctData = Array.from(new Set(data?.setActiveUsers?.map(item => item.accountEmail)))
+        .map(email => {
+          return data?.setActiveUsers.find(item => item.accountEmail === email);
+        });
+
+        let storage:any = distinctData?.map((item:any)=>{
+          return {"accountEmail":item.accountEmail}
         })
+
+        setGlobalState("cookieArray",storage);
     },
 })
 
