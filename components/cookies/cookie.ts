@@ -43,7 +43,6 @@ export const cookies = () => {
     // Iterate over each user token in the array
     for (const tokenString of userTokens) {
         const token = jwt.decode(tokenString) as JwtPayload | null;
-
         if (!token || !token.user) {
             // If the token is invalid, redirect to login
             document.location.href = '../Login';

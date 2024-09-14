@@ -20,7 +20,7 @@ const PageHeader = () => {
   const [cookieEmailAddress]:any = useGlobalState("cookieEmailAddress");
   const [insertMessage] = useMutation(SET_ACTIVE_USERS,{
     onCompleted: (data) => {
-        console.log(data)
+        console.log(data.setActiveUsers)
     },
 })
 
