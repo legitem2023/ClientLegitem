@@ -5,13 +5,14 @@ import { setGlobalState, useGlobalState } from 'state';
 const ActiveUsers = ({email}) => {
 
   const  { data, loading, error } = useQuery(READ_ACTIVE_USER,{variables:{emailAddress:email}})
+  console.log(useGlobalState("cookieArray"))
   if(loading) return
   if(error) return "Connection Error!"+error;
   const drawer = (data:any) =>{
     setGlobalState("drawer",true);
     setGlobalState("SelectedReciever",data);
   }
-
+  
   return (
     <ul className='Menu'>
     <li className='Menu_label'>Conversations</li>
