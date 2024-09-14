@@ -1,30 +1,24 @@
-import { useMutation, useQuery, useSubscription } from '@apollo/client'
-import { Icon } from '@iconify/react'
-import Loading from 'components/Partial/LoadingAnimation/Loading';
-import { SET_ACTIVE_USERS } from 'graphql/mutation';
-import { GROUP_SENDER, READ_ACTIVE_USER, READ_PERSONAL_MESSAGES } from 'graphql/queries';
-import { ACTIVE_USERS } from 'graphql/subscriptions'
-import { useEffect } from 'react';
-import { setGlobalState, useGlobalState } from 'state';
-import { limitText } from 'utils/scripts';
+import {  useQuery } from '@apollo/client'
+import { READ_ACTIVE_USER } from 'graphql/queries';
+import { setGlobalState } from 'state';
 
 const ActiveUsers = ({email}) => {
   const  { data, loading, error } = useQuery(READ_ACTIVE_USER,{variables:{emailAddress:email}})
   if(loading) return
-  if(error) return "Connection Error!";
+  if(error) return "Connection Error!"+error;
   const drawer = (data:any) =>{
     setGlobalState("drawer",true);
     setGlobalState("SelectedReciever",data);
   }
-
+  console.log(data,"<<<")
   return (
     <ul className='Menu'>
     <li className='Menu_label'>Conversations</li>
       {data?.readActiveUsers.length > 0?data?.readActiveUsers?.map((item: any, index: any) => (
-      <li key={index} className='menu_li' onClick={()=>drawer(item.accountEmail)} style={{display:item.accountEmail===email?"none":"block"}}>
+      <li key={index} className='menu_li' onClick={()=>drawer(item.accountEmail)}>
         {item.accountEmail===email?"Me":item.accountEmail}
       </li>
-    )):"<li>No Available Users</li>"}
+    )):<li>No Available Users</li>}
     </ul> )
 }
 

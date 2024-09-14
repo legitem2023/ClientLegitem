@@ -12,7 +12,7 @@ const PersonalMessages = () => {
     const [drawerState] = useGlobalState("drawer");
     const [SelectedReciever] = useGlobalState("SelectedReciever");
     const [userEmail] = useGlobalState("cookieEmailAddress")
-
+ 
     return (
         <div className='body_messages'>
             <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>

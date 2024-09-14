@@ -1,12 +1,12 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client'
-import { MESSAGE_ADDED, READ_PERSONAL_MESSAGES,  } from 'graphql/queries'
+import { READ_PERSONAL_MESSAGES,  } from 'graphql/queries'
 import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import { setTime } from 'utils/cookie'
 import Loading from 'components/Partial/LoadingAnimation/Loading'
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
+
 import { cookies } from 'components/cookies/cookie'
 import { useGlobalState } from 'state'
 import { POSTPERSONAL_MESSAGES } from 'graphql/mutation'
@@ -32,10 +32,9 @@ const Messages = ({reciever}) => {
             updateQuery: (prev, { subscriptionData }) => {
                 if (!subscriptionData.data) return prev;
                 const newMessage = subscriptionData?.data.messagesPersonal;
-                return {
-                    ...prev,
-                    personalMessages: [newMessage, ...prev.personalMessages]
-                };
+                return Object.assign({}, prev, {
+                    personalMessages: [newMessage, ...(prev?.personalMessages || [])]
+                });
             },
         });
         return () => {
@@ -44,7 +43,7 @@ const Messages = ({reciever}) => {
     }, [subscribeToMore]);
     if (loading) return <Loading />
     if (error) return <p>{error.message}</p>
-    console.log(data.personalMessages);
+    
     const Messages = () =>{
         return data.personalMessages;
     }
@@ -73,8 +72,6 @@ const Messages = ({reciever}) => {
         }
     }
 //########################## MUTATION PART END ##########################
-
-
 
     return (
         <div>

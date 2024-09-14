@@ -18,7 +18,18 @@ const PageHeader = () => {
   const [userId] = useGlobalState("cookieActiveUser");
   const [drawerState] = useGlobalState("drawer");
   const [cookieEmailAddress]:any = useGlobalState("cookieEmailAddress");
+  const [insertMessage] = useMutation(SET_ACTIVE_USERS,{
+    onCompleted: (data) => {
+        console.log(data)
+    },
+})
 
+useEffect (()=>{
+    insertMessage({
+            variables:{
+                "emailAddress": cookieEmailAddress
+      }})        
+},[cookieEmailAddress])
   
   const drawer = () =>{
     if(drawerState){
