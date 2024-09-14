@@ -1,8 +1,10 @@
 import {  useQuery } from '@apollo/client'
 import { READ_ACTIVE_USER } from 'graphql/queries';
-import { setGlobalState } from 'state';
+import { setGlobalState, useGlobalState } from 'state';
 
 const ActiveUsers = ({email}) => {
+  const [GGG] = useGlobalState("cookieArray");
+
   const  { data, loading, error } = useQuery(READ_ACTIVE_USER,{variables:{emailAddress:email}})
   if(loading) return
   if(error) return "Connection Error!"+error;
@@ -10,7 +12,7 @@ const ActiveUsers = ({email}) => {
     setGlobalState("drawer",true);
     setGlobalState("SelectedReciever",data);
   }
-  console.log(data,"<<<")
+  console.log(GGG,"<<<");
   return (
     <ul className='Menu'>
     <li className='Menu_label'>Conversations</li>

@@ -53,7 +53,7 @@ export const cookies = () => {
         setGlobalState("cookieEmailAddress", token.user.emailAddress);
         setGlobalState("cookieUserLevel", token.user.userLevel);
         setGlobalState("cookieActiveUser", token.user.id);
-
+        setGlobalState("cookieArray", [token.user.emailAddress]);
         // You could also return an object if needed (optional)
         return {
             id: token.user.id,
