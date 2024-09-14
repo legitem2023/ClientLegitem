@@ -10,7 +10,9 @@ interface JwtPayload extends DefaultJwtPayload {
     };
 }
 
+
 export const cookies = () => {
+    // Function to get a specific cookie by its name
     const getCookie = (cookieName: string): string | null => {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
@@ -20,30 +22,47 @@ export const cookies = () => {
             }
         }
         return null;
-    }
+    };
 
+    // Retrieve the 'clientToken' cookie which contains the array of user tokens
     const cookie = getCookie("clientToken");
 
     if (!cookie) {
         return;
     }
 
-    const token = jwt.decode(cookie) as JwtPayload | null;
-
-    if (!token || !token.user) {
-        document.location.href = '../Login';
+    // Parse the cookie value as an array (since it's stored as JSON)
+    let userTokens: string[] = [];
+    try {
+        userTokens = JSON.parse(decodeURIComponent(cookie));
+    } catch (error) {
+        console.error("Error parsing cookie:", error);
         return;
     }
-    setGlobalState("cookieEmailAddress", token.user.emailAddress);
-    setGlobalState("cookieUserLevel", token.user.userLevel);
-    setGlobalState("cookieActiveUser", token.user.id);
 
-    return {
-        id: token.user.id,
-        email: token.user.emailAddress,
-        userlevel: token.user.userLevel,
-    };
-}
+    // Iterate over each user token in the array
+    for (const tokenString of userTokens) {
+        const token = jwt.decode(tokenString) as JwtPayload | null;
+
+        if (!token || !token.user) {
+            // If the token is invalid, redirect to login
+            document.location.href = '../Login';
+            return;
+        }
+
+        // Set global state based on the user's token data
+        setGlobalState("cookieEmailAddress", token.user.emailAddress);
+        setGlobalState("cookieUserLevel", token.user.userLevel);
+        setGlobalState("cookieActiveUser", token.user.id);
+
+        // You could also return an object if needed (optional)
+        return {
+            id: token.user.id,
+            email: token.user.emailAddress,
+            userlevel: token.user.userLevel,
+        };
+    }
+};
 
 export const deletecookies = (token:any) =>{
         const setCookie = (name: string, value: string, days: number) => {

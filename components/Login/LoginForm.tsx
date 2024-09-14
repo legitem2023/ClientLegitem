@@ -44,16 +44,34 @@ const LoginForm = () => {
         if(response?.data?.getLogin?.statusText==="Welcome!"){
 
 
-            const setSharedCookie = (name: string, value: string, daysToExpire: any) => {
-                const expiration = new Date();
-                expiration.setDate(expiration.getDate() + daysToExpire);
-                const cookieValue = encodeURIComponent(name) + '=' + encodeURIComponent(value) +
-                    '; expires=' + expiration.toUTCString() +
-                    '; secure;' +
-                    '; path=/';
-                document.cookie = cookieValue;
-                console.log(cookieValue);
-            }
+          const setSharedCookie = (name: string, value: string, daysToExpire: any) => {
+            // Get the existing cookie
+            const existingCookie = document.cookie
+                .split('; ')
+                .find(row => row.startsWith(`${encodeURIComponent(name)}=`));
+        
+            // Parse the existing cookie value if it exists, otherwise start with an empty array
+            const usersArray = existingCookie
+                ? JSON.parse(decodeURIComponent(existingCookie.split('=')[1]))
+                : [];
+        
+            // Add the new value (user) to the array
+            usersArray.push(value);
+        
+            // Set expiration date
+            const expiration = new Date();
+            expiration.setDate(expiration.getDate() + daysToExpire);
+        
+            // Save the updated array back to the cookie
+            const cookieValue = encodeURIComponent(name) + '=' + encodeURIComponent(JSON.stringify(usersArray)) +
+                '; expires=' + expiration.toUTCString() +
+                '; secure;' +
+                '; path=/';
+        
+            document.cookie = cookieValue;
+            console.log(cookieValue);
+        };
+        
             e.target.value='Login';
             Manager.Success("Welcome !"+username);
             setSharedCookie("clientToken", response.data.getLogin.jsonToken, 1);
