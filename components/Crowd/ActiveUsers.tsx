@@ -3,12 +3,28 @@ import { Icon } from '@iconify/react'
 import Loading from 'components/Partial/LoadingAnimation/Loading';
 import { READ_ACTIVE_USER } from 'graphql/queries';
 import { ACTIVE_USERS } from 'graphql/subscriptions'
+import { useEffect } from 'react';
 import { useGlobalState } from 'state';
 import { limitText } from 'utils/scripts';
 
 const ActiveUsers = () => {
   const [userEmail] = useGlobalState("cookieEmailAddress")
-  const  { data, loading, error } = useQuery(READ_ACTIVE_USER,{variables:{emailAddress:userEmail}})
+  const  { data, loading, error,subscribeToMore } = useQuery(READ_ACTIVE_USER,{variables:{emailAddress:userEmail}})
+  useEffect(() => {
+    const unsubscribe = subscribeToMore({
+        document: ACTIVE_USERS,
+        updateQuery: (prev, { subscriptionData }) => {
+            if (!subscriptionData.data) return prev;
+            const newMessage = subscriptionData.data.ActiveUserList;
+            return Object.assign({}, prev, {
+                messages: [newMessage, ...(prev?.messages || [])]
+            });
+        },
+    });
+    return () => {
+        unsubscribe();
+    };
+}, [subscribeToMore]);
   if(loading) return <Loading />
 
   return (
@@ -19,7 +35,7 @@ const ActiveUsers = () => {
         {item.accountEmail}
       </li>
     ))}
-    </ul>  )
+    </ul>)
 }
 
 export default ActiveUsers

@@ -20,12 +20,12 @@ const ActiveUsers = ({email}) => {
   return (
     <ul className='Menu'>
     <li className='Menu_label'>Conversations</li>
-      {data?.readActiveUsers?.map((item: any, index: any) => (
+      {data?.readActiveUsers.length > 0?data?.readActiveUsers?.map((item: any, index: any) => (
       <li key={index} className='menu_li' onClick={()=>drawer(item.accountEmail)} style={{display:item.accountEmail===email?"none":"block"}}>
         {item.accountEmail===email?"Me":item.accountEmail}
       </li>
-    ))}
-    </ul>  )
+    )):"<li>No Available Users</li>"}
+    </ul> )
 }
 
 export default ActiveUsers
