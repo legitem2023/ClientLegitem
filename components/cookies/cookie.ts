@@ -49,7 +49,6 @@ export const cookies = () => {
             document.location.href = '../Login';
             return;
         }
-
         // Set global state based on the user's token data
         setGlobalState("cookieEmailAddress", token.user.emailAddress);
         setGlobalState("cookieUserLevel", token.user.userLevel);
