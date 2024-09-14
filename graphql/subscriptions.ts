@@ -54,7 +54,6 @@ subscription MessagesPersonal {
 }
 `
 
-
 export const ACTIVE_USERS = gql`
 subscription ActiveUserList {
   ActiveUserList {

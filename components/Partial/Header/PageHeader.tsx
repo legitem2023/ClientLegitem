@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navigation from '../../../json/navigation.json'
 import Link from 'next/link'
 import { Icon } from '@iconify/react';
@@ -9,12 +9,17 @@ import { useRouter } from 'next/navigation';
 import OrderNotification from 'components/Notification/OrderNotification'
 
 import InstallPWAButton from '../InstallationApp/InstallPWAButton';
+import { useMutation } from '@apollo/client';
+import { SET_ACTIVE_USERS } from 'graphql/mutation';
 
 
 const PageHeader = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const [userId] = useGlobalState("cookieActiveUser");
   const [drawerState] = useGlobalState("drawer");
+  const [cookieEmailAddress]:any = useGlobalState("cookieEmailAddress");
+
+  
   const drawer = () =>{
     if(drawerState){
       setGlobalState("drawer",false);

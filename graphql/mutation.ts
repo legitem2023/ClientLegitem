@@ -50,3 +50,18 @@ mutation PostPersonalMessage($message: String, $sender: String, $reciever: Strin
   }
 }
 `
+
+export const SET_ACTIVE_USERS = gql`
+mutation SetActiveUsers($emailAddress: String) {
+  setActiveUsers(emailAddress: $emailAddress) {
+    id
+    userId
+    fullname
+    storeName
+    contactNo
+    Address
+    accountEmail
+    defaultAddress
+  }
+}
+`

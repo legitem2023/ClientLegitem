@@ -15,7 +15,7 @@ const CrowdMessages = () => {
                 <ActiveUsers/>
             </div>
             <div className='middlecontainer_messages'>
-            <div className='LabelHead carouselLabel'><Icon icon="jam:messages-f" /> Messaging</div>
+            <div className='LabelHead carouselLabel'><Icon icon="jam:messages-f" />Crowd Messages</div>
 
                 <div className='messages_container'>
                     <Messages />

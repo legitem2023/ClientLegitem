@@ -8,6 +8,7 @@ import { useMemo } from 'react';
 export const Provider = ({ children }: { children: React.ReactNode }) => {
   const httpLink = createUploadLink({
     uri: process.env.NEXT_PUBLIC_SERVER_LINK,
+    credentials:'include'
   });
 
   const wsLink = new WebSocketLink({

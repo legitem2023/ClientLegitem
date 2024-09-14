@@ -10,7 +10,7 @@ const ActiveUsers = () => {
   const [userEmail] = useGlobalState("cookieEmailAddress")
   const  { data, loading, error } = useQuery(READ_ACTIVE_USER,{variables:{emailAddress:userEmail}})
   if(loading) return <Loading />
-  console.log(data);
+
   return (
     <ul className='Menu'>
     <li className='Menu_label'>Active</li>

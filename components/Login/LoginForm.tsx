@@ -1,11 +1,15 @@
 'use client'
 import React, { useState } from 'react'
-import { GET_LOGIN } from 'graphql/queries'
+import { GET_LOGIN, READ_ACTIVE_USER } from 'graphql/queries'
 import { useRouter } from 'next/navigation';
 import client from 'client'
 import DataManager from 'utils/DataManager'
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
+import jwt, { JwtPayload as DefaultJwtPayload } from 'jsonwebtoken';
+import { useQuery,useMutation } from '@apollo/client';
+import { SET_ACTIVE_USERS } from 'graphql/mutation';
+import { useGlobalState } from 'state';
 
 const LoginForm = () => {
 
@@ -13,6 +17,7 @@ const LoginForm = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const router = useRouter();
   const [isLoading,setLoading] = useState(false);
+
   const triggerLogin = async(e:any) => {
     e.target.value='Loading...';
     setLoading(true);
@@ -37,6 +42,8 @@ const LoginForm = () => {
       setLoading(false);
     } else {
         if(response?.data?.getLogin?.statusText==="Welcome!"){
+
+
             const setSharedCookie = (name: string, value: string, daysToExpire: any) => {
                 const expiration = new Date();
                 expiration.setDate(expiration.getDate() + daysToExpire);
@@ -45,10 +52,21 @@ const LoginForm = () => {
                     '; secure;' +
                     '; path=/';
                 document.cookie = cookieValue;
+                console.log(cookieValue);
             }
             e.target.value='Login';
             Manager.Success("Welcome !"+username);
             setSharedCookie("clientToken", response.data.getLogin.jsonToken, 1);
+            interface JwtPayload extends DefaultJwtPayload {
+              user: {
+                  id: string;
+                  emailAddress: string;
+                  userLevel: string;
+              };
+          }
+
+            const token = jwt.decode(response.data.getLogin.jsonToken) as JwtPayload | null;  
+
             router.push('/Account/');
             setLoading(false);
         }else{
