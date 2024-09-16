@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import { MESSAGE_ADDED, GET_MESSAGES, SEND_MESSAGE } from 'graphql/queries';
+import { useQuery, useMutation, useSubscription } from '@apollo/client';
+import {  GET_MESSAGES, SEND_MESSAGE } from 'graphql/queries';
+import { MESSAGE_ADDED } from 'graphql/subscriptions';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import { setTime } from 'utils/cookie';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import { cookies } from 'components/cookies/cookie';
 import { useGlobalState } from 'state';
 
 const Messages = () => {
@@ -17,6 +16,7 @@ const Messages = () => {
 
   const [currentDay, setCurrentDay] = useState(new Date()); // Track current day
   const { loading, error, data, subscribeToMore } = useQuery(GET_MESSAGES);
+
   const [insertMessage] = useMutation(SEND_MESSAGE);
   const [isLoading, setIsLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -25,7 +25,6 @@ const Messages = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    cookies();
     const unsubscribe = subscribeToMore({
       document: MESSAGE_ADDED,
       updateQuery: (prev, { subscriptionData }) => {
@@ -44,7 +43,6 @@ const Messages = () => {
 
   const paginatePosts = () => {
     const filteredPosts = data?.messages.filter((post: any) => {
-      console.log(data?.messages)
       const postDate = new Date(parseInt(post.dateSent)); // Convert timestamp to date
       return (
         postDate.toDateString() === currentDay.toDateString()
@@ -91,7 +89,7 @@ const Messages = () => {
     }
   };
   if(loading) return <Loading />
-  if(error) "Connection Error";
+  if(error) return <div>{error.message}</div>
   return (
     <div>
       <ul className='messagesUL'>

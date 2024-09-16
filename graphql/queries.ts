@@ -556,13 +556,3 @@ query ReadGroupSender($emailAddress: String) {
 `
 
 //*************** MUTATION ***************/
-
-export const MESSAGE_ADDED = gql`
-subscription Subscription {
-  messageAdded {
-    id
-    Messages
-    Sender
-    dateSent
-  }
-}`

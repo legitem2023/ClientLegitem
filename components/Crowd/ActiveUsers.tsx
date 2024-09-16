@@ -1,14 +1,9 @@
-import { useQuery, useSubscription } from '@apollo/client'
-import { Icon } from '@iconify/react'
-import Loading from 'components/Partial/LoadingAnimation/Loading';
-import PostPagination from 'components/Partial/PostPagination/PostPagination';
-import { READ_ACTIVE_USER } from 'graphql/queries';
+import { useSubscription } from '@apollo/client'
 import { ACTIVE_USERS } from 'graphql/subscriptions'
-import { useEffect } from 'react';
-import { setGlobalState, useGlobalState } from 'state';
-import { limitText } from 'utils/scripts';
 
-const ActiveUsers = ({email}) => {
+import { setGlobalState, useGlobalState } from 'state';
+
+const ActiveUsers = () => {
   const {data,loading} = useSubscription(ACTIVE_USERS)
   const [ActiveUsers]:any = useGlobalState("cookieArray");
   if(loading) return

@@ -7,28 +7,30 @@ const LoadActiveUsers = () => {
     const [cookieEmailAddress]:any = useGlobalState("cookieEmailAddress");
     const [insertMessage] = useMutation(SET_ACTIVE_USERS,{
       onCompleted: (data) => {
-  
         if(!data) return
-  
-          const distinctData = Array.from(new Set(data?.setActiveUsers?.map(item => item.accountEmail)))
-          .map(email => {
-            return data?.setActiveUsers.find(item => item.accountEmail === email);
+          const distinctData = Array.from(new Set(data?.setActiveUsers?.map((item:any) => item.accountEmail)))
+          .map((email:any) => {
+            return data?.setActiveUsers.find((item:any) => item.accountEmail === email);
           });
-  
           let storage:any = distinctData?.map((item:any)=>{
             return {"accountEmail":item.accountEmail}
           })
-  
+
           setGlobalState("cookieArray",storage);
       },
   })
   
-    insertMessage({
-            variables:{
-                "emailAddress": cookieEmailAddress
-    }})        
+  const fetchActiveUsers = () => {
+    insertMessage({variables:{emailAddress:cookieEmailAddress}})
+  }
+  useEffect(() => {
+    if (cookieEmailAddress) {
+      fetchActiveUsers();
+    }
+  }, [cookieEmailAddress]); // Only trigger on cookieEmailAddress change
+  
   return (    
-    <div></div>
+    <div ></div>
   )
 }
 

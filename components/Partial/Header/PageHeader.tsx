@@ -25,6 +25,7 @@ const PageHeader = () => {
     }else{
       setGlobalState("drawer",true);
     }
+    return <LoadActiveUsers/>
   }
   const redirect = useRouter();
   return (
@@ -32,7 +33,9 @@ const PageHeader = () => {
       <InstallPWAButton/>
     <div className='Header'>
         <div className='HeaderNav'>
-          <Icon icon='iconamoon:menu-burger-horizontal-duotone' onClick={()=>drawer()}/>  
+        
+          <Icon icon='iconamoon:menu-burger-horizontal-duotone' onClick={()=>drawer()}>
+          </Icon>
         </div>
         <span className='Logo openDrawer' onClick={()=>redirect.push('/Home')}></span>
       <div className='Navigation'>
@@ -61,7 +64,7 @@ const PageHeader = () => {
         ))}
       </div>
       <div>
-        <LoadActiveUsers/>
+        
       </div>
     </div>
     </>
