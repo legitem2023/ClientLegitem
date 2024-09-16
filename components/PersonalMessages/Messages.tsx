@@ -43,8 +43,7 @@ const Messages = ({reciever}) => {
             unsubscribe();
         };
     }, [subscribeToMore]);
-    // if (loading) return <Loading />
-    // if (error) return <p>{error.message}</p>
+
 //########################## MUTATION PART START ##########################
 const paginatePosts = () => {
     const filteredPosts = data?.personalMessages.filter((item:any)=> item.Reciever === SelectedReciever).filter((post: any) => {
@@ -97,6 +96,8 @@ const paginatePosts = () => {
             textareaRef.current?.focus();
         }
     }
+    if (loading) return <Loading />
+    if (error) return <p>{error.message}</p>
 //########################## MUTATION PART END ##########################
     return (
         <div>

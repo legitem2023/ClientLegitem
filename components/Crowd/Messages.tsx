@@ -89,7 +89,8 @@ const Messages = () => {
       textareaRef.current?.focus();
     }
   };
-
+  if(loading) return <Loading />
+  if(error) "Connection Error";
   return (
     <div>
       <ul className='messagesUL'>
