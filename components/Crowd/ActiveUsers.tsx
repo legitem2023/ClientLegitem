@@ -1,6 +1,7 @@
 import { useQuery, useSubscription } from '@apollo/client'
 import { Icon } from '@iconify/react'
 import Loading from 'components/Partial/LoadingAnimation/Loading';
+import PostPagination from 'components/Partial/PostPagination/PostPagination';
 import { READ_ACTIVE_USER } from 'graphql/queries';
 import { ACTIVE_USERS } from 'graphql/subscriptions'
 import { useEffect } from 'react';
@@ -26,7 +27,7 @@ const ActiveUsers = () => {
     };
 }, [subscribeToMore]);
   if(loading) return <Loading />
-
+  if(error) "Connection Error";
   return (
     <ul className='Menu'>
     <li className='Menu_label'>Active</li>

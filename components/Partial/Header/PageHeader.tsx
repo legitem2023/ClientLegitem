@@ -11,38 +11,14 @@ import OrderNotification from 'components/Notification/OrderNotification'
 import InstallPWAButton from '../InstallationApp/InstallPWAButton';
 import { useMutation } from '@apollo/client';
 import { SET_ACTIVE_USERS } from 'graphql/mutation';
+import LoadActiveUsers from './LoadActiveUsers';
 
 
 const PageHeader = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const [userId] = useGlobalState("cookieActiveUser");
   const [drawerState] = useGlobalState("drawer");
-  const [cookieEmailAddress]:any = useGlobalState("cookieEmailAddress");
-  const [insertMessage] = useMutation(SET_ACTIVE_USERS,{
-    onCompleted: (data) => {
 
-      if(!data) return
-
-        const distinctData = Array.from(new Set(data?.setActiveUsers?.map(item => item.accountEmail)))
-        .map(email => {
-          return data?.setActiveUsers.find(item => item.accountEmail === email);
-        });
-
-        let storage:any = distinctData?.map((item:any)=>{
-          return {"accountEmail":item.accountEmail}
-        })
-
-        setGlobalState("cookieArray",storage);
-    },
-})
-
-useEffect (()=>{
-    insertMessage({
-            variables:{
-                "emailAddress": cookieEmailAddress
-      }})        
-},[cookieEmailAddress])
-  
   const drawer = () =>{
     if(drawerState){
       setGlobalState("drawer",false);
@@ -84,7 +60,9 @@ useEffect (()=>{
 
         ))}
       </div>
-      <div></div>
+      <div>
+        <LoadActiveUsers/>
+      </div>
     </div>
     </>
   )

@@ -24,6 +24,8 @@ const Messages = ({reciever}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [SelectedReciever] = useGlobalState("SelectedReciever");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [posts, setPosts] = useState([]);
+    const [currentDay, setCurrentDay] = useState(new Date()); // Track current day
 
     useEffect(() => {
         cookies();
@@ -41,22 +43,46 @@ const Messages = ({reciever}) => {
             unsubscribe();
         };
     }, [subscribeToMore]);
-    if (loading) return <Loading />
-    if (error) return <p>{error.message}</p>
-    
-    const Messages = () =>{
-        return data.personalMessages;
-    }
-
+    // if (loading) return <Loading />
+    // if (error) return <p>{error.message}</p>
 //########################## MUTATION PART START ##########################
+const paginatePosts = () => {
+    const filteredPosts = data?.personalMessages.filter((item:any)=> item.Reciever === SelectedReciever).filter((post: any) => {
+      const postDate = new Date(parseInt(post.dateSent)); // Convert timestamp to date
+      return (
+        postDate.toDateString() === currentDay.toDateString()
+      );
+    });
+    setPosts(filteredPosts || []); // Ensure it's not null
+  };
+
+  const goToPreviousDay = () => {
+    const newDate = new Date(currentDay);
+    newDate.setDate(currentDay.getDate() - 1);
+    setCurrentDay(newDate);
+  };
+
+  const goToNextDay = () => {
+    const newDate = new Date(currentDay);
+    newDate.setDate(currentDay.getDate() + 1);
+    setCurrentDay(newDate);
+  };
+
+  const JumpToDate = (date: any) => {
+    setCurrentDay(date);
+  }
+
+  useEffect(() => {
+    if (data) {
+      paginatePosts();
+    }
+  }, [data, currentDay]);
+
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         setIsLoading(true);
         const message = textareaRef.current?.value;
-
-        console.log("Reciever :"+SelectedReciever);
-        console.log("Sender :"+cookieEmailAddress);
 
         if (message) {
             await insertMessage({
@@ -72,7 +98,6 @@ const Messages = ({reciever}) => {
         }
     }
 //########################## MUTATION PART END ##########################
-
     return (
         <div>
             <ul className='messagesUL'>
@@ -90,12 +115,16 @@ const Messages = ({reciever}) => {
                                 <Icon icon="material-symbols:send" /> // Original send icon
                             )}
                             </button>
+                            <span style={{marginTop:"10px"}}>
+                            Look for a specific Date <input type='date' onChange={(e) => JumpToDate(new Date(e.target.value))}/>
+                            </span>
+
                     </div>
                 </li>
             </ul>
             <ul className='messagesUL'>
                 {
-                    Messages().map((item: any, id: any) => (
+                    posts.map((item: any, id: any) => (
                         <li key={id} className='messagesLI'>
                             <div>
                                 <div><Image src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M12 3c2.21 0 4 1.79 4 4s-1.79 4-4 4s-4-1.79-4-4s1.79-4 4-4m4 10.54c0 1.06-.28 3.53-2.19 6.29L13 15l.94-1.88c-.62-.07-1.27-.12-1.94-.12s-1.32.05-1.94.12L11 15l-.81 4.83C8.28 17.07 8 14.6 8 13.54c-2.39.7-4 1.96-4 3.46v4h16v-4c0-1.5-1.6-2.76-4-3.46'/%3E%3C/svg%3E" alt={item.Sender} width={100} height={100} /></div>
@@ -104,6 +133,10 @@ const Messages = ({reciever}) => {
                             </div>
                         </li>
                     ))}
+                            <li>
+          <button onClick={goToPreviousDay}>Previous Day</button>
+          <button onClick={goToNextDay}>Next Day</button>
+        </li>
             </ul>
         </div>
     )
