@@ -8,7 +8,7 @@ body {
   overflow-y: auto;
 }
 .Messenger_inputs{
-  position: relative;
+  /* position: relative; */
   display: flex;
   flex-direction: column;
   justify-content: flex-end!important;

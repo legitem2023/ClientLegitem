@@ -23,12 +23,10 @@ const LoadActiveUsers = () => {
       },
   })
   
-  useEffect (()=>{
-      insertMessage({
-              variables:{
-                  "emailAddress": cookieEmailAddress
-        }})        
-  },[cookieEmailAddress])
+    insertMessage({
+            variables:{
+                "emailAddress": cookieEmailAddress
+    }})        
   return (    
     <div></div>
   )
