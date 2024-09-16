@@ -44,6 +44,7 @@ const Messages = () => {
 
   const paginatePosts = () => {
     const filteredPosts = data?.messages.filter((post: any) => {
+      console.log(data?.messages)
       const postDate = new Date(parseInt(post.dateSent)); // Convert timestamp to date
       return (
         postDate.toDateString() === currentDay.toDateString()
