@@ -335,4 +335,11 @@
     .searchContaier button {
         height: 78%;
     }
+    .MainView_RelatedProducts{
+        margin-bottom: 72px;
+    }
+    .MainView_RelatedProducts div button{
+        width:100%;
+        padding:10px;
+    }
 }

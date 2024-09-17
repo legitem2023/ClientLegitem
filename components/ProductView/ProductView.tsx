@@ -78,10 +78,6 @@ const ProductView: React.FC = () => {
                 <div></div>
               </div>
             </div>
-            <div className='LabelHead'>Store Details</div>
-            <div className='longtext'>
-              {/* Store details content */}
-            </div>
             <div className='LabelHead'>Product Details</div>
             <div className='longtext'>
               <HtmlRenderer htmlContent={decode(viewItem.productDescription)} />
@@ -99,8 +95,7 @@ const ProductView: React.FC = () => {
               {loading ? <Loading /> : <RelatedProducts data={Products?.getRelatedProduct.slice(0, take)} />}
               <div>
                 <button onClick={() => setTake(take + 5)}>
-                  Load More
-                  {loading && <Icon icon='eos-icons:bubble-loading' />}
+                  {loading?<Icon icon='eos-icons:bubble-loading' />:"Load More"}
                 </button>
               </div>
             </div>
