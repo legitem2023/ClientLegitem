@@ -555,4 +555,13 @@ query ReadGroupSender($emailAddress: String) {
 }
 `
 
+export const NEWS_POSTER = gql`
+query ReadNewsPoster {
+  readNewsPoster {
+    postedBy
+    dateCreated
+  }
+}
+`
+
 //*************** MUTATION ***************/

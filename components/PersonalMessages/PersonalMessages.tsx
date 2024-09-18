@@ -5,14 +5,19 @@ import Messages from './Messages'
 import { useGlobalState } from 'state'
 import ActiveUsers from './ActiveUsers'
 import { Icon } from '@iconify/react'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { SET_ACTIVE_USERS } from 'graphql/mutation'
+import { READ_PERSONAL_MESSAGES } from 'graphql/queries'
 
 const PersonalMessages = () => {
     const [drawerState] = useGlobalState("drawer");
     const [SelectedReciever] = useGlobalState("SelectedReciever");
     const [userEmail] = useGlobalState("cookieEmailAddress")
  
+    const { loading, error, data } = useQuery(READ_PERSONAL_MESSAGES,{variables:{emailAddress:userEmail}});
+
+    if(loading) return
+    console.log(data);
     return (
         <div className='body_messages'>
             <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>

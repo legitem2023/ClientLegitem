@@ -1,22 +1,25 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Icon } from '@iconify/react'
 
 interface Props {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   errors: string;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoading: boolean;
 }
 
-const ContactUs: React.FC<Props> = ({ handleSubmit, handleInputChange,errors }) => {
+const ContactUs: React.FC<Props> = ({ handleSubmit, handleInputChange, errors, setLoading,isLoading }) => {
+
   return (
     <div>
       <div className='LabelHead carouselLabel'>
         <Icon icon="ic:baseline-phone" />
         <span>Contact Us</span>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e)=>{handleSubmit(e);setLoading(true)}}>
         <div className='ContactForm'>
           <div>
             <input
@@ -51,7 +54,9 @@ const ContactUs: React.FC<Props> = ({ handleSubmit, handleInputChange,errors }) 
           </div>
           <div>{errors}</div>
           <div>
-            <button type="submit">Apply</button>
+            <button type="submit">{
+              isLoading ? <Icon icon="eos-icons:loading" /> : "Submit"  
+            }</button>
           </div>
         </div>
       </form>

@@ -36,6 +36,11 @@ const News = () => {
 
   return (
     <div className='NewsContainer'>
+            <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
       {paginatedNews?.map((item: any, idx: number) => (
         <div key={idx} className='NewsContainerItem'>
           <div className='NewsContainerHead LabelHead'>
@@ -50,11 +55,6 @@ const News = () => {
           </div>
         </div>
       ))}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
     </div>
   );
 };

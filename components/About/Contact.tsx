@@ -1,9 +1,5 @@
 import React, { useState } from 'react'
-import DisclaimerJson from 'json/Disclaimer.json'
-import { Icon } from '@iconify/react'
 import { useGlobalState } from 'state';
-import Accordion from 'components/Accordion/Accordion';
-import FAQ from 'json/faq.json'
 import ContactUs from 'components/ContactUs/ContactUs';
 import { useMutation } from '@apollo/client';
 import { CONTACT_US } from 'graphql/mutation';
@@ -12,6 +8,8 @@ const Contact = () => {
     const [drawerState] = useGlobalState("drawer");
     const Manager = new DataManager();
     const [errors, setErrors]:any = useState();
+    const [isLoading,setLoading] = useState(false);
+
     const [formData, setFormData] = useState({
       emailAddress: '',
       fullname:'',
@@ -20,9 +18,9 @@ const Contact = () => {
     });
   const [contact_us] = useMutation(CONTACT_US,{
     onCompleted: (e:any) => {
-      console.log(e.contactUs);
       if(e.contactUs.statusText==="Successfully"){
         Manager.Success(e.contactUs.statusText);
+        setLoading(false);
       }else{
         Manager.Error(e.contactUs.statusText);
       }
@@ -65,7 +63,7 @@ const Contact = () => {
           }
         }});
     } catch (error) {
-      
+      console.log(error)
     }
   }
     return (
@@ -74,7 +72,7 @@ const Contact = () => {
           
         </div>
         <div className='middlecontainer'>
-        <ContactUs handleSubmit={handleSubmit} handleInputChange={handleInputChange} errors={errors}/>
+        <ContactUs handleSubmit={handleSubmit} handleInputChange={handleInputChange} errors={errors} setLoading={setLoading} isLoading={isLoading}/>
         </div>
         <div>
         </div>
