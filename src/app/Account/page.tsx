@@ -6,24 +6,36 @@ import PageAccount from '../../../components/Account/PageAccount'
 import { cookies } from 'components/cookies/cookie';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Loading from 'components/Partial/LoadingAnimation/Loading';
 export default function Account() {
-  const router = useRouter();
   const [useCookie,setCookie] = useState();
-  useEffect(()=>{
+
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+  useEffect(() => {
     const cookie = cookies();
     if (!cookie) {
-      router.push('/Login');  
-      return;
+      router.push('/Login');
+    } else {
+      setIsAuthorized(true);
     }
-  const id:any = cookie.id;
-  setCookie(id);
-  },[])
+    setIsLoading(false); // End loading state
+    const id:any = cookie.id;
+    setCookie(id);
+  }, [router]);
 
-  return (
+  if (isLoading) {
+    return <Loading/>; // Show loading state while checking
+  }
+
+
+
+  return isAuthorized?(
     <div className='Main'>
       <PageHeader/>
         <PageAccount userId={useCookie}/>
       <PageFooter/>
     </div>
-  )
+  ): null
 }

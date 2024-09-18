@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navigation from '../../../json/navigation.json'
 import Link from 'next/link'
 import { Icon } from '@iconify/react';
@@ -19,7 +19,11 @@ const PageHeader = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const [userId] = useGlobalState("cookieActiveUser");
   const [drawerState] = useGlobalState("drawer");
+  const [loadingLink, setLoadingLink] = useState<string | null>(null);
 
+  const handleClick = (item: any) => {
+    setLoadingLink(item.Name); // Set loading for the clicked link
+  };
   const drawer = () =>{
     if(drawerState){
       setGlobalState("drawer",false);
@@ -43,16 +47,28 @@ const PageHeader = () => {
         {Navigation.map((item: any, idx: any) => (
           item.Name === 'Account' ? 
           <nav key={idx} className={item.Name === 'Account' ? 'Account' : ''}>
-            <Link href='./Login'>
-            <Icon icon={item.icon} />
-              <span className='hideInmobile'>{item.Name === 'Account' ? userId === ""? "Login" : item.Name : item.Name}</span></Link>
-                {userId === ""?"" : item.Name === 'Account' ?
-                  <Dropdown path={path} deletecookies={deletecookies} OrderNotification={OrderNotification}/>: ""}
+            {userId === ""?
+              <Link href='./Login'>
+                <Icon icon="ic:round-login" />
+                <span className='hideInmobile'>Login</span>
+              </Link>
+            :
+            <>
+              <Icon icon={item.icon} />
+              <span className='hideInmobile'>{item.Name}</span>
+            </>
+            }
+            {userId === ""?"" : item.Name === 'Account' ?
+              <Dropdown path={path} deletecookies={deletecookies} OrderNotification={OrderNotification}/>: ""
+            }
           </nav>:<Link href={item.Link} key={idx} className={item.Name === 'Account' ? 'Account' : ''}>
-                    <Icon icon={item.icon} />
+                    {loadingLink === item.Name ? (
+                      <Icon icon="eos-icons:loading" /> // Loading icon
+                    ) : (
+                      <Icon icon={item.icon} />
+                    )}
                     <span className='hideInmobile'>{item.Name}</span>
-                    
-                  </Link>
+                 </Link>
 
         ))}
       </div>
