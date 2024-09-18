@@ -1,4 +1,5 @@
-import Pagination from 'components/Pagination/Pagination';
+
+import UniversalPagination from 'components/Partial/Pagination/UniversalPagination';
 import Image from 'next/image';
 import React, { useMemo } from 'react';
 import { useState } from 'react';
@@ -75,7 +76,7 @@ const AccordionOrderDeliver = ({json}) => {
                     )}
                 </div>
             ))}
-                    <Pagination
+        <UniversalPagination
           currentPage={CurrentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}

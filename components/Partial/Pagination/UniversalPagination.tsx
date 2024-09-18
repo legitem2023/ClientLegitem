@@ -3,7 +3,6 @@ import { Icon } from '@iconify/react';
 import useCurrentPage from 'store/useCurrentPage';
 import { setGlobalState } from 'state';
 
-
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
@@ -46,9 +45,11 @@ const UniversalPagination = ({
 
       {pagesToShow.map(page => (
         <button
-        aria-label='pagination'
+          aria-label='pagination'
           key={page}
-          onClick={() => {onPageChange(page);setGlobalState("CurrentPage",page)}}>
+          onClick={() => {onPageChange(page);setGlobalState("CurrentPage",page)}}
+          className={page === currentPage ? 'ClassRed' : ''}
+        >
           {page}
         </button>
       ))}
@@ -66,7 +67,6 @@ const UniversalPagination = ({
         disabled={currentPage === totalPages}>
         <Icon icon="gg:chevron-double-right"/>
       </button>
-
     </div>
   );
 };

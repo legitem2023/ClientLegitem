@@ -50,6 +50,7 @@ const Pagination = ({
         <button
         aria-label='pagination'
           key={page}
+          className={page === currentPage ? 'CurrentPagination' : ''}
           onClick={() => {onPageChange(page);setGlobalState("CurrentPage",page)}}>
           {page}
         </button>
