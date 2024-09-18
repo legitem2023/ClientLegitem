@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Navigation from '../../../json/navigation.json'
 import Link from 'next/link'
 import { Icon } from '@iconify/react';
@@ -9,9 +9,6 @@ import { usePathname, useRouter } from 'next/navigation';
 import OrderNotification from 'components/Notification/OrderNotification'
 
 import InstallPWAButton from '../InstallationApp/InstallPWAButton';
-import { useMutation } from '@apollo/client';
-import { SET_ACTIVE_USERS } from 'graphql/mutation';
-import LoadActiveUsers from './LoadActiveUsers';
 import Dropdown from './Dropdown';
 
 
@@ -19,14 +16,12 @@ const PageHeader = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const [userId] = useGlobalState("cookieActiveUser");
   const [drawerState] = useGlobalState("drawer");
-  const router = useRouter();
   const [loadingLink, setLoadingLink] = useState<string | null>(null);
 
   const currentPath = usePathname();
 
 
   const handleClick = (item: any) => {
-    console.log(item.Link+"----"+currentPath)
     if (item.Link !== "."+currentPath) {
       setLoadingLink(item.Name); // Set loading for clicked link only if it's not the current page
     }
@@ -37,7 +32,6 @@ const PageHeader = () => {
     }else{
       setGlobalState("drawer",true);
     }
-    // return <LoadActiveUsers/>
   }
   const redirect = useRouter();
   return (
@@ -45,7 +39,6 @@ const PageHeader = () => {
       <InstallPWAButton/>
     <div className='Header'>
         <div className='HeaderNav'>
-        
           <Icon icon='iconamoon:menu-burger-horizontal-duotone' onClick={()=>drawer()}>
           </Icon>
         </div>
