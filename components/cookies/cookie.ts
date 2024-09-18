@@ -74,10 +74,10 @@ export const deletecookies = (token:any) =>{
     };
     const conf = confirm("Are you sure you want to logout?");
     if(conf){
-        deleteCookie(token);
         setGlobalState("cookieEmailAddress", "");
         setGlobalState("cookieUserLevel", "");
         setGlobalState("cookieActiveUser", "");
         document.location.href = '../Login';
+        deleteCookie(token);
     }
 }

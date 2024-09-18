@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
 import Pagination from 'components/Pagination/Pagination';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
+import UniversalPagination from 'components/Partial/Pagination/UniversalPagination';
 import TimestampConverter from 'components/Partial/timestamp/TimestampConverter';
 import { READ_NEWS } from 'graphql/queries';
 import Image from 'next/image';
@@ -36,7 +37,7 @@ const News = () => {
 
   return (
     <div className='NewsContainer'>
-            <Pagination
+      <UniversalPagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}

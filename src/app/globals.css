@@ -2810,6 +2810,10 @@ body {
   margin: 2px;
   cursor: pointer;
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+}
 
 .DashboardDetail {
   text-align: center;
