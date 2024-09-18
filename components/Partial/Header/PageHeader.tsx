@@ -12,6 +12,7 @@ import InstallPWAButton from '../InstallationApp/InstallPWAButton';
 import { useMutation } from '@apollo/client';
 import { SET_ACTIVE_USERS } from 'graphql/mutation';
 import LoadActiveUsers from './LoadActiveUsers';
+import Dropdown from './Dropdown';
 
 
 const PageHeader = () => {
@@ -25,7 +26,7 @@ const PageHeader = () => {
     }else{
       setGlobalState("drawer",true);
     }
-    return <LoadActiveUsers/>
+    // return <LoadActiveUsers/>
   }
   const redirect = useRouter();
   return (
@@ -42,20 +43,12 @@ const PageHeader = () => {
         {Navigation.map((item: any, idx: any) => (
           item.Name === 'Account' ? 
           <nav key={idx} className={item.Name === 'Account' ? 'Account' : ''}>
-            <Icon icon={item.icon} />
             <Link href='./Login'>
+            <Icon icon={item.icon} />
               <span className='hideInmobile'>{item.Name === 'Account' ? userId === ""? "Login" : item.Name : item.Name}</span></Link>
                 {userId === ""?"" : item.Name === 'Account' ?
-                  <div className='DroppedDown'>
-                    <ul>
-                      <li><Link href={path + "Account"} className='DroppedDownAnchor'><Icon icon="ph:address-book-fill" /><span>Address Book</span></Link></li>
-                      <li><Link href={path + "Order"} className='DroppedDownAnchor'><Icon icon="bxs:basket" /><span>My Orders</span><OrderNotification/></Link></li>
-                      <li><Link href={path + "Likes"} className='DroppedDownAnchor'><Icon icon="mdi:like" /><span>Likes</span></Link></li>
-                      <li><Link href={path + "Messages"} className='DroppedDownAnchor'><Icon icon="ic:baseline-message" /><span>Messages</span></Link></li>
-                      <li><Link href={path + "Account"} onClick={() => deletecookies("clientToken")} className='DroppedDownAnchor'><Icon icon="material-symbols:logout-sharp" /><span>Log out</span></Link></li>
-                    </ul>
-                  </div> : ""}
-          </nav> :<Link href={item.Link} key={idx} className={item.Name === 'Account' ? 'Account' : ''}>
+                  <Dropdown path={path} deletecookies={deletecookies} OrderNotification={OrderNotification}/>: ""}
+          </nav>:<Link href={item.Link} key={idx} className={item.Name === 'Account' ? 'Account' : ''}>
                     <Icon icon={item.icon} />
                     <span className='hideInmobile'>{item.Name}</span>
                     
