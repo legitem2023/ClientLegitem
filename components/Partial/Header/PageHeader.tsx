@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Icon } from '@iconify/react';
 import { setGlobalState, useGlobalState } from 'state';
 import { deletecookies } from 'components/cookies/cookie';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import OrderNotification from 'components/Notification/OrderNotification'
 
 import InstallPWAButton from '../InstallationApp/InstallPWAButton';
@@ -19,10 +19,17 @@ const PageHeader = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const [userId] = useGlobalState("cookieActiveUser");
   const [drawerState] = useGlobalState("drawer");
+  const router = useRouter();
   const [loadingLink, setLoadingLink] = useState<string | null>(null);
 
+  const currentPath = usePathname();
+
+
   const handleClick = (item: any) => {
-    setLoadingLink(item.Name); // Set loading for the clicked link
+    console.log(item.Link+"----"+currentPath)
+    if (item.Link !== "."+currentPath) {
+      setLoadingLink(item.Name); // Set loading for clicked link only if it's not the current page
+    }
   };
   const drawer = () =>{
     if(drawerState){
@@ -61,12 +68,12 @@ const PageHeader = () => {
             {userId === ""?"" : item.Name === 'Account' ?
               <Dropdown path={path} deletecookies={deletecookies} OrderNotification={OrderNotification}/>: ""
             }
-          </nav>:<Link href={item.Link} key={idx} className={item.Name === 'Account' ? 'Account' : ''}>
-                    {loadingLink === item.Name ? (
-                      <Icon icon="eos-icons:loading" /> // Loading icon
-                    ) : (
-                      <Icon icon={item.icon} />
-                    )}
+          </nav>:<Link onClick={() => handleClick(item)} href={item.Link} key={idx} className={item.Name === 'Account' ? 'Account' : ''}>
+                  {loadingLink === item.Name && item.Link !== "."+currentPath ? (
+                    <Icon icon="eos-icons:loading" /> // Loading icon
+                  ) : (
+                    <Icon icon={item.icon} /> // Normal icon
+                  )}
                     <span className='hideInmobile'>{item.Name}</span>
                  </Link>
 
