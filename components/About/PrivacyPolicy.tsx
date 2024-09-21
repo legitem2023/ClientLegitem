@@ -1,15 +1,16 @@
 // components/PrivacyPolicy.js
+import HtmlRenderer from 'components/Html/HtmlRenderer';
 import React from 'react';
 
-const PrivacyPolicy = ({ privacyPolicyData }) => {
+const PrivacyPolicy = ({ data }) => {
+
     return (
         <div>
-            {Object.keys(privacyPolicyData.Privacy_Policy).map((sectionKey, index) => (
-                <div className="privacy-section" key={index}>
-                    <h2>{sectionKey.replace(/_/g, ' ')}</h2>
-                    <p>{privacyPolicyData.Privacy_Policy[sectionKey].content}</p>
-                </div>
-            ))}
+          {data.readPrivacy.map((item: any,idx:number) => (
+            <div key={idx}>
+              <HtmlRenderer htmlContent={item.content}/>
+            </div>
+          ))}
         </div>
     );
 };

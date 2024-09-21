@@ -15,12 +15,10 @@ import Dropdown from './Dropdown';
 const PageHeader = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const [userId] = useGlobalState("cookieActiveUser");
+  console.log(userId)
   const [drawerState] = useGlobalState("drawer");
   const [loadingLink, setLoadingLink] = useState<string | null>(null);
-
   const currentPath = usePathname();
-
-
   const handleClick = (item: any) => {
     if (item.Link !== "."+currentPath) {
       setLoadingLink(item.Name); // Set loading for clicked link only if it's not the current page

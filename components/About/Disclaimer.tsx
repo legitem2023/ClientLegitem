@@ -1,9 +1,16 @@
 import React from 'react'
 import DisclaimerJson from 'json/Disclaimer.json'
 import { Icon } from '@iconify/react'
+import { READ_DISCLAIMER } from 'graphql/queries';
 import { useGlobalState } from 'state';
+import { useQuery } from '@apollo/client';
+import Loading from 'components/Partial/LoadingAnimation/Loading';
+import HtmlRenderer from 'components/Html/HtmlRenderer';
 const Disclaimer = () => {
-    const [drawerState] = useGlobalState("drawer");
+  const { data, loading,error } = useQuery(READ_DISCLAIMER);
+  const [drawerState] = useGlobalState("drawer");
+  if(loading) return <Loading/>
+  if(error) return "Connection Error";
     return (
       <div className='body'>
         <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>
@@ -13,13 +20,11 @@ const Disclaimer = () => {
         <div className=''>
         <div className='LabelHead carouselLabel'><Icon icon="ion:hand-right-outline" /><span>Disclaimer</span></div>
         <div className='Privacy'>
-          <div>
-              <div>{DisclaimerJson['General_Disclaimer'].content}</div>
-              <div>{DisclaimerJson['External_Links_Disclaimer'].content}</div>
-              <div>{DisclaimerJson['Professional_Advice_Disclaimer'].content}</div>
-              <div>{DisclaimerJson['Limitation_of_Liability'].content}</div>
-              <div>{DisclaimerJson['Changes_to_This_Disclaimer'].content}</div>
-          </div>
+          {data.readDisclaimer.map((item: any,idx:number) => (
+            <div key={idx}>
+              <HtmlRenderer htmlContent={item.content}/>
+            </div>
+          ))}
         </div>
     </div>
         </div>

@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
+import HtmlRenderer from 'components/Html/HtmlRenderer';
 import Pagination from 'components/Pagination/Pagination';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
 import UniversalPagination from 'components/Partial/Pagination/UniversalPagination';
@@ -47,10 +48,10 @@ const News = () => {
           <div className='NewsContainerHead LabelHead'>
             <Icon icon="fa6-solid:newspaper" /> {item.title}
           </div>
-          <div>
+          <div className='NewsThumbnail'>
             <Image src={imageSource(item.thumbnail)} height={100} width={200} alt={`image${idx}`} />
           </div>
-          <div>{item.summary}</div>
+          <HtmlRenderer htmlContent={item.summary} />
           <div className='NewsContainerFooter'>
             Date: <TimestampConverter timestamp={item.dateCreated} />
           </div>

@@ -8,7 +8,7 @@ interface Props {
 const HtmlRenderer: React.FC<Props> = ({ htmlContent }) => {
   const data = replaceOembedWithIframe(htmlContent);
   return (
-    <div dangerouslySetInnerHTML={{ __html: data }} />
+    <div className="dangerousHTML" dangerouslySetInnerHTML={{ __html: data }} />
   );
 };
 

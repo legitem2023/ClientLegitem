@@ -2,8 +2,16 @@ import { useState } from 'react';
 import AboutJson from 'json/About.json'
 import { Icon } from '@iconify/react';
 import { useGlobalState } from 'state';
+import { READ_ABOUT_US } from 'graphql/queries';
+import { useQuery } from '@apollo/client';
+import Loading from 'components/Partial/LoadingAnimation/Loading';
+import HtmlRenderer from 'components/Html/HtmlRenderer';
 const About = () => {
+    const { data, loading,error } = useQuery(READ_ABOUT_US);
+
     const [drawerState] = useGlobalState("drawer");
+    if (loading) return <Loading/>
+    if(error) return "Connection Error";
     return (
         <div className='body'>
         <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>
@@ -12,22 +20,13 @@ const About = () => {
         <div className='middlecontainer'>
         <div className=''>
         <div className='LabelHead carouselLabel'><Icon icon="mdi:about" /><span>About</span></div>
-            <div className='Privacy'>
-                <div className="About">
-                    <div>{AboutJson[0].Name}</div>
-                    <div>{AboutJson[0].Description}</div>
-                    <div>{AboutJson[0].Mission}</div>
-                    <div>{AboutJson[0]["Why_Choose_Legitem"].Quality_Assurance}</div>
-                    <div>{AboutJson[0]["Why_Choose_Legitem"].Affordable_Fashion}</div>
-                    <div>{AboutJson[0].Connect_With_Us}</div>
-                    <div>{AboutJson[0].Name}</div>
+                <div className="Privacy">
+                    {data.readAbout.map((item: any,idx:number) => (
+                        <div key={idx}>
+                            <HtmlRenderer htmlContent={item.content}/>
+                        </div>
+                    ))}
                 </div>
-            </div>
-        <div>
-            <video width="100" height="240" style={{width:'100%',height:'auto'}} controls>
-            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"/>
-            </video>
-        </div>
     </div>
 
         </div>

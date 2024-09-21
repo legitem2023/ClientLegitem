@@ -563,5 +563,36 @@ query ReadNewsPoster {
   }
 }
 `
+export const READ_PRIVACY = gql`
+query ReadPrivacy {
+  readPrivacy {
+    content
+  }
+}
+`
 
+export const READ_DISCLAIMER = gql`
+query ReadDisclaimer {
+  readDisclaimer {
+    content
+  }
+}
+`
+
+export const READ_ABOUT_US = gql`
+query ReadAbout {
+  readAbout {
+    content
+  }
+}
+`
+export const READ_FAQ = gql`
+query ReadFAQ {
+  readFAQ {
+    id
+    question
+    answer
+  }
+}
+`
 //*************** MUTATION ***************/
