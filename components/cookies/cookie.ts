@@ -26,7 +26,6 @@ export const cookies = () => {
 
     // Retrieve the 'clientToken' cookie which contains the array of user tokens
     const cookie = getCookie("clientToken");
-    console.log(cookie+"<<<<<")
 
     if (!cookie) {
         return;
