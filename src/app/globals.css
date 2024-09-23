@@ -765,6 +765,7 @@ body {
   width: 100% !important;
   object-fit: cover !important;
   border-radius: 0 !important;
+  box-shadow: 0.5px 0.5px 3px #000000;
 }
 
 .Mobile_footer {
@@ -3012,4 +3013,7 @@ body {
     height: 25px;
     border-radius: 100%;
     font-size: 16px!important;
+  }
+  .my-slide-component img{
+    border: solid 2px #000000;
   }

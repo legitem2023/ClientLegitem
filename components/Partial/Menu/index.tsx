@@ -65,19 +65,19 @@ const Menu = () => {
 
           <ul className='category_list'>
             <br />
-            {item.Name === 'Category' && categoryData.getCategory.length > 0 && categoryData.getCategory.map((category: any, i: any) => (
+            {item.Name === 'Category' && categoryData?.getCategory?.length > 0 && categoryData?.getCategory?.map((category: any, i: any) => (
               <li className='category_list_div' key={i} onClick={(e: any) => { sortEngine(e); setGlobalState("drawer", true); }} value={category.Name}>
                 <Icon icon="fluent-mdl2:radio-bullet"/>{category.Name}
               </li>
             ))}
 
-            {item.Name === 'Product Types' && productTypesData.getProductTypes.length > 0 && productTypesData.getProductTypes.map((type: any, i: any) => (
+            {item.Name === 'Product Types' && productTypesData?.getProductTypes?.length > 0 && productTypesData?.getProductTypes?.map((type: any, i: any) => (
               <li className='category_list_div' key={i} onClick={(e: any) => { sortEngine_1(e); setGlobalState("drawer", true); }} value={type.Name}>
                 <Icon icon="fluent-mdl2:radio-bullet" />{type.Name}
               </li>
             ))}
 
-            {item.Name === 'Collection Items' && productTypesData.getProductTypes.length > 0 && productTypesData.getProductTypes.map((item: any, i: any) => (
+            {item.Name === 'Collection Items' && productTypesData?.getProductTypes?.length > 0 && productTypesData?.getProductTypes?.map((item: any, i: any) => (
               <li className='category_list_div' key={i} onClick={(e: any) => { sortEngine_2(e); setGlobalState("drawer", true); }} value={item.Name}>
                 <Icon icon="fluent-mdl2:radio-bullet" />{item.Name}
               </li>

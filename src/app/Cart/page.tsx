@@ -1,9 +1,14 @@
+"use client"
 import CartBody from 'components/Cart/page'
+import { cookies } from 'components/cookies/cookie'
 import PageFooter from 'components/Partial/Footer/PageFooter'
 import PageHeader from 'components/Partial/Header/PageHeader'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Cart = () => {
+  useEffect(() => {
+    cookies();
+  }, []);
   return (
     <div className='Main'>
       <PageHeader/>

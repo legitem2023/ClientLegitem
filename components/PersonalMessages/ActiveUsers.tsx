@@ -21,16 +21,16 @@ const ActiveUsers = ({email}) => {
   }
   return (
     <ul className='Menu'>
-    {/* <li className='Menu_label'>Active Users</li>
+    <li className='Menu_label'>Active Users</li>
     {ActiveUsers.length > 0?ActiveUsers?.map((item: any, index: any) => (
       <li key={index} className='menu_li' onClick={()=>drawer(item.accountEmail)}>
         {item.accountEmail}
       </li>
-    )):<li>No Available Users</li>} */}
+    )):<li>No Available Users</li>}
 
     <li className='Menu_label'>Conversations</li>
       {Userdata.readGroupSender?.map((item: any, index: any) => (
-      <li key={index} className='menu_li' onClick={()=>drawer(item.Reciever)}>
+      <li key={index} className='menu_li' onClick={()=>drawer(item.Reciever)} style={{display:item.Reciever===email?"none":"block"}}>
         {item.Reciever}
       </li>
     ))}

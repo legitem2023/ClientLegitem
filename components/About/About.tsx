@@ -21,7 +21,7 @@ const About = () => {
         <div className=''>
         <div className='LabelHead carouselLabel'><Icon icon="mdi:about" /><span>About</span></div>
                 <div className="Privacy">
-                    {data.readAbout.map((item: any,idx:number) => (
+                    {data?.readAbout?.map((item: any,idx:number) => (
                         <div key={idx}>
                             <HtmlRenderer htmlContent={item.content}/>
                         </div>

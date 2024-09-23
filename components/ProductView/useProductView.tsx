@@ -3,12 +3,12 @@ import DataManager from 'utils/DataManager';
 const useProductView = () => {
     // const [useIpadd,setIpadd] = useState(null);
     const Manager = new DataManager();
+    let ipaddresses:any
     useEffect(() => {
-        const ipaddresses:any = Manager.Ipaddress();
-        // setIpadd(ipaddresses)
-    });
+    ipaddresses = Manager.Ipaddress();
+    },[ipaddresses]);
       
-    return [Manager];
+    return {ipaddresses};
 }
 
 export default useProductView;

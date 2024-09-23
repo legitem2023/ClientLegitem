@@ -20,7 +20,7 @@ const Disclaimer = () => {
         <div className=''>
         <div className='LabelHead carouselLabel'><Icon icon="ion:hand-right-outline" /><span>Disclaimer</span></div>
         <div className='Privacy'>
-          {data.readDisclaimer.map((item: any,idx:number) => (
+          {data?.readDisclaimer?.map((item: any,idx:number) => (
             <div key={idx}>
               <HtmlRenderer htmlContent={item.content}/>
             </div>

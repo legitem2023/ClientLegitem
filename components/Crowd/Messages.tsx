@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useQuery, useMutation, useSubscription } from '@apollo/client';
-import {  GET_MESSAGES, SEND_MESSAGE } from 'graphql/queries';
+import {  GET_MESSAGES } from 'graphql/queries';
 import { MESSAGE_ADDED } from 'graphql/subscriptions';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
 import { setTime } from 'utils/cookie';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
 import { useGlobalState } from 'state';
+import { SEND_MESSAGE } from 'graphql/mutation';
 
 const Messages = () => {
   const getStartOfMonth = () => {
@@ -42,7 +43,7 @@ const Messages = () => {
   }, [subscribeToMore]);
 
   const paginatePosts = () => {
-    const filteredPosts = data?.messages.filter((post: any) => {
+    const filteredPosts = data?.messages?.filter((post: any) => {
       const postDate = new Date(parseInt(post.dateSent)); // Convert timestamp to date
       return (
         postDate.toDateString() === currentDay.toDateString()
@@ -111,7 +112,7 @@ const Messages = () => {
         </li>
       </ul>
       <ul className='messagesUL'>
-        {posts.map((item: any, id: any) => (
+        {posts.length > 0?posts.map((item: any, id: any) => (
           <li key={id} className='messagesLI'>
             <div>
               <div className='orderName'>{item.Sender}</div>
@@ -120,7 +121,7 @@ const Messages = () => {
               <div className='dateSent'>{setTime(item.dateSent)}</div>
             </div>
           </li>
-        ))}
+        )):(<h1>No Messages</h1>)}
         <li>
           <button onClick={goToPreviousDay}>Previous Day</button>
           <button onClick={goToNextDay}>Next Day</button>

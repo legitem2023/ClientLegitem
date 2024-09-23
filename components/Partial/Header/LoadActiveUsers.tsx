@@ -1,3 +1,4 @@
+"use client"
 import { useMutation } from '@apollo/client';
 import { SET_ACTIVE_USERS } from 'graphql/mutation';
 import React, { useEffect } from 'react'
@@ -29,9 +30,7 @@ const LoadActiveUsers = () => {
     }
   }, [cookieEmailAddress]); // Only trigger on cookieEmailAddress change
   
-  return (    
-    <div ></div>
-  )
+  return null
 }
 
 export default LoadActiveUsers

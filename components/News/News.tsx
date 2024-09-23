@@ -43,7 +43,7 @@ const News = () => {
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
-      {paginatedNews?.map((item: any, idx: number) => (
+      {paginatedNews.length > 0?paginatedNews?.map((item: any, idx: number) => (
         <div key={idx} className='NewsContainerItem'>
           <div className='NewsContainerHead LabelHead'>
             <Icon icon="fa6-solid:newspaper" /> {item.title}
@@ -56,7 +56,7 @@ const News = () => {
             Date: <TimestampConverter timestamp={item.dateCreated} />
           </div>
         </div>
-      ))}
+      )):(<h1>No Data</h1>)}
     </div>
   );
 };

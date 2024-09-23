@@ -58,7 +58,7 @@ if(Products) return
               slideComponent={Card}
               slideWidth={parentWidth < 200 ? parentWidth : 400}
               carouselWidth={parentWidth}
-              data={Category.getCategory}
+              data={Category?.getCategory}
               customScales = {[1, 0.7, 0.5, 0.2, 0.1]}
               currentVisibleSlide={currentVisibleSlide}
               maxVisibleSlide={7}

@@ -10,12 +10,9 @@ import OrderNotification from 'components/Notification/OrderNotification'
 
 import InstallPWAButton from '../InstallationApp/InstallPWAButton';
 import Dropdown from './Dropdown';
-
-
 const PageHeader = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const [userId] = useGlobalState("cookieActiveUser");
-  console.log(userId)
   const [drawerState] = useGlobalState("drawer");
   const [loadingLink, setLoadingLink] = useState<string | null>(null);
   const currentPath = usePathname();

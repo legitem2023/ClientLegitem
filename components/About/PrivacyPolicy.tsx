@@ -6,7 +6,7 @@ const PrivacyPolicy = ({ data }) => {
 
     return (
         <div>
-          {data.readPrivacy.map((item: any,idx:number) => (
+          {data?.readPrivacy?.map((item: any,idx:number) => (
             <div key={idx}>
               <HtmlRenderer htmlContent={item.content}/>
             </div>

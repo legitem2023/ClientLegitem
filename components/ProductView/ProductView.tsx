@@ -8,12 +8,17 @@ import Loading from 'components/Partial/LoadingAnimation/Loading';
 import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import ProductTabs from './ProductTabs';
 import { GET_RELATED_PRODUCTS } from 'graphql/queries';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { Cart, formatter, replaceOembedWithIframe } from 'utils/scripts';
 import RelatedProducts from './RelatedProducts';
 import Notification from 'components/Notification/Notification';
 import HtmlRenderer from 'components/Html/HtmlRenderer';
 import { decode } from 'js-base64';
+import InsertView from './useInsertView';
+import { setGlobalState, useGlobalState } from 'state';
+import useInsertView from './useInsertView';
+import { INSERT_VIEWS_COUNT } from 'graphql/mutation';
+import useProductView from './useProductView';
 
 const path = process.env.NEXT_PUBLIC_PATH;
 const Manager = new DataManager();
@@ -25,30 +30,58 @@ const ProductView: React.FC = () => {
   const router = useRouter();
   const { handleAddToCart } = useContext(ShoppingCartContext);
   const { data: Products, loading, error } = useQuery(GET_RELATED_PRODUCTS);
+  const [userEmail] = useGlobalState("cookieEmailAddress");
+
+  const [insertNumberOfViews] = useMutation(INSERT_VIEWS_COUNT, {
+    onCompleted: (data) => {
+      console.log("View inserted:", data);
+    },
+    onError: (error) => {
+      console.error("Error inserting view:", error);
+    }
+  });
 
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const dataParam = JSON.parse(atob(params.get('data') || '[]'));
     setSearchParameter(dataParam);
-
-    // Clean up logic if needed
     return () => {
       // Clean up any subscriptions or listeners here
     };
   }, []);
 
-  if (loading) return <Loading />;
-  if (error) return <h1>Connection Error</h1>;
+
 
   const viewedProd = Array.isArray(searchParameter) ? searchParameter : [searchParameter];
 
+  // const { insert_views_count } = useInsertView();
+console.log(viewedProd)
+
+
+  useEffect(() => {
+    insertNumberOfViews({
+      variables:{
+        "count": "1",
+        "productCode": viewedProd[0]?.productCode,
+        "emailAddress": userEmail,
+        "ipAddress": "ipaddresses",
+        "country": "PH"
+      }
+    });
+    return () => {
+      // Clean up any subscriptions or listeners here
+    }
+  }, [viewedProd,userEmail]); // Re-run if 'data' changes
+  if (loading) return <Loading />;
+  if (error) return <h1>Connection Error</h1>;
   return (
     <Suspense fallback={<Loading />}>
       {viewedProd.length > 0 ? viewedProd.map((viewItem: any, idx: any) => (
         <div className='MainView' key={idx}>
           <div className='MainView_Lchild'>
             <div className='LabelHead'>Product Data</div>
+
             <div className='LabelBack' onClick={() => router.push(path + `Products`)}>
               <Icon icon="ic:sharp-double-arrow" rotate={2} className='backIcon' /> Back
             </div>

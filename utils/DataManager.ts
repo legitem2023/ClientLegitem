@@ -20,15 +20,8 @@ import {
     GET_PRODUCT_TYPES,
     MANAGEMENT_INVENTORY,
     GET_CHILD_INVENTORY_DETAIL,
-    INSERT_INVENTORY,
-    INSERT_CHILD_INVENTORY,
-    INSERT_VIEWS_COUNT,
-    INSERT_VISITS,
-    GET_ACCOUNTS,
-    UPDATE_CHILD_INVENTORY,
-    UPDATE_PARENT_INVENTORY,
     GET_BRANDS,
-    GET_NUM_OF_VIEWS, GET_LOCATION_DATA, SAVE_CROP_IMAGE,
+    GET_NUM_OF_VIEWS, GET_LOCATION_DATA,
     GET_INVENTORY_SUB_IMAGES,
     GET_ACCOUNT_DETAILS,
     GET_WEBSITE_VISITS,
@@ -52,35 +45,8 @@ class DataManager {
         if (error) return
         return { "childInventory": data, "loading": loading, "error": error }
     }
-    public ManagementInsertInventory() {
-        let [insertInventory] = useMutation(INSERT_INVENTORY, {
-            onCompleted: data => console.log(data)
-        })
-        return insertInventory
-    }
-    public ManagementInsertChildInventory() {
-        let [insertChildInventory] = useMutation(INSERT_CHILD_INVENTORY, {
-            onCompleted: data => console.log(data)
-        })
-        return insertChildInventory
-    }
-    public ManagementAccount() {
-        const { data, loading, error } = useQuery(GET_ACCOUNTS);
-        if (error) return
-        return { "Account": data, "loading": loading, "error": error }
-    }
-    public ManagementUpdate() {
-        let [UpdateChildInventory] = useMutation(UPDATE_CHILD_INVENTORY, {
-            onCompleted: data => console.log(data)
-        })
-        return UpdateChildInventory
-    }
-    public ManagementParentUpdate() {
-        let [UpdateParentInventory] = useMutation(UPDATE_PARENT_INVENTORY, {
-            onCompleted: data => console.log(data)
-        })
-        return UpdateParentInventory
-    }
+
+
     public ManagementProductTypes() {
         const { data, loading, error } = useQuery(GET_PRODUCT_TYPES);
         return { "Product_Type": data, "loading": loading, "error": error }
@@ -92,12 +58,6 @@ class DataManager {
     public ManagementUploadCropImage() {
         const { data, loading, error } = useQuery(GET_BRANDS);
         return { "Brands": data, "loading": loading, "error": error }
-    }
-    public saveCropBlob() {
-        const [saveCrop] = useMutation(SAVE_CROP_IMAGE, {
-            onCompleted: data => console.log(data, "<<<<<")
-        })
-        return saveCrop;
     }
     //************************************************* MANAGEMENT END ***********************************************/
 
@@ -168,18 +128,7 @@ class DataManager {
         console.log(data);
         return { "response": data }
     }
-    public InsertViews() {
-        let [insertviewcount] = useMutation(INSERT_VIEWS_COUNT, {
-            onCompleted: data => console.log(data)
-        })
-        return insertviewcount
-    }
-    public InsertVisits() {
-        let [insertvisitcount] = useMutation(INSERT_VISITS, {
-            onCompleted: data => console.log(data)
-        })
-        return insertvisitcount
-    }
+
     public async Ipaddress() {
         const data = await fetch('https://api.ipify.org?format=json').then(response => response.json())
         return { "ipAddress": data.ip };

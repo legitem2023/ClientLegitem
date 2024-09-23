@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { cookies } from 'components/cookies/cookie'
 import PersonalMessages from 'components/PersonalMessages/PersonalMessages'
 import Loading from 'components/Partial/LoadingAnimation/Loading'
+import LoadActiveUsers from 'components/Partial/Header/LoadActiveUsers'
 
 const Messages = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -30,6 +31,7 @@ const Messages = () => {
   return  isAuthorized ?(
     <div className='Main'>
       <PageHeader />
+      <LoadActiveUsers/>
       <PersonalMessages/>
       <PageFooter />
     </div>

@@ -6,7 +6,7 @@ const Views = ({data}) => {
     const { data: NumberOFViews, loading: viewsLoading } = useQuery(GET_NUM_OF_VIEWS);
     if(viewsLoading) return
   return (
-    <span>{NumberOFViews.getNumberOfViews.filter((numbitem: any) => numbitem.productCode === data.productCode).length}</span>
+    <span>{NumberOFViews?.getNumberOfViews?.filter((numbitem: any) => numbitem.productCode === data.productCode).length}</span>
     )
 }
 

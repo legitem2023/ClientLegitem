@@ -6,7 +6,8 @@ import React,{useState,useEffect, useContext, useRef} from 'react'
 import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { extracted, filterAndSumQuantity, formatter } from 'utils/scripts'
+import { extracted, filterAndSumQuantity, formatter, handleError, imageSource } from 'utils/scripts'
+import Thumbnails from 'components/Products/Thumbnails'
 
 const CartBody = () => {
   const path = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
@@ -30,7 +31,8 @@ const CartBody = () => {
         {/* <Menu/> */}
     </div>
       <div className='middlecontainer'>
-        <h1>No Data</h1>
+        <h1>Cart is Empty</h1>
+        <Thumbnails/>
       </div>
     </div>
   )
@@ -94,7 +96,14 @@ const Cart = (prodCode:any,number:number,e:any) => {
                 
                 <div key={innerIdx} className='CartCols'>
                   <div className='CartImage'>
-                    <Image className="CartImageImage" src={item.Thumbnail === "" || item.Thumbnail === null ? path + "image/Legitem-svg.svg" : path + item.Thumbnail} height='150' width='200' quality={1} alt={innerIdx}></Image>
+                    <Image 
+                          className="CartImageImage"                 
+                          onError={handleError}
+                          src={imageSource(item)}
+                          height="156"
+                          width="200"
+                          quality={1} 
+                          alt={innerIdx}></Image>
                   </div>
                   <div className='CartDetails'>
                     <span>Name: {item.Name}</span>
@@ -157,9 +166,11 @@ const Cart = (prodCode:any,number:number,e:any) => {
                     </span>
                   </div>
           </div>
+          <Thumbnails/>    
 
             </div>
         </div>
+        
         <div className='RightWing'></div>
     </div>
   )

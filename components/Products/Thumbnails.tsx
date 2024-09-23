@@ -71,9 +71,11 @@ const Thumbnails: React.FC = () => {
   if (productsLoading) return <Loading />;
   if (productsError) return <h1>Connection Error</h1>;
 
+  console.log()
+
   return (
     <div className="Thumbnails">
-      {paginatedProducts.map((item: any, idx: number) => (
+      {paginatedProducts.length > 0?paginatedProducts.map((item: any, idx: number) => (
         <div className="thumbnail" key={idx}>
           <div className="thumbnailImageContainer">
             <Link href={createdPath(item)}>
@@ -111,7 +113,7 @@ const Thumbnails: React.FC = () => {
             </div>
           </div>
         </div>
-      ))}
+      )):(<h2>No Data</h2>)}
       <div className="viewmore">
         <Pagination
           currentPage={CurrentPage}

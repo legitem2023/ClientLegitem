@@ -409,9 +409,6 @@ query GetAccountDetails($getAccountDetailsIdId: String) {
     defaultAddress
   }
 }`
-
-
-
 export const GET_PRODUCT_TYPES = gql`
 query GetProductTypes {
   getProductTypes {
@@ -465,84 +462,6 @@ query GetInv_subImage {
   }
 }`
 //*************** QUERIES ***************/
-
-
-//*************** MUTATION ***************/
-export const INSERT_INVENTORY = gql`
-mutation Mutation($emailAddress: String) {
-  insertInventory(emailAddress: $emailAddress) {
-    jsonToken
-    statusText
-  }
-}
-`
-export const INSERT_CHILD_INVENTORY = gql`
-mutation Mutation($emailAddress: String, $styleCode: String) {
-  insertChildInventory(emailAddress: $emailAddress, styleCode: $styleCode) {
-    jsonToken
-    statusText
-  }
-}
-`
-export const INSERT_VIEWS_COUNT = gql`
-mutation Mutation($count: String, $productCode: String, $emailAddress: String, $ipAddress: String, $country: String) {
-  insertNumberOfViews(count: $count, productCode: $productCode, emailAddress: $emailAddress, IpAddress: $ipAddress, Country: $country) {
-    jsonToken
-    statusText
-  }
-}
-`
-export const INSERT_VISITS = gql`
-mutation Mutation($emailAddress: String, $ipAddress: String, $country: String) {
-  insertNumberOfVisit(emailAddress: $emailAddress, IpAddress: $ipAddress, Country: $country) {
-    jsonToken
-    statusText
-  }
-}
-`
-
-export const UPDATE_CHILD_INVENTORY = gql`
-mutation Mutation($productId: Int, $productCode: String, $productName: String, $productColor: String, $productSize: String, $productPrice: String, $productStatus: String, $productStock: String, $email: String) {
-  updateChildInventory(productID: $productId, 
-                       productCode: $productCode, 
-                       productName: $productName, 
-                       productColor: $productColor, 
-                       productSize: $productSize, 
-                       productPrice: $productPrice, 
-                       productStatus: $productStatus, 
-                       productStock: $productStock, 
-                       Email: $email) {
-    jsonToken
-    statusText
-  }
-}
-`
-export const UPDATE_PARENT_INVENTORY = gql`
-mutation Mutation($productId: Int, $category: String, $productType: String, $brandname: String, $productName: String, $status: String) {
-  updateParentInventory(productID: $productId, category: $category, productType: $productType, brandname: $brandname, productName: $productName, status: $status) {
-    jsonToken
-    statusText
-  }
-}
-`
-export const SAVE_CROP_IMAGE = gql`
-mutation Mutation($saveCropImageId: Int, $file: Upload) {
-  saveCropImage(id: $saveCropImageId, file: $file) {
-    jsonToken
-    statusText
-  }
-}
-`
-export const SEND_MESSAGE = gql`
-mutation PostMessage($message: String, $sender: String) {
-  postMessage(Message: $message, Sender: $sender) {
-    id
-    Messages
-    Sender
-    dateSent
-  }
-}`
-
 export const GROUP_SENDER = gql`
 query ReadGroupSender($emailAddress: String) {
   readGroupSender(emailAddress: $emailAddress) {
