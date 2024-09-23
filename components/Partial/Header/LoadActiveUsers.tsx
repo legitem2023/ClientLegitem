@@ -23,6 +23,7 @@ const LoadActiveUsers = () => {
   
   const fetchActiveUsers = () => {
     insertMessage({variables:{emailAddress:cookieEmailAddress}})
+    return
   }
   useEffect(() => {
     if (cookieEmailAddress) {
