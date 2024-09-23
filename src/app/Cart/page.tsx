@@ -4,8 +4,10 @@ import { cookies } from 'components/cookies/cookie'
 import PageFooter from 'components/Partial/Footer/PageFooter'
 import PageHeader from 'components/Partial/Header/PageHeader'
 import React, { useEffect } from 'react'
+import { setGlobalState } from 'state'
 
 const Cart = () => {
+  setGlobalState("drawer",true);
   useEffect(() => {
     cookies();
   }, []);

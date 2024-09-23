@@ -7,12 +7,13 @@ import { cookies } from 'components/cookies/cookie'
 import { useRouter } from 'next/navigation'
 import Loading from 'components/Partial/LoadingAnimation/Loading'
 import LoadActiveUsers from 'components/Partial/Header/LoadActiveUsers'
+import { setGlobalState } from 'state'
 
 const Crowd = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-
+  setGlobalState("drawer",true);
   useEffect(() => {
     const cookie = cookies();
     if (!cookie) {

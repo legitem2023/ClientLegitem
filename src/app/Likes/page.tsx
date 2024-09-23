@@ -7,10 +7,12 @@ import { useEffect, useState } from 'react';
 import PageLikes from '../../../components/Likes/PageLikes'
 import { useRouter } from 'next/navigation';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
+import { setGlobalState } from 'state';
 export default function Likes() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  setGlobalState("drawer",true);
   useEffect(() => {
     const cookie = cookies();
     if (!cookie) {

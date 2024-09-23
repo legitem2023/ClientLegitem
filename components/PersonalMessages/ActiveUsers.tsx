@@ -23,7 +23,7 @@ const ActiveUsers = ({email}) => {
     <ul className='Menu'>
     <li className='Menu_label'>Active Users</li>
     {ActiveUsers.length > 0?ActiveUsers?.map((item: any, index: any) => (
-      <li key={index} className='menu_li' onClick={()=>drawer(item.accountEmail)}>
+      <li key={index} className='menu_li' onClick={()=>drawer(item.accountEmail)} style={{display:item.accountEmail===email?"none":"block"}}>
         {item.accountEmail}
       </li>
     )):<li>No Available Users</li>}

@@ -5,8 +5,10 @@ import React, { useEffect, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import About from 'components/About/About'
 import { cookies } from 'components/cookies/cookie'
+import { setGlobalState } from 'state'
 
 const Aboutpage = () => {
+  setGlobalState("drawer",true);
   useEffect(() => {
     cookies();
   }, []);

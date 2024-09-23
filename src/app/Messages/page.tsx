@@ -9,11 +9,13 @@ import { cookies } from 'components/cookies/cookie'
 import PersonalMessages from 'components/PersonalMessages/PersonalMessages'
 import Loading from 'components/Partial/LoadingAnimation/Loading'
 import LoadActiveUsers from 'components/Partial/Header/LoadActiveUsers'
+import { setGlobalState } from 'state'
 
 const Messages = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  setGlobalState("drawer",false);
   useEffect(() => {
     const cookie = cookies();
     if (!cookie) {
