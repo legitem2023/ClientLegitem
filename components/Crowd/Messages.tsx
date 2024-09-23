@@ -84,9 +84,11 @@ const Messages = () => {
       });
       setIsLoading(false);
       if (textareaRef.current) textareaRef.current.value = '';
+      return;
     } else {
       setIsLoading(false);
       textareaRef.current?.focus();
+      return;
     }
   };
   if(loading) return <Loading />
