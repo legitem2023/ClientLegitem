@@ -7,8 +7,10 @@ import { cookies } from 'components/cookies/cookie'
 import React, { useEffect, useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 
-const page = () => {
-
+const News = () => {
+  useEffect(() => {
+    cookies();
+  }, []);
   return (
     <div className='Main'>
       <PageHeader/>
@@ -19,4 +21,4 @@ const page = () => {
   )
 }
 
-export default page
+export default News

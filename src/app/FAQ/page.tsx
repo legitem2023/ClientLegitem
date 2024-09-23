@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import FaQ from 'components/About/FaQ'
 import { cookies } from 'components/cookies/cookie'
 
-const page = () => {
+const FAQpage = () => {
   useEffect(() => {
     cookies();
   }, []);
@@ -20,4 +20,4 @@ const page = () => {
   )
 }
 
-export default page
+export default FAQpage

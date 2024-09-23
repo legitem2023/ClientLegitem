@@ -6,6 +6,7 @@ import PageFooter from '../../../components/Partial/Footer/PageFooter'
 import { cookies } from 'components/cookies/cookie'
 import { useRouter } from 'next/navigation'
 import Loading from 'components/Partial/LoadingAnimation/Loading'
+import LoadActiveUsers from 'components/Partial/Header/LoadActiveUsers'
 
 const Crowd = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -29,6 +30,7 @@ const Crowd = () => {
   return isAuthorized ? (
     <div className='Main'>
       <PageHeader />
+      <LoadActiveUsers/>
       <CrowdMessages />
       <PageFooter />
     </div>

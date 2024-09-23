@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify'
 import About from 'components/About/About'
 import { cookies } from 'components/cookies/cookie'
 
-const page = () => {
+const Aboutpage = () => {
   useEffect(() => {
     cookies();
   }, []);
@@ -20,4 +20,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Aboutpage
