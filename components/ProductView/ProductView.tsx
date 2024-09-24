@@ -35,6 +35,7 @@ const ProductView: React.FC = () => {
   const [insertNumberOfViews] = useMutation(INSERT_VIEWS_COUNT, {
     onCompleted: (data) => {
       console.log("View inserted:", data);
+      return;
     },
     onError: (error) => {
       console.error("Error inserting view:", error);
@@ -56,7 +57,6 @@ const ProductView: React.FC = () => {
   const viewedProd = Array.isArray(searchParameter) ? searchParameter : [searchParameter];
 
   // const { insert_views_count } = useInsertView();
-console.log(viewedProd)
 
 
   useEffect(() => {

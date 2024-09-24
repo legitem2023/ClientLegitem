@@ -72,7 +72,7 @@ const CheckoutData = () => {
   
   if (AccountLoading) return <Loading/>;
   if (error) return null;
-
+  console.log(filter,"<<<<");
   const HandleSubmit = (e:any) => {
     setLoading(true);
     e.preventDefault();
@@ -89,7 +89,7 @@ const CheckoutData = () => {
           Image: item.Thumbnail,
           Color: item.Color,
           agentEmail:item.agentEmail
-        })),
+        })),  
       },
     });
 
