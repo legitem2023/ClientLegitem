@@ -1,6 +1,7 @@
 "use client"
 import { cookies } from 'components/cookies/cookie';
 import PageFooter from 'components/Partial/Footer/PageFooter';
+import PageHeader from 'components/Partial/Header/PageHeader';
 import ProductView from 'components/ProductView/ProductView'
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -11,6 +12,7 @@ export default function Index() {
   }, []);
   return (
     <div className='Main'>
+        <PageHeader/>
         <ProductView/>
         <ToastContainer/>
         <PageFooter/>

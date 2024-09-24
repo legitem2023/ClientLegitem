@@ -90,6 +90,8 @@ const Messages = ({reciever}) => {
     if (loading) return <Loading />
     if (error) return <p>{error.message}</p>
 //########################## MUTATION PART END ##########################
+
+
     return (
         <div>
             <ul className='messagesUL'>
@@ -100,6 +102,7 @@ const Messages = ({reciever}) => {
                             type="submit"
                             onClick={handleSubmit}
                             disabled={isLoading}
+                            className='universalButtonStyle'
                             >
                             {isLoading ? (
                                 <Icon icon="eos-icons:loading" />
@@ -126,9 +129,9 @@ const Messages = ({reciever}) => {
                             </div>
                         </li>
                     ))}
-                            <li>
-          <button onClick={goToPreviousDay}>Previous Day</button>
-          <button onClick={goToNextDay}>Next Day</button>
+        <li className='messages_pagination'>
+          <button className='universalButtonStyle' onClick={goToPreviousDay}>Previous Day</button>
+          <button className='universalButtonStyle' onClick={goToNextDay}>Next Day</button>
         </li>
             </ul>
         </div>

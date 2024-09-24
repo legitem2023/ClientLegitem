@@ -101,7 +101,7 @@ console.log(viewedProd)
                   <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
                 </div>
                 <div>
-                  <button onClick={() => handleAddToCart(Cart(viewedProd, Manager, quantity))} className='addCart'>
+                  <button onClick={() => handleAddToCart(Cart(viewedProd, Manager, quantity))} className='addCart universalButtonStyle'>
                     <Icon icon="mdi:cart" /> Add to Cart
                   </button>
                 </div>
@@ -127,7 +127,7 @@ console.log(viewedProd)
             <div className='MainView_RelatedProducts'>
               {loading ? <Loading /> : <RelatedProducts data={Products?.getRelatedProduct.slice(0, take)} />}
               <div>
-                <button onClick={() => setTake(take + 5)}>
+                <button onClick={() => setTake(take + 5)} className='universalButtonStyle'>
                   {loading?<Icon icon='eos-icons:bubble-loading' />:"Load More"}
                 </button>
               </div>

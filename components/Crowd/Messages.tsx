@@ -10,10 +10,6 @@ import { useGlobalState } from 'state';
 import { SEND_MESSAGE } from 'graphql/mutation';
 
 const Messages = () => {
-  const getStartOfMonth = () => {
-    const now = new Date();
-    return new Date(now.getFullYear(), now.getMonth(), 1); // Start of the current month
-  };
 
   const [currentDay, setCurrentDay] = useState(new Date()); // Track current day
   const { loading, error, data, subscribeToMore } = useQuery(GET_MESSAGES);
@@ -36,7 +32,6 @@ const Messages = () => {
         });
       },
     });
-
     return () => {
       unsubscribe();
     };
@@ -103,6 +98,7 @@ const Messages = () => {
               type="submit"
               onClick={handleSubmit}
               disabled={isLoading}
+              className='universalButtonStyle'
             >
               {isLoading ? (
                 <Icon icon="eos-icons:loading" />
@@ -124,9 +120,9 @@ const Messages = () => {
             </div>
           </li>
         )):(<h1>No Messages</h1>)}
-        <li>
-          <button onClick={goToPreviousDay}>Previous Day</button>
-          <button onClick={goToNextDay}>Next Day</button>
+        <li className='messages_pagination'>
+          <button className='universalButtonStyle' onClick={goToPreviousDay}>Previous Day</button>
+          <button className='universalButtonStyle' onClick={goToNextDay}>Next Day</button>
         </li>
       </ul>
     </div>

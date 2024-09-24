@@ -56,7 +56,7 @@ const PageHeader = () => {
             {userId === ""?"" : item.Name === 'Account' ?
               <Dropdown path={path} deletecookies={deletecookies} OrderNotification={OrderNotification}/>: ""
             }
-          </nav>:<Link onClick={() => handleClick(item)} href={item.Link} key={idx} className={item.Name === 'Account' ? 'Account' : ''}>
+          </nav>:<Link onClick={() => handleClick(item)} href={path + item.Link} key={idx} className={item.Name === 'Account' ? 'Account' : ''}>
                   {loadingLink === item.Name && item.Link !== "."+currentPath ? (
                     <Icon icon="eos-icons:loading" /> // Loading icon
                   ) : (

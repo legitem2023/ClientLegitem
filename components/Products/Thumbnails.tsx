@@ -9,6 +9,7 @@ import Views from './Views';
 import Pagination from 'components/Pagination/Pagination';
 import { setGlobalState, useGlobalState } from 'state';
 import { createdPath, formatter, handleError, handleLoading, imageSource, limitText } from 'utils/scripts';
+import UniversalPagination from 'components/Partial/Pagination/UniversalPagination';
 
 const Thumbnails: React.FC = () => {
   const [thumbnailCategory] = useGlobalState('thumbnailCategory');
@@ -115,7 +116,7 @@ const Thumbnails: React.FC = () => {
         </div>
       )):(<h2>No Data</h2>)}
       <div className="viewmore">
-        <Pagination
+        <UniversalPagination
           currentPage={CurrentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}

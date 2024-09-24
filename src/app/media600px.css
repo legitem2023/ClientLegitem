@@ -150,18 +150,6 @@
 
     .viewmore {
         grid-column: 1 / span 2 !important;
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top:0px;
-        bottom:0px;
-        margin:auto;
-        z-index: 9999;
-        right:10px;
-    }
-    .viewmore div{
-        display: flex;
-        flex-direction: column;
     }
     .footer {
         grid-template-columns: 100vw;
