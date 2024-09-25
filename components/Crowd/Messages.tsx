@@ -22,7 +22,7 @@ const MessageItem = React.memo(({ item }:any) => (
         />
       </div>
       <div>{item.Messages}</div>
-      <div className='dateSent'>{setTime(item.dateSent)}</div>
+      <div className='dateSent'>{setTime(item?.dateSent===null?"":item?.dateSent)}</div>
     </div>
   </li>
 ));
@@ -54,8 +54,8 @@ const Messages = () => {
   }, [subscribeToMore]);
 
   const paginatePosts = useCallback(() => {
-    const filteredPosts = data?.messages?.filter((post) => {
-      const postDate = new Date(parseInt(post.dateSent));
+    const filteredPosts = data?.messages?.filter((post:any) => {
+      const postDate = new Date(parseInt(post?.dateSent));
       return postDate.toDateString() === currentDay.toDateString();
     });
     setPosts(filteredPosts || []);
