@@ -37,14 +37,17 @@ const Messages = ({reciever}) => {
                 };
             },
         });
-    
         return () => {
             unsubscribe();
         };
     }, [subscribeToMore, cookieEmailAddress]); // Add any other dependencies you may need
 
 //########################## MUTATION PART START ##########################
-    const filteredPosts = data?.personalMessages.filter((item: any) => item.Sender === reciever).filter((post: any) => {
+    const FilterReciever = data?.personalMessages.filter((item)=>item.Reciever===reciever);
+
+    // console.log(FilterReciever)
+
+    const filteredPosts = FilterReciever.filter((post: any) => {
       const postDate = new Date(parseInt(post.dateSent)); // Convert timestamp to date
       return (
         postDate.toDateString() === currentDay.toDateString()
