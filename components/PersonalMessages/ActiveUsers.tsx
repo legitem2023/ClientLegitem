@@ -20,6 +20,11 @@ const ActiveUsers = ({email}) => {
     setGlobalState("drawer",true);
     setGlobalState("SelectedReciever",data);
   }
+  const deletePersonalMSGCount = () => {
+    setGlobalState("messageCount",0);
+    localStorage.removeItem("personalMSGCount");
+
+  };
   return (
     <ul className='Menu'>
     <li className='Menu_label'>Active Users</li>
@@ -31,7 +36,7 @@ const ActiveUsers = ({email}) => {
 
     <li className='Menu_label'>Conversations</li>
       {Userdata.readGroupSender?.map((item: any, index: any) => (
-      <li key={index} className='menu_li' onClick={()=>drawer(item.Reciever)} style={{display:item.Reciever===email?"none":"block",position:"relative"}}>
+      <li key={index} className='menu_li' onClick={()=>{drawer(item.Reciever);deletePersonalMSGCount();}} style={{display:item.Reciever===email?"none":"block",position:"relative"}}>
         {item.Reciever}
         <PersonalMSGNotification sender={item.Sender}/>
       </li>

@@ -22,6 +22,7 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     cookieEmailAddress: "",
     cookieUserLevel: "",
     cookieActiveUser: "",
+    messageCount:0,
     cookieArray:{
         accountEmail:""
     },

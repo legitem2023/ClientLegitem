@@ -1,21 +1,20 @@
 import { useSubscription } from '@apollo/client';
 import { PERSONAL_MESSAGES_ADDED } from 'graphql/subscriptions';
 import React, { useState, useEffect, useRef } from 'react';
-import { useGlobalState } from 'state';
+import { setGlobalState, useGlobalState } from 'state';
 
 const PersonalMSGNotification = ({ sender }: { sender: string }) => {
     const [userEmail] = useGlobalState("cookieEmailAddress");
-    const [tempCount, setTempCount] = useState<number>(0);
     const subscriptionRef = useRef<any>(null);
-
+    const [messageCount] = useGlobalState("messageCount");
     useSubscription(PERSONAL_MESSAGES_ADDED, {
         onSubscriptionData: ({ subscriptionData }) => {
-            console.log(subscriptionData.data?.messagesPersonal)
-            if (subscriptionData.data?.messagesPersonal) {    
-                const filteredBySender = subscriptionData.data.messagesPersonal.filter((data: any) =>
-                    data.Receiver === userEmail && data.Sender === sender
-                );
-                setTempCount(filteredBySender.length);
+            const newMessages = subscriptionData.data?.messagesPersonal || [];
+            const filteredBySender = newMessages.filter((data: any) => data.Reciever === sender);
+            console.log("INitial",filteredBySender.length)
+            if (filteredBySender.length > 0) {
+                setGlobalState("messageCount",prevCount => prevCount + filteredBySender.length);
+                localStorage.setItem("personalMSGCount", JSON.stringify(messageCount + filteredBySender.length));
             }
         },
         onSubscriptionComplete: () => {
@@ -26,6 +25,12 @@ const PersonalMSGNotification = ({ sender }: { sender: string }) => {
     });
 
     useEffect(() => {
+        // Load the initial count from localStorage when component mounts
+        const savedCount = localStorage.getItem("personalMSGCount");
+        if (savedCount) {
+          setGlobalState("messageCount",JSON.parse(savedCount));
+        }
+
         return () => {
             // Unsubscribe on component unmount
             if (subscriptionRef.current) {
@@ -36,7 +41,7 @@ const PersonalMSGNotification = ({ sender }: { sender: string }) => {
 
     return (
         <div style={{
-            display: tempCount < 1 ? "none" : "flex",
+            display: messageCount < 1 ? "none" : "flex",
             width: "25px",
             height: "25px",
             borderRadius: "50%",
@@ -49,7 +54,7 @@ const PersonalMSGNotification = ({ sender }: { sender: string }) => {
             top: "0px",
             right: "0px"
         }}>
-            {tempCount}
+            {messageCount}
         </div>
     );
 };

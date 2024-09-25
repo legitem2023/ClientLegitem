@@ -22,15 +22,17 @@ const Messages = ({reciever}) => {
     const [SelectedReciever] = useGlobalState("SelectedReciever");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [currentDay, setCurrentDay] = useState(new Date()); // Track current day
-
     useEffect(() => {
         const unsubscribe = subscribeToMore({
             document: PERSONAL_MESSAGES_ADDED,
             variables: { emailAddress: cookieEmailAddress }, // Pass any necessary variables
             updateQuery: (prev, { subscriptionData }) => {
-                if (!subscriptionData.data) return prev; // Guard clause
-                const newMessage = subscriptionData.data.messagesPersonal[0]; // Assuming the structure
                 // Assuming messagesPersonal is an array
+                const newMessages = subscriptionData.data.messagesPersonal;
+                if (!newMessages || newMessages.length === 0) return prev; // Check if messagesPersonal is empty or null
+                const newMessage = newMessages[0]; // Assuming it's the first message
+                if (!newMessage) return prev; // If there's no new message, return the previous state
+          
                 return {
                     ...prev,
                     personalMessages: [newMessage, ...prev.personalMessages],
@@ -43,10 +45,7 @@ const Messages = ({reciever}) => {
     }, [subscribeToMore, cookieEmailAddress]); // Add any other dependencies you may need
 
 //########################## MUTATION PART START ##########################
-    const FilterReciever = data?.personalMessages.filter((item)=>item.Reciever===reciever);
-
-    // console.log(FilterReciever)
-
+    const FilterReciever = data?.personalMessages.filter((item)=>item.Reciever===reciever || item.Reciever===cookieEmailAddress);
     const filteredPosts = FilterReciever.filter((post: any) => {
       const postDate = new Date(parseInt(post.dateSent)); // Convert timestamp to date
       return (
@@ -76,7 +75,6 @@ const Messages = ({reciever}) => {
         e.preventDefault();
         setIsLoading(true);
         const message = textareaRef.current?.value;
-
         if (message) {
             await insertMessage({
                 variables: {
@@ -93,8 +91,6 @@ const Messages = ({reciever}) => {
     if (loading) return <Loading />
     if (error) return <p>{error.message}</p>
 //########################## MUTATION PART END ##########################
-
-
     return (
         <div>
             <ul className='messagesUL'>
