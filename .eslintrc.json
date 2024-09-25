@@ -2,6 +2,8 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "@next/next/no-sync-scripts": "error",
-    "@next/next/no-document-import-in-page": "error"
+    "@next/next/no-document-import-in-page": "error",
+    "no-console": "off", // Disable the no-console rule
+    "react/react-in-jsx-scope": "off", // Disable this rule for React
   }
 }
