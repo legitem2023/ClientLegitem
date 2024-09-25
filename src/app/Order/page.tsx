@@ -11,7 +11,6 @@ import { setGlobalState } from 'state'
 export default function Order() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  setGlobalState("drawer",true);
   const router = useRouter();
   useEffect(() => {
     const cookie = cookies();

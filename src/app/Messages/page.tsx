@@ -15,7 +15,6 @@ const Messages = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  // setGlobalState("drawer",false);
   useEffect(() => {
     const cookie = cookies();
     if (!cookie) {

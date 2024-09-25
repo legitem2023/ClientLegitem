@@ -12,7 +12,6 @@ export default function Likes() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  setGlobalState("drawer",true);
   useEffect(() => {
     const cookie = cookies();
     if (!cookie) {

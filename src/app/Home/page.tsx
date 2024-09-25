@@ -7,7 +7,6 @@ import { cookies } from 'components/cookies/cookie';
 import { useEffect } from 'react';
 
 export default function Index() {
-  setGlobalState("drawer",true);
   useEffect(() => {
     cookies();
   }, []);

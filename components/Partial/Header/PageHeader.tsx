@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navigation from '../../../json/navigation.json'
 import Link from 'next/link'
 import { Icon } from '@iconify/react';
@@ -16,6 +16,15 @@ const PageHeader = () => {
   const [drawerState] = useGlobalState("drawer");
   const [loadingLink, setLoadingLink] = useState<string | null>(null);
   const currentPath = usePathname();
+
+
+  useEffect(() => {
+    // Check if the current path is '/messages' and close the drawer
+    if (currentPath === '/Messages') {
+      setGlobalState('drawer', false);
+    }
+  }, [currentPath]); // This runs every time the path changes
+
   const handleClick = (item: any) => {
     if (item.Link !== "."+currentPath) {
       setLoadingLink(item.Name); // Set loading for clicked link only if it's not the current page
@@ -28,6 +37,7 @@ const PageHeader = () => {
       setGlobalState("drawer",true);
     }
   }
+  console.log(currentPath);
   const redirect = useRouter();
   return (
     <>

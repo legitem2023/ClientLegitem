@@ -6,15 +6,26 @@ import { setGlobalState, useGlobalState } from 'state';
 const PersonalMSGNotification = ({ sender }: { sender: string }) => {
     const [userEmail] = useGlobalState("cookieEmailAddress");
     const subscriptionRef = useRef<any>(null);
-    const [messageCount] = useGlobalState("messageCount");
+    const isInitialLoad = useRef(true); // Track the initial load
+
+    // Global state for message count per sender
+    const [messageCounts] = useGlobalState("messageCount"); // Object to hold counts per sender
+
     useSubscription(PERSONAL_MESSAGES_ADDED, {
         onSubscriptionData: ({ subscriptionData }) => {
             const newMessages = subscriptionData.data?.messagesPersonal || [];
-            const filteredBySender = newMessages.filter((data: any) => data.Reciever === sender);
-            console.log("INitial",filteredBySender.length)
-            if (filteredBySender.length > 0) {
-                setGlobalState("messageCount",prevCount => prevCount + filteredBySender.length);
-                localStorage.setItem("personalMSGCount", JSON.stringify(messageCount + filteredBySender.length));
+            const filteredBySender = newMessages.filter((data: any) => data.Sender === sender);
+
+            if (filteredBySender.length > 0 && !isInitialLoad.current) {
+                // Skip this part on initial load
+                setGlobalState("messageCount", (prevCounts: any) => ({
+                    ...prevCounts,
+                    [sender]: (prevCounts[sender] || 0) + filteredBySender.length,
+                }));
+
+                // Persist count to localStorage for the specific sender
+                const updatedCount = (messageCounts[sender] || 0) + filteredBySender.length;
+                localStorage.setItem(`personalMSGCount_${sender}`, JSON.stringify(updatedCount));
             }
         },
         onSubscriptionComplete: () => {
@@ -25,11 +36,16 @@ const PersonalMSGNotification = ({ sender }: { sender: string }) => {
     });
 
     useEffect(() => {
-        // Load the initial count from localStorage when component mounts
-        const savedCount = localStorage.getItem("personalMSGCount");
+        // Load the initial count from localStorage when component mounts for the specific sender
+        const savedCount = localStorage.getItem(`personalMSGCount_${sender}`);
         if (savedCount) {
-          setGlobalState("messageCount",JSON.parse(savedCount));
+            setGlobalState("messageCount", (prevCounts: any) => ({
+                ...prevCounts,
+                [sender]: JSON.parse(savedCount),
+            }));
         }
+
+        isInitialLoad.current = false; // Mark as no longer the initial load
 
         return () => {
             // Unsubscribe on component unmount
@@ -37,11 +53,12 @@ const PersonalMSGNotification = ({ sender }: { sender: string }) => {
                 subscriptionRef.current.unsubscribe();
             }
         };
-    }, []);
+    }, [sender]);
 
+    const count = messageCounts[sender] || 0; // Get the message count for the specific sender
     return (
         <div style={{
-            display: messageCount < 1 ? "none" : "flex",
+            display: count < 1 ? "none" : "flex",
             width: "25px",
             height: "25px",
             borderRadius: "50%",
@@ -54,7 +71,7 @@ const PersonalMSGNotification = ({ sender }: { sender: string }) => {
             top: "0px",
             right: "0px"
         }}>
-            {messageCount}
+            {count}
         </div>
     );
 };

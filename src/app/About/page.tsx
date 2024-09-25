@@ -8,7 +8,6 @@ import { cookies } from 'components/cookies/cookie'
 import { setGlobalState } from 'state'
 
 const Aboutpage = () => {
-  setGlobalState("drawer",true);
   useEffect(() => {
     cookies();
   }, []);

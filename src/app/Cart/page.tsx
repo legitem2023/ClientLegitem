@@ -7,7 +7,6 @@ import React, { useEffect } from 'react'
 import { setGlobalState } from 'state'
 
 const Cart = () => {
-  setGlobalState("drawer",true);
   useEffect(() => {
     cookies();
   }, []);
