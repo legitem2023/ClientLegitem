@@ -203,8 +203,8 @@ query ReadNews {
 `
 
 export const READ_PERSONAL_MESSAGES = gql`
-query PersonalMessages($emailAddress: String) {
-  personalMessages(emailAddress: $emailAddress) {
+query PersonalMessages($emailAddress: String, $reciever: String) {
+  personalMessages(emailAddress: $emailAddress, reciever: $reciever) {
     id
     Messages
     Sender
@@ -213,8 +213,6 @@ query PersonalMessages($emailAddress: String) {
   }
 }
 `
-
-
 
 export const GET_MESSAGES = gql`
 query Messages {

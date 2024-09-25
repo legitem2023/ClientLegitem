@@ -214,6 +214,10 @@ input[type='date']{
   height: auto;
 }
 
+
+
+
+.messagesLI_me,
 .messagesLI {
   display: flex;
   flex-direction: column;
@@ -226,18 +230,25 @@ input[type='date']{
   border-radius: 10px;
   transition: ease 0.5s;
 }
-
-.messagesLI:hover {
-  background: linear-gradient(-45deg, #a8eb12, #00bf72, #008793);
+.messagesLI_me{
+  background: linear-gradient(-45deg, #12ebd9, #0099bf, #006993);
+}
+.messagesLI{
+  background: linear-gradient(-45deg, #24eb12, #01a561, #00937a);
 }
 
-.messagesLI div {
+/* .messagesLI:hover {
+  background: linear-gradient(-45deg, #a8eb12, #00bf72, #008793);
+} */
+
+.messagesLI div,
+.messagesLI_me div {
   width: 100%;
   background-color: #f2f2f2;
 }
 
-
-.messagesLI div div {
+.messagesLI div div,
+.messagesLI_me div div {
   padding: 10px;
   width: auto;
 }
