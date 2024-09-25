@@ -15,7 +15,6 @@ const PersonalMessages = () => {
     const [userEmail] = useGlobalState("cookieEmailAddress") 
     const { loading, error, data } = useQuery(READ_PERSONAL_MESSAGES,{variables:{emailAddress:userEmail}});
     if(loading) return
-
     return (
         <div className='body_messages'>
             <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>

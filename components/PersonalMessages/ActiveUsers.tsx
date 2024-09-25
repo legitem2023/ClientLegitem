@@ -3,6 +3,7 @@ import { READ_ACTIVE_USER } from 'graphql/queries';
 import { GROUP_SENDER } from 'graphql/queries';
 import { ACTIVE_USERS } from 'graphql/subscriptions';
 import { setGlobalState, useGlobalState } from 'state';
+import PersonalMSGNotification from './PersonalMSGNotification';
 
 const ActiveUsers = ({email}) => {
 
@@ -30,8 +31,9 @@ const ActiveUsers = ({email}) => {
 
     <li className='Menu_label'>Conversations</li>
       {Userdata.readGroupSender?.map((item: any, index: any) => (
-      <li key={index} className='menu_li' onClick={()=>drawer(item.Reciever)} style={{display:item.Reciever===email?"none":"block"}}>
+      <li key={index} className='menu_li' onClick={()=>drawer(item.Reciever)} style={{display:item.Reciever===email?"none":"block",position:"relative"}}>
         {item.Reciever}
+        <PersonalMSGNotification sender={item.Sender}/>
       </li>
     ))}
     </ul> )

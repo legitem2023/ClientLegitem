@@ -6,8 +6,6 @@ import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import { setTime } from 'utils/cookie'
 import Loading from 'components/Partial/LoadingAnimation/Loading'
-
-import { cookies } from 'components/cookies/cookie'
 import { useGlobalState } from 'state'
 import { POSTPERSONAL_MESSAGES } from 'graphql/mutation'
 import { PERSONAL_MESSAGES_ADDED } from 'graphql/subscriptions'
@@ -23,28 +21,30 @@ const Messages = ({reciever}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [SelectedReciever] = useGlobalState("SelectedReciever");
     const textareaRef = useRef<HTMLTextAreaElement>(null);
-    const [posts, setPosts] = useState([]);
     const [currentDay, setCurrentDay] = useState(new Date()); // Track current day
 
     useEffect(() => {
-        cookies();
         const unsubscribe = subscribeToMore({
             document: PERSONAL_MESSAGES_ADDED,
+            variables: { emailAddress: cookieEmailAddress }, // Pass any necessary variables
             updateQuery: (prev, { subscriptionData }) => {
-                if (!subscriptionData.data) return prev;
-                const newMessage = subscriptionData?.data.messagesPersonal;
-                return Object.assign({}, prev, {
-                    personalMessages: [newMessage, ...(prev?.personalMessages || [])]
-                });
+                if (!subscriptionData.data) return prev; // Guard clause
+                const newMessage = subscriptionData.data.messagesPersonal[0]; // Assuming the structure
+                // Assuming messagesPersonal is an array
+                return {
+                    ...prev,
+                    personalMessages: [newMessage, ...prev.personalMessages],
+                };
             },
         });
+    
         return () => {
             unsubscribe();
         };
-    }, [subscribeToMore]);
+    }, [subscribeToMore, cookieEmailAddress]); // Add any other dependencies you may need
 
 //########################## MUTATION PART START ##########################
-    const filteredPosts = data?.personalMessages.filter((item: any) => item.Reciever === SelectedReciever).filter((post: any) => {
+    const filteredPosts = data?.personalMessages.filter((item: any) => item.Reciever === reciever).filter((post: any) => {
       const postDate = new Date(parseInt(post.dateSent)); // Convert timestamp to date
       return (
         postDate.toDateString() === currentDay.toDateString()
