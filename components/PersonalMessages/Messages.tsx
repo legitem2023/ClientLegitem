@@ -37,8 +37,6 @@ const Messages = ({reciever}) => {
                 );
     
                 if (filteredNewMessages.length === 0) return prev; // If no messages pass the filter, return the previous state
-    
-                console.log(filteredNewMessages,"sender");
 
                 // Update the state with the new filtered messages
                 return {
@@ -54,7 +52,7 @@ const Messages = ({reciever}) => {
     }, [subscribeToMore, cookieEmailAddress, reciever]); // Add necessary dependencies
 
 //########################## MUTATION PART START ##########################
-    const FilterReciever = data?.personalMessages.filter((item)=>(item.Sender===reciever || item.Sender === cookieEmailAddress) && (item.Reciever===cookieEmailAddress || item.Reciever === reciever));
+    const FilterReciever = data?.personalMessages;
     const filteredPosts = FilterReciever.filter((post: any) => {
       const postDate = new Date(parseInt(post.dateSent)); // Convert timestamp to date
       return (
