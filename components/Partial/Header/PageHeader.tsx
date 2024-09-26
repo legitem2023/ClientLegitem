@@ -37,7 +37,7 @@ const PageHeader = () => {
       setGlobalState("drawer",true);
     }
   }
-  console.log(currentPath);
+
   const redirect = useRouter();
   return (
     <>

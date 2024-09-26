@@ -15,7 +15,7 @@ const Thumbnails: React.FC = () => {
   const [thumbnailCategory] = useGlobalState('thumbnailCategory');
   const [thumbnailProductTypes] = useGlobalState('thumbnailProductTypes');
   const [thumbnailSearch] = useGlobalState('thumbnailSearch');
-
+  const path = process.env.NEXT_PUBLIC_PATH || '';
   const [CurrentPage] = useGlobalState('CurrentPage');
   const [sortBy] = useGlobalState('sortBy');
   const [sortDirection] = useGlobalState('sortDirection');
@@ -79,7 +79,7 @@ const Thumbnails: React.FC = () => {
       {paginatedProducts.length > 0?paginatedProducts.map((item: any, idx: number) => (
         <div className="thumbnail" key={idx}>
           <div className="thumbnailImageContainer">
-            <Link href={createdPath(item)}>
+            <Link href={`${path}Products/${item.id}`}>
               <Image
                 src={imageSource(item)}
                 height="156"

@@ -107,23 +107,7 @@ export  const handleLoading = (event: React.SyntheticEvent<HTMLImageElement, Eve
 
 export const createdPath = (data: any) => {
   const path = process.env.NEXT_PUBLIC_PATH || '';
-  const jsonData = {
-    "agentEmail":data.agentEmail,
-    "category":data.category,
-    "color":data.color,
-    "id":data.id,
-    "model":data.model,
-    "name":data.name,
-    "price":data.price,
-    "productCode":data.productCode,
-    "productDescription":encode(data.productDescription===null?'':data.productDescription),
-    "size":data.size,
-    "thumbnail":data.thumbnail
-  }
-
-
-
-  return `${path}Products/${data.id}?data=${encodeURIComponent(btoa(JSON.stringify(jsonData)))}`;
+  return `${path}Products/${data.id}`;
 };
 
 export const imageSource = (item:any) =>{

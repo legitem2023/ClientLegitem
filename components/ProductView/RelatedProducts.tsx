@@ -29,10 +29,13 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
 
 
   return (
+    <div className='MainView_Rchild'>
+    <div className='LabelHead'>Related Product</div>
+    <div className='MainView_RelatedProducts'>
     <div>
       {data.map((item, idx) => (
         <div key={idx} className='MainView_RelatedProductsThumbs'>
-            <Link href={createdPath(item)}>
+            <Link href={`${path}Products/${item.id}`}>
               <Image
                 src={imageSource(item)}
                 height='200'
@@ -53,9 +56,6 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
             <div>
               <span>Ratings :</span><span></span>
             </div>
-            <div>
-              <span>Size :</span><span></span>
-            </div>
             <div className='Rates'>
               <div className='ViewsLikes'>
                 <Ratings />
@@ -64,6 +64,8 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
           </div>
         </div>
       ))}
+    </div>
+    </div>
     </div>
   );
 };

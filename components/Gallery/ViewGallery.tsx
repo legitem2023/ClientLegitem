@@ -7,7 +7,6 @@ import { useGlobalState } from 'state';
 import { useQuery } from '@apollo/client';
 import { GET_INVENTORY_SUB_IMAGES } from 'graphql/queries';
 import  { useState, useEffect, useRef } from "react";
-
 export const ViewGallery = () => {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);

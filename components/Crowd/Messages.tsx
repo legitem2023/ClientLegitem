@@ -101,7 +101,7 @@ const Messages = () => {
 
   return (
     <div>
-      <ul className='messagesUL'>
+      <ul className='messagesUL keep_on_top'>
         <li className='messagesLI_1'>
           <div className='Messenger_inputs'>
             <textarea ref={textareaRef} id='textarea' placeholder="Message" />

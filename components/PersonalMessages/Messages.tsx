@@ -52,8 +52,9 @@ const Messages = ({reciever}) => {
     }, [subscribeToMore, cookieEmailAddress, reciever]); // Add necessary dependencies
 
 //########################## MUTATION PART START ##########################
-    const FilterReciever = data?.personalMessages;
-    const filteredPosts = FilterReciever.filter((post: any) => {
+    const FilterReciever = data?.personalMessages.filter(
+        (item: any) => (item.Sender===reciever || item.Sender === cookieEmailAddress) && (item.Reciever===cookieEmailAddress || item.Reciever === reciever))
+        const filteredPosts = FilterReciever.filter((post: any) => {
       const postDate = new Date(parseInt(post.dateSent)); // Convert timestamp to date
       return (
         postDate.toDateString() === currentDay.toDateString()
@@ -99,7 +100,7 @@ const Messages = ({reciever}) => {
 //########################## MUTATION PART END ##########################
     return (
         <div>
-            <ul className='messagesUL'>
+            <ul className='messagesUL keep_on_top'>
                 <li className='messagesLI_1'>
                     <div className='Messenger_inputs'>
                         <textarea ref={textareaRef} id='textarea' placeholder="Message"></textarea>

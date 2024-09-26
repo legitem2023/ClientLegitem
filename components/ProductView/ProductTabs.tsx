@@ -1,5 +1,5 @@
 import React from "react";
-import { Gallery } from "components/Gallery/Gallery";
+import { ViewedGallery } from "components/Gallery/ViewedGallery";
 import ModelViewer from "components/Partial/ThreeJS/ModelViewer";
 import 'react-tabs/style/react-tabs.css';
 import { Icon } from "@iconify/react";
@@ -46,7 +46,7 @@ export default function ProductTabs({data}) {
 
 
   }
-
+  
   return (
     <div className="flex flex-col px-4">
       <div className="flex w-full flex-col">
@@ -56,8 +56,7 @@ export default function ProductTabs({data}) {
           <button className="tablink" onClick={() => { setIsActive("VTO"); openCity('VTO', 'VTOBut') }} id="VTOBut">VTO</button>
         </div>
         <div id="Gallery" className="tabcontent">
-          {isActive === "Gallery" ? <Gallery data={data}/> : ""}
-          {/* <ViewGallery/> */}
+          {isActive === "Gallery" ? <ViewedGallery data={data}/> : ""}
         </div>
         <div id="ThreeJS" className="tabcontent">
           {isActive === "ThreeJS" ? <div className='ThreeJS' id='ThreeJS'>

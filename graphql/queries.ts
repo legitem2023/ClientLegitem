@@ -250,33 +250,13 @@ query GetChildInventory {
     brandname
   }
 }`
-export const GET_CHILD_INVENTORY_DETAIL = gql`
+export const GET_CHILD_INVENTORY_RELATED_COLOR_SIZE = gql`
 query GetChildInventory_details($styleCode: String) {
   getChildInventory_details(styleCode: $styleCode) {
     id
-    name
-    agentEmail
-    category
     color
-    creator
-    dateCreated
-    dateUpdated
-    editor
-    price
-    imageReferences
-    productCode
-    productType
     size
-    status
-    stock
-    style_Code
     thumbnail
-    subImageFieldOut {
-      ImagePath
-      id
-      subImageRelationChild
-      subImageRelationParent
-    }
   }
 }
 `
@@ -303,7 +283,8 @@ query GetRelatedProduct {
     productDescription
   }
 }`
-export const GET_VIEW_PRODUCT = gql`query GetToviewProduct($getToviewProductId: Int) {
+export const GET_VIEW_PRODUCT = gql`
+query GetToviewProduct($getToviewProductId: Int) {
   getToviewProduct(id: $getToviewProductId) {
     agentEmail
     model
@@ -325,6 +306,7 @@ export const GET_VIEW_PRODUCT = gql`query GetToviewProduct($getToviewProductId: 
     stock
     style_Code
     thumbnail
+    productDescription
     subImageFieldOut {
       ImagePath
       id

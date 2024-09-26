@@ -146,7 +146,6 @@
         background-color: rgb(3, 128, 90);
         z-index: 99999;
         width:100vw;
-        min-height: 100vh;
     }
 
     .LeftWing_ {
@@ -156,7 +155,6 @@
         background-color: rgb(3, 128, 90);
         z-index: 99999;
         width:100vw;
-        min-height: 100vh;
       }
 
 
