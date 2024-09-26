@@ -19,7 +19,6 @@ import {
     GET_NAME_OF_STORE,
     GET_PRODUCT_TYPES,
     MANAGEMENT_INVENTORY,
-    GET_CHILD_INVENTORY_DETAIL,
     GET_BRANDS,
     GET_NUM_OF_VIEWS, GET_LOCATION_DATA,
     GET_INVENTORY_SUB_IMAGES,
@@ -40,12 +39,6 @@ class DataManager {
         if (error) return
         return { "Inventory": data, "loading": loading, "error": error }
     }
-    public ManagementChildInventory(styleCode: any) {
-        const { data, loading, error } = useQuery(GET_CHILD_INVENTORY_DETAIL, { variables: { styleCode: styleCode } });
-        if (error) return
-        return { "childInventory": data, "loading": loading, "error": error }
-    }
-
 
     public ManagementProductTypes() {
         const { data, loading, error } = useQuery(GET_PRODUCT_TYPES);
