@@ -44,7 +44,7 @@ const Messages = () => {
         const newMessage = subscriptionData.data.messageAdded;
         return {
           ...prev,
-          messages: [newMessage, ...prev.messages]
+          messages: prev.messages ? [newMessage, ...prev.messages] : [newMessage],
         };
       },
     });

@@ -140,7 +140,7 @@
 
 
     .LeftWing {
-        left: -100%;
+        left: -100vw;
         position: absolute;
         transition: ease 0.5s;
         background-color: rgb(3, 128, 90);
@@ -262,13 +262,15 @@
         margin: 5px;
         padding: 10px;
     }
-
+    .game-icons--shopping-cart{
+        height: 60vw;
+    }
     .react-stacked-center-carousel {
-        height: 30vh !important;
+        height: 20vh !important;
     }
 
     .carouselImage {
-        transform: scale(0.7);
+        transform: scale(0.5);
     }
 
     .CartColsHead {

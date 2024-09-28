@@ -8,6 +8,16 @@
         /* z-index: 99999; */
         /* background-color: rgb(255, 255, 255); */
     }
+    .react-stacked-center-carousel {
+        height: 20vh !important;
+    }
+    .game-icons--shopping-cart{
+        height: 80vw!important;
+    }
+    .carouselImage {
+        transform: scale(0.4)!important;
+    }
+
     .LabelBack{
         width:100%;
     }

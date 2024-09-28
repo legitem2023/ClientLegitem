@@ -7,22 +7,34 @@ import { useQuery } from '@apollo/client';
 import { GET_ACCOUNT_DETAILS_ID } from 'graphql/queries';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
 import { useGlobalState } from 'state';
+import Input from 'components/UI/Input';
+import { useState } from 'react';
+import InsertForm from './InsertForm';
 interface PageAccountProps {
   userId: string;
 }
 
 const PageAccount = ({ userId }) => {
   const router = useRouter();
+  const [useScale,setScale] = useState(0);
   const [drawerState] = useGlobalState("drawer");
-
-  const { data:AccountDetails, loading:AccountLoading, error } = useQuery(GET_ACCOUNT_DETAILS_ID, { variables: { getAccountDetailsIdId: userId } });
+  const [useForm,setForm] = useState({
+    Fullname:"",
+    contactNo:"",
+    Address:"",
+  })
+  const { data:AccountDetails, loading:AccountLoading, error:AccountError,refetch:AccountRefetch } = useQuery(GET_ACCOUNT_DETAILS_ID, { variables: { getAccountDetailsIdId: userId } });
 if(AccountLoading) return <Loading/>
+
+
+
   return (
     <div className='body'>
       <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>
         <AccountMenu />
       </div>
       <div className='middlecontainer'>
+        <InsertForm setScale={setScale} useScale={useScale}/>
         <div className='ProfileDetails'>
           <div className='AddressList'>
             <div className='LabelHead carouselLabel'>
@@ -51,31 +63,27 @@ if(AccountLoading) return <Loading/>
                 {item?.fullname}
               </div>
               <div>
-              {item?.accountEmail}
+                {item?.accountEmail}
               </div>
               <div>
-              {item?.contactNo}
+                {item?.contactNo}
               </div>
               <div>
-              {item?.Address}
+                {item?.Address}
               </div>
             </div>
             ))
           }
-
-          <div className='AddressButtonContainer'>
-            <button><Icon icon="ic:sharp-save" /></button>
-          </div>
           <div className='AddressList'>
             <div className='LabelHead carouselLabel'>
               <Icon icon="ph:address-book-fill" /> Addresses
             </div>
-            {/* <div className='AddressButtonContainer'>
-              <button><Icon icon="icon-park-solid:add"/></button>
-            </div> */}
+            <div className='AddressButtonContainer'>
+            <button onClick={()=>setScale(1)}><Icon icon="mingcute:add-fill"/></button>
+            </div>
           </div>
           <div className='AddressesCollapse'>
-            <AccordionAddress address={AccountDetails?.getAccountDetails_id} />
+            <AccordionAddress address={AccountDetails?.getAccountDetails_id} refetch={AccountRefetch}/>
           </div>
         </div>
       </div>

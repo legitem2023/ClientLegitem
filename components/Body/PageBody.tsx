@@ -6,12 +6,16 @@ import Carousel from 'components/Carousel'
 import { Icon } from '@iconify/react'
 import { setGlobalState, useGlobalState } from 'state'
 import Commercial3DModel from 'components/Partial/ThreeJS/Commercial3DModel'
+import { useQuery } from '@apollo/client'
+import { GET_CATEGORY } from 'graphql/queries'
+import Loading from 'components/Partial/LoadingAnimation/Loading'
 const PageBody = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [drawerState] = useGlobalState("drawer");
   const [sortDirection] = useGlobalState("sortDirection");
   const [sortBy] = useGlobalState("sortBy");
   const [activeModel] = useGlobalState("activeModel")
+  const { data:Category, loading, error } = useQuery(GET_CATEGORY);
 
   const scrollToTop = () => {
 
@@ -41,6 +45,9 @@ const PageBody = () => {
       }
   }) 
 
+  if(loading) return
+  if(error) return "Connection Error";
+
   return (
     <div className='body'>
       <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>
@@ -66,7 +73,11 @@ const PageBody = () => {
               </button>
           </div>
         </div>
-        {/* <Commercial3DModel data={activeModel}/> */}
+        {/* <Commercial3DModel data={activeModel}/>
+         */}
+        <div className='carousel'>
+          <Carousel data={Category?.getCategory}></Carousel>
+        </div>
         <Thumbnails />
       </div>
       <div className='RightWing'>

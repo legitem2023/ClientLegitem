@@ -4,17 +4,16 @@ import 'swiper/css';
 import 'swiper/css/scrollbar';
 import Image from 'next/image';
 import { handleError, imageSourceGallery } from 'utils/scripts';
-export const ViewedGallery = ({data}) => {
+export const Gallery = ({data,length,slidesPerView,spaceBetween}) => {
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-  // console.log(data.length)
+
   return (
       <Swiper
-      spaceBetween={50}
-      slidesPerView={1}
+      spaceBetween={spaceBetween}
+      slidesPerView={slidesPerView}
       loop={true}>
-      {
-      data.length > 0?
-        data[0].subImageFieldOut.map((item:any, i:any) => (
+      {length.length > 0?
+        data.map((item:any, i:any) => (
         <SwiperSlide key={i}>
             <Image key={i} 
                    src={imageSourceGallery(item)} 
@@ -23,16 +22,13 @@ export const ViewedGallery = ({data}) => {
                    width='400' height='350' />
             {item.title}
         </SwiperSlide>
-        ))
-      :        <SwiperSlide>
-      <Image  
-             src={`${imgPath}`} 
+      )):<SwiperSlide>
+      <Image src={`${imgPath}`} 
              onError={handleError}
              alt={"alt" + 1} 
-             width='400' height='350' />
-      
-  </SwiperSlide>
-  }
+             width='400' height='350'/>
+        </SwiperSlide>
+      }
     </Swiper>
   );
 };

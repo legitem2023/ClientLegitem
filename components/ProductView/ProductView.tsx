@@ -53,7 +53,8 @@ const ProductView: React.FC = () => {
   if(ViewProductError) return
   return (
     <Suspense fallback={<Loading />}>
-      {ViewProduct?.getToviewProduct.length > 0 ? ViewProduct?.getToviewProduct.map((viewItem: any, idx: any) => (
+      {ViewProduct?.getToviewProduct.length > 0 ? 
+        ViewProduct?.getToviewProduct.map((viewItem: any, idx: any) => (
         <div className='MainView' key={idx}>
           <div className='MainView_Lchild'>
             <div className='LabelHead'>Product Data</div>

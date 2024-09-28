@@ -115,6 +115,12 @@ export const imageSource = (item:any) =>{
   return item?.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage()
 }
 
+export const imageSource_cart = (item:any) =>{
+  const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
+  return item?.Thumbnail ? `${imgPath}${item.Thumbnail}` : fallbackImage()
+}
+
+
 export const imageSourceOrder = (item:any) =>{
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
   return item.Image ? `${imgPath}${item.Image}` : fallbackImage()

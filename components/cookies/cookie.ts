@@ -1,3 +1,4 @@
+'use client'
 import { useMutation } from '@apollo/client';
 import jwt, { JwtPayload as DefaultJwtPayload } from 'jsonwebtoken';
 import { setGlobalState } from 'state';
@@ -10,28 +11,23 @@ interface JwtPayload extends DefaultJwtPayload {
     };
 }
 
+export const getCookie = (cookieName: string): string | null => {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(`${cookieName}=`)) {
+            return cookie.substring(cookieName.length + 1);
+        }
+    }
+    return null;
+};
 
 export const cookies = () => {
-    // Function to get a specific cookie by its name
-    const getCookie = (cookieName: string): string | null => {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.startsWith(`${cookieName}=`)) {
-                return cookie.substring(cookieName.length + 1);
-            }
-        }
-        return null;
-    };
-
-    // Retrieve the 'clientToken' cookie which contains the array of user tokens
     const cookie = getCookie("clientToken");
-
     if (!cookie) {
+        document.location.href='../Login';
         return;
     }
-
-    // Parse the cookie value as an array (since it's stored as JSON)
     let userTokens: string[] = [];
     try {
         userTokens = JSON.parse(decodeURIComponent(cookie));
@@ -39,12 +35,9 @@ export const cookies = () => {
         console.error("Error parsing cookie:", error);
         return;
     }
-
-    // Iterate over each user token in the array
     for (const tokenString of userTokens) {
         const token = jwt.decode(tokenString) as JwtPayload | null;
         if (!token || !token.user) {
-            // If the token is invalid, redirect to login
             document.location.href = '../Login';
             return;
         }
@@ -67,9 +60,7 @@ export const deletecookies = (token:any) =>{
         expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
         document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
     };
-
     const deleteCookie = (name: string) => {
-        // Setting the cookie with a past expiration date effectively deletes it
         setCookie(name, '', -1);
     };
     const conf = confirm("Are you sure you want to logout?");
@@ -77,7 +68,7 @@ export const deletecookies = (token:any) =>{
         setGlobalState("cookieEmailAddress", "");
         setGlobalState("cookieUserLevel", "");
         setGlobalState("cookieActiveUser", "");
-        document.location.href = '../Login';
+        // document.location.href = '../Login';
         deleteCookie(token);
     }
 }

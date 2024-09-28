@@ -46,12 +46,23 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     setCartItems(cpyCartItems);
     setCartData(cpyCartItems);
 }
-  function handleRemoveFromCart(itemId: any) {
-    let getCurrentItem = getCartData();
+function handleRemoveFromCart(itemId: any) {
+  let getCurrentItem = getCartData();
+  
+  // Find the item in the cart with the matching productCode
+  let foundItem = getCurrentItem.find(item => item[0].productCode === itemId);
+
+  // Check if the item's quantity is 1, then remove the entire cart
+  if (foundItem && foundItem[1] === 1) {
+    setCartItems([]);
+    localStorage.removeItem('cartItems');
+  } else {
+    // If not, just remove the specific item
     let cpyCartItems = getCurrentItem.filter(item => item[0].productCode !== itemId);
     setCartItems(cpyCartItems);
     setCartData(cpyCartItems);
   }
+}
 
   const contextValue: ContextProps = {
     cartItems,

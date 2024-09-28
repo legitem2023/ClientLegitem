@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
-import { GET_CHILD_INVENTORY } from 'graphql/queries';
+import { GET_CHILD_INVENTORY, READ_CATEGORY } from 'graphql/queries';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
 import Ratings from 'components/Partial/Ratings/Ratings';
 import Views from './Views';
@@ -10,6 +10,8 @@ import Pagination from 'components/Pagination/Pagination';
 import { setGlobalState, useGlobalState } from 'state';
 import { createdPath, formatter, handleError, handleLoading, imageSource, limitText } from 'utils/scripts';
 import UniversalPagination from 'components/Partial/Pagination/UniversalPagination';
+import { Gallery } from 'components/Gallery/Gallery';
+import { Icon } from '@iconify/react';
 
 const Thumbnails: React.FC = () => {
   const [thumbnailCategory] = useGlobalState('thumbnailCategory');
@@ -19,6 +21,9 @@ const Thumbnails: React.FC = () => {
   const [CurrentPage] = useGlobalState('CurrentPage');
   const [sortBy] = useGlobalState('sortBy');
   const [sortDirection] = useGlobalState('sortDirection');
+
+  const { data: categoryData, loading: categoryLoading, error: categoryError } = useQuery(READ_CATEGORY);
+
   const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY,{
     fetchPolicy: 'cache-and-network',
   });
@@ -72,9 +77,10 @@ const Thumbnails: React.FC = () => {
   if (productsLoading) return <Loading />;
   if (productsError) return <h1>Connection Error</h1>;
 
-  console.log()
+  if(categoryLoading) return
 
   return (
+    <>
     <div className="Thumbnails">
       {paginatedProducts.length > 0?paginatedProducts.map((item: any, idx: number) => (
         <div className="thumbnail" key={idx}>
@@ -109,8 +115,9 @@ const Thumbnails: React.FC = () => {
               <span>Views :</span>
               <Views data={item} />
             </div>
-            <div>
+            <div className='Thumbnails_rating_cart'>
               <Ratings />
+              <Icon icon='mdi:cart' className='iconify_cart'/>
             </div>
           </div>
         </div>
@@ -123,6 +130,7 @@ const Thumbnails: React.FC = () => {
         />
       </div>
     </div>
+    </>
   );
 };
 

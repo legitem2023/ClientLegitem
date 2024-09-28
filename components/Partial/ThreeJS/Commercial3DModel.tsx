@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import React, { useState, useEffect, useRef } from 'react';
 const Commercial3DModel = ({data}) => {
     const [useHeight, setHeight] = useState('100vw');
@@ -26,6 +27,11 @@ const Commercial3DModel = ({data}) => {
 
     return (
         <div>
+             <Script
+                    type="module"
+                    src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+                    strategy="lazyOnload"
+                />
             <model-viewer
                 src={data}
                 alt="A 3D model"

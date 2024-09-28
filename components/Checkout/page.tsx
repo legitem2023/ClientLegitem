@@ -36,7 +36,7 @@ const CheckoutData = () => {
     }
   });
 
-  const { data: AccountDetails, loading: AccountLoading, error } = useQuery(GET_ACCOUNT_DETAILS_ID, { 
+  const { data: AccountDetails, loading: AccountLoading, error:AccountError,refetch:AccountRefetch } = useQuery(GET_ACCOUNT_DETAILS_ID, { 
     variables: { getAccountDetailsIdId: useCookie },
     skip: !useCookie // Skip the query if useCookie is not yet set
   });
@@ -53,9 +53,12 @@ const CheckoutData = () => {
   const email:any = cookie.email;
   setCookie(id);
   setEmail(email);
-  setGlobalState("checkoutAddress",AccountDetails?.getAccountDetails_id[0].Address);
-  setGlobalState("checkoutContact",AccountDetails?.getAccountDetails_id[0].contactNo);
-  },[])
+  const filter = AccountDetails?.getAccountDetails_id?.filter((item:any) =>item.defaultAddress === true);
+  
+  if(!filter) return 
+  setGlobalState("checkoutAddress",filter[0].Address);
+  setGlobalState("checkoutContact",filter[0].contactNo);
+  },[AccountDetails])
 
   if(!Storage) return
   const data = JSON.parse(Storage);
@@ -71,31 +74,31 @@ const CheckoutData = () => {
   const filter = filterAndSumQuantity(extracted());
   
   if (AccountLoading) return <Loading/>;
-  if (error) return null;
-  console.log(filter,"<<<<");
-  const HandleSubmit = (e:any) => {
-    setLoading(true);
-    e.preventDefault();
-    insert_order({
-      variables: {
-        orderHistoryInput: filter.map((item: any) => ({
-          Address: checkoutAddress,
-          Contact: checkoutContact,
-          Price: parseFloat(item.Price),
-          Quantity: item.Quantity,
-          emailAddress: useEmail,
-          productCode: item.productCode,
-          Size: item.Size,
-          Image: item.Thumbnail,
-          Color: item.Color,
-          agentEmail:item.agentEmail
-        })),  
-      },
-    });
-
-  };
+  if (AccountError) return null;
   
-
+  const HandleSubmit = (e:any) => {
+    e.preventDefault();
+    const conf = confirm(`The Shipping Address you selected is \n\n Address:${checkoutAddress} \n\n Are you sure you want to place your order in this address?`);
+    if(conf){
+      setLoading(true);
+      insert_order({
+        variables: {
+          orderHistoryInput: filter.map((item: any) => ({
+            Address: checkoutAddress,
+            Contact: checkoutContact,
+            Price: parseFloat(item.Price),
+            Quantity: item.Quantity,
+            emailAddress: useEmail,
+            productCode: item.productCode,
+            Size: item.Size,
+            Image: item.Thumbnail,
+            Color: item.Color,
+            agentEmail:item.agentEmail
+          })),  
+        },
+      });
+    }
+  };
   return (
     <div className='body'>
     <div className='LeftWing'>
@@ -104,19 +107,25 @@ const CheckoutData = () => {
     <div className='middlecontainer'>
     <div className='LabelHead carouselLabel'><Icon icon="mdi:cart" /> Select Address</div>
     <div>
-      {AccountDetails && <AccordionCheckout address={AccountDetails.getAccountDetails_id} />}
+      {AccountDetails && <AccordionCheckout address={AccountDetails.getAccountDetails_id} refetch={AccountRefetch}/>}
     </div>
-    <button className="PlaceLink" disabled={loadingState} onClick={(e: any) => HandleSubmit(e)}>
-  {loadingState ? (
-    <>
-      <Icon icon="mdi:place" /> Sending...
-    </>
-  ) : (
-    <>
-      <Icon icon="mdi:place" /> Place Order
-    </>
-  )}
-</button>
+    <div className='SelectedAddress'>
+      Shipping Address: {checkoutAddress}
+    </div>
+
+    <div className='CheckOutButton_container'>
+      <button className="PlaceLink" disabled={loadingState} onClick={(e: any) => HandleSubmit(e)}>
+        {loadingState ? (
+          <>
+            <Icon icon="mdi:place" /> Sending <Icon icon="eos-icons:loading" />
+          </>
+        ) : (
+          <>
+            <Icon icon="mdi:place" /> Place Order
+          </>
+        )}
+      </button>
+    </div>
 
     </div>
     <div className='RightWing'></div>

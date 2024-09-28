@@ -11,6 +11,7 @@ export default function Ratings() {
         defaultValue={5} 
         precision={0.1} 
         readOnly
+        sx={{ fontSize: '20px' }} // Change the fontSize to resize the stars
         onChangeActive={(event, newHover) => {
         console.log(newHover)
         }}/>

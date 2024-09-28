@@ -39,10 +39,15 @@ const Messages = ({reciever}) => {
                 if (filteredNewMessages.length === 0) return prev; // If no messages pass the filter, return the previous state
 
                 // Update the state with the new filtered messages
+                // return {
+                //     ...prev,
+                //     personalMessages: [...filteredNewMessages, ...prev.personalMessages],
+                // };
                 return {
                     ...prev,
-                    personalMessages: [...filteredNewMessages, ...prev.personalMessages],
-                };
+                    personalMessages: prev.personalMessages ? [filteredNewMessages, ...prev.personalMessages] : [filteredNewMessages],
+                  };
+                  
             },
         });
     

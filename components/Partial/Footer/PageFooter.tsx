@@ -5,6 +5,8 @@ import Share from '../Share/Share'
 import Link from 'next/link'
 import Notification from 'components/Notification/Notification'
 const PageFooter = () => {
+  const path = process.env.NEXT_PUBLIC_PATH
+
   const [showNotification, setShowNotification] = useState(true);
   const handleCloseNotification = () => {
     setShowNotification(false);
@@ -13,19 +15,19 @@ const PageFooter = () => {
   return (
     <div className='footer'>
       <div className='FootRoutes'>
-        <Link href="./Home">
+        <Link href={path+`/Home`}>
           <Icon icon="ic:baseline-home" />
         </Link>
-        <Link href="./Likes">
+        <Link href={path+`/Likes`}>
           <Icon icon="mdi:like" />
         </Link>
-        <Link href="./Reviews">
+        <Link href={path+`/Reviews`}>
           <Icon icon="ic:sharp-reviews" />
         </Link>
-        <Link href="./Messages">
+        <Link href={path+`/Messages`}>
           <Icon icon="ic:baseline-message" />
         </Link>
-        <Link href="./Cart">
+        <Link href={path+`/Cart`}>
           <Icon icon="mdi:cart" />        
         </Link>
       </div>

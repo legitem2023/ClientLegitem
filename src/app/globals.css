@@ -7,6 +7,37 @@ body {
   max-width: 100vw;
   overflow-y: auto;
 }
+.PopCover{
+  width:100%;
+  height:100%;
+  left:0px;
+  top:0px;
+  position: fixed;
+  background-color: rgba(57, 191, 144, 0.5);
+  z-index:99;
+  transition: ease 0.5s;
+  /* transform: scale(1); */
+}
+.PopCover .AddressDetails{
+  top:0px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  margin:auto;
+  position: absolute;
+  width: 400px;
+  height: auto;
+  max-height: 300px;
+  display: grid;
+  grid-template-rows: 45px 60px 60px 60px 60px ;
+  box-shadow: 0.5px 0.5px 3px #000000;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  /* position: absolute; */
+  padding-bottom: 10px;
+  background-color: #85afa5;
+}
 
 
 
@@ -82,6 +113,41 @@ input[type='date']{
   box-shadow: 0.5px 0.5px 3px #000;
   text-shadow: 0.5px 0.5px 2px #000;
 }
+.universalActiveButton{
+  width:auto;
+  padding:10px;
+  border-radius: 5px;
+  background-color: #00b327;
+  margin:5px;
+  display: flex;
+  color:#ffffff;
+  justify-content: center;
+  align-items: center;
+  border:none;
+  box-shadow: 0.5px 0.5px 3px #000;
+}
+.uniInput{
+  padding:10px;
+  width: 100%;
+}
+.SelectedAddress{
+  padding: 10px;
+  background-color: #00ffc8;
+  margin:2px;
+}
+.universalINActiveButton{
+  width:auto;
+  padding:10px;
+  border-radius: 5px;
+  background-color: #c0c0c0;
+  margin:5px;
+  display: flex;
+  color:#ffffff;
+  justify-content: center;
+  align-items: center;
+  border:none;
+  box-shadow: 0.5px 0.5px 3px #000;
+}
 .dangerousHTML img{
   width:100%!important;
 }
@@ -102,22 +168,67 @@ input[type='date']{
 }
 .swiper {
   width: 100%;
-  height: 100%;
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
+  height: auto;
 }
 
 .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
-
-  /* Center slide text vertically */
   display: flex;
   justify-content: center;
   align-items: center;
+  /* margin:5px; */
 }
-
+.Thumbnails_rating_cart{
+  display: grid;
+  grid-template-columns:72% 28%;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.iconify_cart{
+  padding:5px;
+  font-size: 20px;
+  color:#00937a;
+  border-radius: 5px;
+  width:auto;
+  border:solid 1px #00937a;
+  left:0px;
+  right:0px;
+  margin:auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.game-icons--shopping-cart {
+  display: flex;
+  width: 100%;
+  height: 500px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='gray' d='m25.45 63.043l-4.364 17.463l8.73 2.18l60.624 15.16l29.402 44.1l62.44 187.32l-36.845 73.693h17.827a31.6 31.6 0 0 0-3.264 14c0 17.567 14.433 32 32 32s32-14.433 32-32c0-5.01-1.178-9.762-3.264-14h102.528a31.6 31.6 0 0 0-3.264 14c0 17.567 14.433 32 32 32s32-14.433 32-32c0-5.01-1.178-9.762-3.264-14H393v-18H174.562l23-46h192.924l70-210h-327.67L101.56 82.07L34.183 65.227zm115.038 83.914H231v46h-75.178zm108.512 0h78v46h-78zm96 0h90.512l-15.334 46H345zm-183.18 64H231v46h-53.846zm87.18 0h78v46h-78zm96 0h69.18l-15.334 46H345zm-161.846 64H231v46h-32.514zm65.846 0h78v46h-78zm96 0h47.846l-15.332 46H345zm-153 128c7.84 0 14 6.16 14 14s-6.16 14-14 14s-14-6.16-14-14s6.16-14 14-14m160 0c7.84 0 14 6.16 14 14s-6.16 14-14 14s-14-6.16-14-14s6.16-14 14-14'/%3E%3C/svg%3E");  background-repeat: no-repeat;
+  background-position: center 0%;
+  background-color: #f1f1f1;
+  background-size: 50% auto;
+  padding:10px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: flex-end;
+}
+.game-icons--shopping-cart div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.game-icons--shopping-cart p{
+  color:gray;
+}
+.CheckOutButton_container{
+  display: flex;
+  justify-content:flex-end;
+  align-items: flex-end;
+}
 .swiper-slide img {
   display: block;
   width: 100%;
@@ -573,7 +684,6 @@ input[type='date']{
   border:none;
   position: relative;
   right:2px!important;
-  margin:auto
 }
 .ClientOrderTable{
   display:grid;
@@ -3106,10 +3216,10 @@ input[type='date']{
 .css-jfdv4h-MuiStack-root{
   display:flex;
   justify-content: center!important;
-  align-items: center!important;
+  /* align-items: center!important; */
 }
 .css-15befwp-MuiRating-root {
-  font-size: 30px;
+  /* font-size: 30px; */
   display:flex;
   justify-content: center!important;
   align-items: center!important;

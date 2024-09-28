@@ -133,3 +133,17 @@ mutation SetActiveUsers($emailAddress: String) {
 }
 `
 
+export const SET_DEFAULT_ADDRESS = gql`
+mutation UpdateDefaultAddress($accountEmail: String, $updateDefaultAddressId: Int) {
+  updateDefaultAddress(accountEmail: $accountEmail, id: $updateDefaultAddressId) {
+    statusText
+  }
+}
+`
+
+export const INSERT_SHIPPING_ADDRESS = gql`
+mutation InsertShippingDetails($shippingDetailsInput: shippingDetailsInput) {
+  insertShippingDetails(shippingDetailsInput: $shippingDetailsInput) {
+    statusText
+  }
+}`

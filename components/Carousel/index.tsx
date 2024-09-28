@@ -8,14 +8,11 @@ import React from "react";
 import {StackedCarousel,ResponsiveContainer} from "react-stacked-center-carousel";
 import { imageSource } from "utils/scripts";
 
-export default function Carousel(props:any) {
+export default function Carousel({data}) {
   const ref:any = React.useRef(StackedCarousel);
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-  const { data:Category, loading, error } = useQuery(GET_CATEGORY);
   const pathname = usePathname();
   const Products = pathname.startsWith('/Products');
-  if(loading) return
-  if(error) return
   const Card = (props:any) => {
     const { data, dataIndex }:any = props;
     const { image } = data[dataIndex];
@@ -44,7 +41,7 @@ export default function Carousel(props:any) {
   };
 
 
-if(Products) return
+// if(Products) return
   return (
   <div className="card">
     <div style={{ width: "100%", position: "relative" }}>
@@ -58,7 +55,7 @@ if(Products) return
               slideComponent={Card}
               slideWidth={parentWidth < 200 ? parentWidth : 400}
               carouselWidth={parentWidth}
-              data={Category?.getCategory}
+              data={data}
               customScales = {[1, 0.7, 0.5, 0.2, 0.1]}
               currentVisibleSlide={currentVisibleSlide}
               maxVisibleSlide={7}

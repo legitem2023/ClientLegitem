@@ -6,9 +6,7 @@ import './media1080px.css'
 import { Provider } from 'components/ApolloProvider/Provider'
 import { ShoppingCartProvider } from 'components/context/ShoppingCartProvider'
 import * as React from "react";
-import Script from 'next/script'
 import { NotificationProvider } from 'components/context/NotificationContext'
-import TransitionWrapper from 'components/Transition/TransitionWrapper'
 const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Legitem',
@@ -23,16 +21,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="manifest" href='/manifest.json' sizes="any" />
       </head>
       <body className={inter.className}>
-      <TransitionWrapper>
         <NotificationProvider>
           <ShoppingCartProvider>
-          <Script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js" strategy="lazyOnload"/>
             <Provider>
               {children}
             </Provider>
           </ShoppingCartProvider>
         </NotificationProvider>
-        </TransitionWrapper>
       </body>
     </html>
   )
