@@ -1,5 +1,5 @@
 "use client"
-import CartBody from 'components/Cart/page'
+import CartBody from 'components/Cart/CartBody'
 import { cookies } from 'components/cookies/cookie'
 import PageFooter from 'components/Partial/Footer/PageFooter'
 import PageHeader from 'components/Partial/Header/PageHeader'

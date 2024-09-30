@@ -2,16 +2,18 @@
 import { Icon } from '@iconify/react'
 import Menu from 'components/Partial/Menu'
 import Image from 'next/image'
-import React,{useState,useEffect, useContext, useRef} from 'react'
+import React,{useState,useEffect, useContext, useRef, use} from 'react'
 import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { extracted, filterAndSumQuantity, formatter, handleError, imageSource, imageSource_cart } from 'utils/scripts'
 import Thumbnails from 'components/Products/Thumbnails'
+import CartCols from './CartCols'
 
 const CartBody = () => {
   const path = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
-  const [Storage,setStorage] = useState([0]);
+  const [Storage,setStorage] = useState(null);
+  const [useFilteredStorage,setFilteredStorage] = useState([]);
   const [useGrandTotal,setGrandTotal] = useState(0);
   const reload = useRouter();
   const [loadingState,setLoading] = useState(false)
@@ -31,9 +33,35 @@ const CartBody = () => {
     }
   }, []);
 
+  if(Storage < 1 || Storage ===null){
+    return (
+      <div className='body'>
+      <div className='LeftWing'>
+          {/* <Menu/> */}
+      </div>
+        <div className='middlecontainer'>
+        <div className='carousel'>
+        <div className='LabelHead carouselLabel'><Icon icon="mdi:cart" />Empty Cart</div>
+        <CartCols/>
+        <div className='game-icons--shopping-cart'>
+          <div>
+            <h2>Your cart is Empty</h2>
+            <p>Looks like you have not added anything to your cart Go ahead and explore the shop</p>
+            {/* <button className='universalButtonStyle'>Explore</button> */}
+          </div>
+  
+        </div>
+  
+        </div>
+        <div>
+          <div className='LabelHead carouselLabel'><Icon icon="bi:tags-fill" /> Products</div>
+              <Thumbnails/>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
-
-  const data = JSON.parse(localStorage.getItem("cartItems"));
   const updateQuant = (e:any) =>{
     const id = e.target.getAttribute("aria-current");
     const Element = (document.getElementById('CurQuant'+id) as HTMLInputElement)
@@ -52,10 +80,10 @@ const CartBody = () => {
     setGrandTotal(grandTotal);
   }
 
-const filtered_data = filterAndSumQuantity(extracted(data));
+const filtered_data = filterAndSumQuantity(extracted(Storage));
+
 let sumAmount = 0;
 const Cart = (prodCode:any,number:number,e:any) => {
-    console.log(prodCode,number);
     const id = e.target.getAttribute("aria-current");
     const Element:any = (document.getElementById('CurQuant'+id) as HTMLInputElement)
     const currValue:any = Element.value;
@@ -71,38 +99,21 @@ const Cart = (prodCode:any,number:number,e:any) => {
     }));
   };
 
-  return Storage.length < 1? (
-    <div className='body'>
-    <div className='LeftWing'>
-        {/* <Menu/> */}
-    </div>
-      <div className='middlecontainer'>
-      <div className='carousel'>
-      <div className='LabelHead carouselLabel'><Icon icon="mdi:cart" />Empty Cart</div>
-      <div className='CartCols'>
-                  <div className='CartColsHead'>Image</div>
-                  <div className='CartColsHead'>Details</div>
-                  <div className='CartColsHead'>Quantity</div>
-                  <div className='CartColsHead'>Sub Total</div>
-                  <div className='CartColsHead'>Action</div>
-              </div>  
-      <div className='game-icons--shopping-cart'>
-        <div>
-          <h2>Your cart is Empty</h2>
-          <p>Looks like you have not added anything to your cart Go ahead and explore the shop</p>
-          {/* <button className='universalButtonStyle'>Explore</button> */}
-        </div>
+  const handleRemoveFromCartAndUpdate = (productCode: string) => {
+    handleRemoveFromCart(productCode);
+  
+    // Update localStorage after removing the item
+    const updatedCart = JSON.parse(localStorage.getItem('cartItems') || '[]').filter(
+      (item: any) => item.productCode !== productCode
+    );
+  
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+    setStorage(updatedCart); // Trigger re-render by updating state
+  };
+  
 
-      </div>
 
-      </div>
-      <div>
-      <div className='LabelHead carouselLabel'><Icon icon="bi:tags-fill" /> Products</div>
-            <Thumbnails/>
-            </div>
-      </div>
-    </div>
-  ):(
+return(
     <div className='body'>
         <div className='LeftWing'>
             <Menu/>
@@ -113,13 +124,7 @@ const Cart = (prodCode:any,number:number,e:any) => {
             </div>
             <div className='carousel'>
               <div className='LabelHead carouselLabel'><Icon icon="mdi:cart" /> Cart</div>
-              <div className='CartCols'>
-                  <div className='CartColsHead'>Image</div>
-                  <div className='CartColsHead'>Details</div>
-                  <div className='CartColsHead'>Quantity</div>
-                  <div className='CartColsHead'>Sub Total</div>
-                  <div className='CartColsHead'>Action</div>
-              </div>  
+                <CartCols/>
               {filtered_data.map((item:any, innerIdx:any) => (
                 
                 <div key={innerIdx} className='CartCols'>
@@ -164,7 +169,7 @@ const Cart = (prodCode:any,number:number,e:any) => {
                   </div>
                   <div className='CartDetails CartDetailsCenter' >
                     <input type='hidden' value={(sumAmount +=(item.Price * item.Quantity))}></input>
-                    <Icon icon="clarity:trash-solid" aria-label={item.productCode} className='removeTocart' onClick={(e:any) => {handleRemoveFromCart(item.productCode); reload.push('/Cart');}}/>
+                    <Icon icon="clarity:trash-solid" aria-label={item.productCode} className='removeTocart' onClick={(e:any) =>handleRemoveFromCartAndUpdate(item.productCode)}/>
                   </div>
                 </div>
     ))}

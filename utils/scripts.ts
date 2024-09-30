@@ -34,6 +34,8 @@ export const formatter = new Intl.NumberFormat('en-US', {
 export const filterAndSumQuantity = (jsonData:any) =>{
   const uniqueEntries = [];
   const sumMap = new Map();
+  console.log()
+  if(jsonData[0] === undefined) return
   jsonData.forEach((item:any) => {
     const productCode = item.productCode;
     const quantity = item.Quantity;
@@ -82,7 +84,7 @@ export const limitText = (text: string) => (text.length > 10 ? `${text.slice(0, 
 
 export const extracted = (data:any) =>{
   const arrayData = [];
-  for (let index = 0; index < data.length; index++) {
+  for (let index = 0; index < data?.length; index++) {
     const element = data[index];
     arrayData.push(element);
   }
@@ -135,6 +137,9 @@ export const imageSourceGallery = (item:any) =>{
 
 export const Cart = (viewedProd:any,Manager:any,quantity:any) => {
   Manager.Success("Added to cart!");
+
+  console.log(viewedProd,"<<<<")
+
   return viewedProd.map((item: any) => ({
     "productCode": item.productCode,
     "Thumbnail": item.thumbnail,

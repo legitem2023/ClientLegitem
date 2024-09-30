@@ -54,7 +54,7 @@ function handleRemoveFromCart(itemId: any) {
 
   // Check if the item's quantity is 1, then remove the entire cart
   if (foundItem && foundItem[1] === 1) {
-    setCartItems([]);
+    setCartItems([0]);
     localStorage.removeItem('cartItems');
   } else {
     // If not, just remove the specific item

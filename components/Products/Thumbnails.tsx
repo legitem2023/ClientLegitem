@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
@@ -8,26 +8,28 @@ import Ratings from 'components/Partial/Ratings/Ratings';
 import Views from './Views';
 import Pagination from 'components/Pagination/Pagination';
 import { setGlobalState, useGlobalState } from 'state';
-import { createdPath, formatter, handleError, handleLoading, imageSource, limitText } from 'utils/scripts';
+import { Cart, createdPath, formatter, handleError, handleLoading, imageSource, limitText } from 'utils/scripts';
 import UniversalPagination from 'components/Partial/Pagination/UniversalPagination';
 import { Gallery } from 'components/Gallery/Gallery';
 import { Icon } from '@iconify/react';
+import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
+import DataManager from 'utils/DataManager';
 
 const Thumbnails: React.FC = () => {
   const [thumbnailCategory] = useGlobalState('thumbnailCategory');
   const [thumbnailProductTypes] = useGlobalState('thumbnailProductTypes');
   const [thumbnailSearch] = useGlobalState('thumbnailSearch');
+  const { handleAddToCart } = useContext(ShoppingCartContext);
+  const Manager = new DataManager();
   const path = process.env.NEXT_PUBLIC_PATH || '';
   const [CurrentPage] = useGlobalState('CurrentPage');
   const [sortBy] = useGlobalState('sortBy');
   const [sortDirection] = useGlobalState('sortDirection');
-
   const { data: categoryData, loading: categoryLoading, error: categoryError } = useQuery(READ_CATEGORY);
-
   const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY,{
     fetchPolicy: 'cache-and-network',
   });
-  // console.log(Products)
+
   const filteredProducts = useMemo(() => {
     if (!Products) return [];
     
@@ -79,6 +81,14 @@ const Thumbnails: React.FC = () => {
 
   if(categoryLoading) return
 
+
+  const HandleAddtoCartThumbs = (item) =>{
+    handleAddToCart(Cart([item], Manager, 1))
+    setGlobalState('thumbnailSearch', "0");
+    // setGlobalState('thumbnailSearch',null);
+  }
+
+
   return (
     <>
     <div className="Thumbnails">
@@ -117,7 +127,7 @@ const Thumbnails: React.FC = () => {
             </div>
             <div className='Thumbnails_rating_cart'>
               <Ratings />
-              <Icon icon='mdi:cart' className='iconify_cart'/>
+              <Icon icon='mdi:cart' className='iconify_cart' onClick={()=> HandleAddtoCartThumbs(item)}/>
             </div>
           </div>
         </div>
