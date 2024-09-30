@@ -34,7 +34,7 @@ if(AccountLoading) return <Loading/>
         <AccountMenu />
       </div>
       <div className='middlecontainer'>
-        <InsertForm setScale={setScale} useScale={useScale}/>
+        <InsertForm setScale={setScale} useScale={useScale} refetch={AccountRefetch}/>
         <div className='ProfileDetails'>
           <div className='AddressList'>
             <div className='LabelHead carouselLabel'>

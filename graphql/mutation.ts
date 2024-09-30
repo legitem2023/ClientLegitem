@@ -147,3 +147,11 @@ mutation InsertShippingDetails($shippingDetailsInput: shippingDetailsInput) {
     statusText
   }
 }`
+
+export const DELETE_SHIPPING_ADDRESS = gql`
+mutation DeleteShippingDetails($deleteShippingDetailsId: Int) {
+  deleteShippingDetails(id: $deleteShippingDetailsId) {
+    statusText
+  }
+}
+`

@@ -5,11 +5,18 @@ import React, { useState } from 'react'
 import { useGlobalState } from 'state' 
 import { INSERT_SHIPPING_ADDRESS } from 'graphql/mutation'
 import { useMutation } from '@apollo/client'
-const InsertForm = ({setScale,useScale}) => {
-
+import DataManager from 'utils/DataManager'
+const InsertForm = ({setScale,useScale,refetch}) => {
+    const Manager = new DataManager();
+    const [isLoading,setLoading] = useState(false);
     const [insertShippingDetails] = useMutation(INSERT_SHIPPING_ADDRESS,{
         onCompleted: (data) => {
-            console.log(data);
+          if(data?.insertShippingDetails.statusText === "Successfully Inserted!"){
+            Manager.Success(data?.insertShippingDetails.statusText);
+            refetch();
+            setLoading(false);
+            setScale(0);
+          }
         }
     });
     const [cookieEmailAddress]: any = useGlobalState("cookieEmailAddress");
@@ -30,6 +37,7 @@ const InsertForm = ({setScale,useScale}) => {
       }
 
     const handleSubmit = (e:any) => {
+      setLoading(true);
         e.preventDefault();
         insertShippingDetails({
             variables: {
@@ -54,7 +62,8 @@ const InsertForm = ({setScale,useScale}) => {
             <Input type={'text'} placeholder={"Input Shipping address"} value="" name={"Address"} func={handleChange}/>
             </div>
             <div>
-            <Input type={'submit'} placeholder={"Input Shipping address"} value="Add" name={"Address"} func={handleChange}/>
+              <button type='submit' className='universalButtonStyle'>
+              {isLoading ? (<> Saving...<Icon icon="eos-icons:loading" /></>) : <>Add</>}  </button>
             </div>
         </form>
     </div>
