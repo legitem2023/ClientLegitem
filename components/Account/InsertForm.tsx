@@ -36,7 +36,7 @@ const InsertForm = ({setScale,useScale}) => {
                 "shippingDetailsInput": useForm
               }
         })
-    }
+    } 
   return (
     <div className='PopCover' style={{transform:`scale(${useScale})`}}>
             <Icon icon="zondicons:close-solid" 
