@@ -1,9 +1,11 @@
 'use client'
+import { useQuery } from '@apollo/client';
 import Ratings from 'components/Partial/Ratings/Ratings';
+import { READ_FEEDBACK } from 'graphql/queries';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback } from 'react';
-import { createdPath, formatter, imageSource } from 'utils/scripts';
+import { createdPath, formatter, imageSource, ratings } from 'utils/scripts';
 
 interface RelatedProductsProps {
   data: Array<{
@@ -11,6 +13,7 @@ interface RelatedProductsProps {
     thumbnail: string | null;
     price: number;
     name: string;
+    productCode:string;
   }>;
 }
 
@@ -26,6 +29,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
     event.target.src = path +`/Loading.webp`;
     event.target.srcset = path +`/Loading.webp`;
   }, []);
+  const { data: feedBackData, loading: feedBackLoading, error: feedBackError } = useQuery(READ_FEEDBACK);
 
 
   return (
@@ -58,7 +62,9 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
             </div>
             <div className='Rates'>
               <div className='ViewsLikes'>
-                <Ratings />
+              <Ratings data={ratings(item.productCode,feedBackData.readFeedBack)===null || 
+                               ratings(item.productCode,feedBackData.readFeedBack)===0?0:
+                             ratings(item.productCode,feedBackData.readFeedBack)}/>
               </div>
             </div>
           </div>
