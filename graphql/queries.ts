@@ -281,6 +281,7 @@ query GetRelatedProduct {
     name
     model
     productDescription
+    productCode
   }
 }`
 export const GET_VIEW_PRODUCT = gql`

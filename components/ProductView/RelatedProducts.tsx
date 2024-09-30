@@ -18,6 +18,7 @@ interface RelatedProductsProps {
 }
 
 const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
+
   const path = process.env.NEXT_PUBLIC_PATH;
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
   const fallbackImage = `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`;
@@ -31,7 +32,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
   }, []);
   const { data: feedBackData, loading: feedBackLoading, error: feedBackError } = useQuery(READ_FEEDBACK);
 
-
+  if(feedBackLoading) return
   return (
     <div className='MainView_Rchild'>
     <div className='LabelHead'>Related Product</div>

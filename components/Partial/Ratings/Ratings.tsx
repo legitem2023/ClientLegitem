@@ -13,6 +13,7 @@ export default function Ratings({ data }) {
           name={`rating-${data}`}
           value={data} // Controlled value
           precision={0.1}
+          readOnly
           sx={{ fontSize: '20px' }} // Change the fontSize to resize the stars
           // onChange={(event, newValue) => setRatingValue(newValue)} // Update state when rating changes
           // onChangeActive={(event, newHover) => {
