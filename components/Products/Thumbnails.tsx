@@ -2,13 +2,13 @@ import React, { useCallback, useContext, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
-import { GET_CHILD_INVENTORY, READ_CATEGORY } from 'graphql/queries';
+import { GET_CHILD_INVENTORY, READ_CATEGORY,READ_FEEDBACK } from 'graphql/queries';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
 import Ratings from 'components/Partial/Ratings/Ratings';
 import Views from './Views';
 import Pagination from 'components/Pagination/Pagination';
 import { setGlobalState, useGlobalState } from 'state';
-import { Cart, createdPath, formatter, handleError, handleLoading, imageSource, limitText } from 'utils/scripts';
+import { Cart, createdPath, formatter, handleError, handleLoading, imageSource, limitText, ratings } from 'utils/scripts';
 import UniversalPagination from 'components/Partial/Pagination/UniversalPagination';
 import { Gallery } from 'components/Gallery/Gallery';
 import { Icon } from '@iconify/react';
@@ -29,6 +29,8 @@ const Thumbnails: React.FC = () => {
   const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY,{
     fetchPolicy: 'cache-and-network',
   });
+  const { data: feedBackData, loading: feedBackLoading, error: feedBackError } = useQuery(READ_FEEDBACK);
+
 
   const filteredProducts = useMemo(() => {
     if (!Products) return [];
@@ -59,7 +61,7 @@ const Thumbnails: React.FC = () => {
       }
       return 0;
     });
-  }, [filteredProducts, sortBy, sortDirection]);
+  }, [filteredProducts, sortBy, sortDirection]);  
 
 
   const itemsPerPage = 20;
@@ -78,8 +80,8 @@ const Thumbnails: React.FC = () => {
   }, []);
   if (productsLoading) return <Loading />;
   if (productsError) return <h1>Connection Error</h1>;
-
-  if(categoryLoading) return
+  if (feedBackLoading) return
+  // if(categoryLoading) return
 
 
   const HandleAddtoCartThumbs = (item) =>{
@@ -87,7 +89,6 @@ const Thumbnails: React.FC = () => {
     setGlobalState('thumbnailSearch', "0");
     // setGlobalState('thumbnailSearch',null);
   }
-
 
   return (
     <>
@@ -126,7 +127,10 @@ const Thumbnails: React.FC = () => {
               <Views data={item} />
             </div>
             <div className='Thumbnails_rating_cart'>
-              <Ratings />
+              <Ratings data={ratings(item.productCode,feedBackData.readFeedBack)===null || 
+                               ratings(item.productCode,feedBackData.readFeedBack)===0?0:
+                             ratings(item.productCode,feedBackData.readFeedBack)}/>
+
               <Icon icon='mdi:cart' className='iconify_cart' onClick={()=> HandleAddtoCartThumbs(item)}/>
             </div>
           </div>

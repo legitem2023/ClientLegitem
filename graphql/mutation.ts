@@ -155,3 +155,19 @@ mutation DeleteShippingDetails($deleteShippingDetailsId: Int) {
   }
 }
 `
+
+export const INSERT_FEEDBACK = gql`
+mutation InsertProductFeedBacks($productFeedBacksInput: [ProductFeedBacksInput]) {
+  insertProductFeedBacks(ProductFeedBacksInput: $productFeedBacksInput) {
+    statusText
+  }
+}
+`
+
+export const UPDATE_ORDER_STATUS_FEEDBACK = gql`
+mutation UpdateProductFeedBackStatus($productFeedBacksStatusParameter: [OrderstatusParameter]) {
+  updateProductFeedBackStatus(ProductFeedBacksStatusParameter: $productFeedBacksStatusParameter) {
+    statusText
+  }
+}
+`

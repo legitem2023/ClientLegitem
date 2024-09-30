@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import { useState } from 'react';
 import { setGlobalState, useGlobalState } from 'state';
 import { formatter, imageSourceOrder } from 'utils/scripts';
+import AccordionClientOrderHeader from './AccordionClientOrderHeader';
 
 const AccordionOrderPacked = ({json}) => {
     const path = process.env.NEXT_PUBLIC_PATH || '';
@@ -45,15 +46,9 @@ const AccordionOrderPacked = ({json}) => {
                     {activeIndex === index && (
                         <div className="faq-answer">
                             <div className='orderName'>{odr.StatusText}</div>
-                            <div className='ClientOrderTable hiddenInmobile'>
-                                <div>Image</div>
-                                <div>Product Code</div>
-                                <div>Size</div>
-                                <div>Color</div>
-                                <div>Price</div>
-                                <div>Quantity</div>
-                                <div>Subtotal</div>
-                            </div>
+                            <div>Shipping Address :{odr.Address}</div>
+                            <div>Contact No :{odr.Contact}</div>
+                            <AccordionClientOrderHeader/>
                             {odr.OrderHistory.map((item:any,idx:number)=>(
                                 <div key={idx} className='ClientOrderTable'>
                                 <div>

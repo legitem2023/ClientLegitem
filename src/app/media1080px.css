@@ -18,12 +18,9 @@
         font-size: 13px;
     }
     .OrderStages {
-        grid-gap: 1px;
+        grid-template-columns: 13% 3% 13% 3% 13% 3% 13% 3% 13% 3% 13%;
     }
-    .TransactionImage {
-        width:30px;
-        height:30px;
-        margin:5px;
+    .TransactionImage{
         padding:5px;
     }
     .LoginDiv,.SignupDiv{

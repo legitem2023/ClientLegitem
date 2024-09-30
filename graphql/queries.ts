@@ -494,4 +494,18 @@ query ReadFAQ {
   }
 }
 `
+
+export const READ_FEEDBACK = gql`
+query ReadFeedBack {
+  readFeedBack {
+    id
+    productCode
+    TrackingNo
+    Ratings
+    Attachment
+    Comment
+    By
+  }
+}
+`
 //*************** MUTATION ***************/

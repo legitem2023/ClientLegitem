@@ -1,32 +1,68 @@
 [
     {
         "Name":"New Order",
-        "Image":"https://api.iconify.design/clarity/new-solid.svg",
-        "URL":"New Order"
+        "Image":"clarity:new-solid",
+        "URL":"New Order",
+        "Class":""
+    },
+    {
+        "Name":"Line",
+        "Image":"Line",
+        "URL":"Line",
+        "Class":"stagesLine"
     },
     {
         "Name":"Recieve",
-        "Image":"https://api.iconify.design/mdi/hand-extended.svg",
-        "URL":"Recieved"
+        "Image":"mdi:hand-extended",
+        "URL":"Recieved",
+        "Class":""
+    },
+    {
+        "Name":"Line",
+        "Image":"Line",
+        "URL":"Line",
+        "Class":"stagesLine"
     },
     {
         "Name":"Packed",
-        "Image":"https://api.iconify.design/typcn/download.svg",
-        "URL":"Packed"
+        "Image":"mdi:package-variant-plus",
+        "URL":"Packed",
+        "Class":""
+    },
+    {
+        "Name":"Line",
+        "Image":"Line",
+        "URL":"Line",
+        "Class":"stagesLine"
     },
     {
         "Name":"Logistic",
-        "Image":"https://cdn-icons-png.flaticon.com/512/61/61535.png",
-        "URL":"Logistic"
+        "Image":"fa-solid:people-carry",
+        "URL":"Logistic",
+        "Class":""
+    },
+    {
+        "Name":"Line",
+        "Image":"Line",
+        "URL":"Line",
+        "Class":"stagesLine"
     },
     {
         "Name":"Delivery",
-        "Image":"https://api.iconify.design/mdi/truck-delivery-outline.svg",
-        "URL":"Delivery"
+        "Image":"mdi:truck-delivery-outline",
+        "URL":"Delivery",
+        "Class":""
+    },
+    {
+        "Name":"Line",
+        "Image":"Line",
+        "URL":"Line",
+        "Class":"stagesLine"
     },
     {
         "Name":"Delivered",
-        "Image":"https://api.iconify.design/mdi/package-variant-closed-delivered.svg",
-        "URL":"Delivered"
+        "Image":"mdi:flag",
+        "URL":"Delivered",
+        "Class":""
     }
 ]

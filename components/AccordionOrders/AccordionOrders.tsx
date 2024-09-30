@@ -4,6 +4,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useState } from 'react';
 import { setGlobalState, useGlobalState } from 'state';
 import { formatter, imageSourceOrder } from 'utils/scripts';
+import AccordionClientOrderHeader from './AccordionClientOrderHeader';
 
 const AccordionOrders = ({json}) => {
     const path = process.env.NEXT_PUBLIC_PATH || '';
@@ -35,28 +36,23 @@ const AccordionOrders = ({json}) => {
       setGlobalState('CurrentPage', page);
     };
 
-
     return (
         <div className="faq-accordion">
             {paginatedProducts.map((odr:any, index:number) => (
                 <div className="faq-item" key={index}>
                     <div className="faq-question" onClick={() => toggleAccordion(index)}>
-                        {odr.TrackingNo}
+                        Tracking No :{odr.TrackingNo}
                         <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
                     </div>
 
                     {activeIndex === index && (
                         <div className="faq-answer">
-                            <div className='orderName'>{odr.StatusText}</div>
-                            <div className='ClientOrderTable hiddenInmobile'>
-                                <div>Image</div>
-                                <div>Product Code</div>
-                                <div>Size</div>
-                                <div>Color</div>
-                                <div>Price</div>
-                                <div>Quantity</div>
-                                <div>Subtotal</div>
+                            <div className='orderName'>
+                                {odr.StatusText}
                             </div>
+                            <div>Shipping Address :{odr.Address}</div>
+                            <div>Contact No :{odr.Contact}</div>
+                            <AccordionClientOrderHeader/>
                             {odr.OrderHistory.map((item:any,idx:number)=>(
                                 <div key={idx} className='ClientOrderTable'>
                                     <div>

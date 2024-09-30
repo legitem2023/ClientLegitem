@@ -8,6 +8,8 @@ import { cookies } from 'components/cookies/cookie';
 import { useEffect, useState } from 'react';
 import Loading from 'components/Partial/LoadingAnimation/Loading'
 import { setGlobalState } from 'state'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 export default function Order() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,6 +32,7 @@ export default function Order() {
       <PageHeader/>
         <PageOrder/>
       <PageFooter/>
+      <ToastContainer/>
     </div>
   ): null
 }
