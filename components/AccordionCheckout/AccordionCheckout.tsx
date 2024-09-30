@@ -34,18 +34,11 @@ const AccordionCheckout = ({ address,refetch }) => {
         setGlobalState("checkoutContact",e.target.getAttribute("aria-label"));
     }
 
-    const DefaultAddress = (add:any) =>{
-        console.log(add)
-         setGlobalState("checkoutAddress",add.Address);
-         setGlobalState("checkoutContact",add.contactNo);
-    }
-
     return (
         <div className="faq-accordion">
             {address.map((add:any, index:number) => (
                 <div className="faq-item" key={index}>
                     <div className="faq-question" 
-                        onLoad={()=>{add.defaultAddress===true?DefaultAddress(add):""}}
                         onClick={() => toggleAccordion(index)}>
                         {add.Address}
                         <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>

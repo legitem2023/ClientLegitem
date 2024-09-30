@@ -83,7 +83,7 @@ const Thumbnails: React.FC = () => {
   if (feedBackLoading) return
   // if(categoryLoading) return
 
-
+console.log(feedBackData)
   const HandleAddtoCartThumbs = (item) =>{
     handleAddToCart(Cart([item], Manager, 1))
     setGlobalState('thumbnailSearch', "0");
@@ -127,9 +127,9 @@ const Thumbnails: React.FC = () => {
               <Views data={item} />
             </div>
             <div className='Thumbnails_rating_cart'>
-              <Ratings data={ratings(item.productCode,feedBackData.readFeedBack)===null || 
-                               ratings(item.productCode,feedBackData.readFeedBack)===0?0:
-                             ratings(item.productCode,feedBackData.readFeedBack)}/>
+              <Ratings data={ratings(item.productCode,feedBackData?.readFeedBack)===null || 
+                               ratings(item.productCode,feedBackData?.readFeedBack)===0?0:
+                             ratings(item.productCode,feedBackData?.readFeedBack)}/>
 
               <Icon icon='mdi:cart' className='iconify_cart' onClick={()=> HandleAddtoCartThumbs(item)}/>
             </div>
