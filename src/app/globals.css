@@ -3262,7 +3262,7 @@ input[type='date']{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: red;
+    background-color: red!important;
     color: white;
     position: absolute;
     width:25px;

@@ -29,7 +29,6 @@ const Thumbnails: React.FC = () => {
   const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY,{
     fetchPolicy: 'cache-and-network',
   });
-  // const { data: feedBackData, loading: feedBackLoading, error: feedBackError } = useQuery(READ_FEEDBACK);
 
 
   const filteredProducts = useMemo(() => {
@@ -89,7 +88,7 @@ const Thumbnails: React.FC = () => {
     setGlobalState('thumbnailSearch', "0");
     // setGlobalState('thumbnailSearch',null);
   }
-  console.log(paginatedProducts);
+
   return (
     <>
     <div className="Thumbnails">

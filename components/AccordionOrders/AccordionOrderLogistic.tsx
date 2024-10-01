@@ -39,8 +39,8 @@ const AccordionOrderLogistic = ({json}) => {
             {paginatedProducts.map((odr:any, index:number) => (
                 <div className="faq-item" key={index}>
                     <div className="faq-question" onClick={() => toggleAccordion(index)}>
-                        {odr.TrackingNo}
-                        <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
+                    OrderNo No :{odr.OrderNo}
+                    <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
                     </div>
 
                     {activeIndex === index && (

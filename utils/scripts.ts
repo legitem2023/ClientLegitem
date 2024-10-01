@@ -182,7 +182,6 @@ const result = {
   filteredFeedback, // The filtered feedback items
   totalRatings,     // The sum of all ratings
 };
-console.log(result?.totalRatings / filteredFeedback?.length)
 
 return result?.totalRatings / filteredFeedback?.length;  
 }

@@ -20,7 +20,7 @@ const AccordionOrderDelivered = ({json,refetchdelivered}) => {
         "By": cookieEmailAddress,
         "Comment": null,
         "Ratings": 0,
-        "TrackingNo": null,
+        "OrderNo": null,
         "productCode": null
 })
 
@@ -80,7 +80,7 @@ const AccordionOrderDelivered = ({json,refetchdelivered}) => {
                         By: By || null,    // Set to null if By is not available
                         Comment: Comment || null,  // Set to null if Comment is not available
                         Ratings: Ratings !== undefined ? Ratings : null, // Convert Ratings to string or set to null
-                        TrackingNo: items.TrackingNo || null,  // Set to null if TrackingNo is not available
+                        OrderNo: items.OrderNo || null,  // Set to null if TrackingNo is not available
                         productCode: item.productCode || null  // Set to null if productCode is not available
                     }))
                 }
@@ -89,7 +89,7 @@ const AccordionOrderDelivered = ({json,refetchdelivered}) => {
             updateFeedBackStatus({
                 variables: {
                     "productFeedBacksStatusParameter": filter.map((item:any)=>({
-                        TrackingNo: items.TrackingNo || null,  // Set to null if TrackingNo is not available
+                        OrderNo: items.OrderNo || null,  // Set to null if TrackingNo is not available
                         agentEmail: item.agentEmail || null,  // Set to null if agentEmail is not available
                     }))
                   }
@@ -104,8 +104,8 @@ const AccordionOrderDelivered = ({json,refetchdelivered}) => {
             {paginatedProducts.map((odr:any, index:number) => (
                 <div className="faq-item" key={index}>
                     <div className="faq-question" onClick={() => toggleAccordion(index)}>
-                        {odr.TrackingNo}
-                        <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
+                    OrderNo No :{odr.OrderNo}
+                    <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
                     </div>
 
                     {activeIndex === index && (
