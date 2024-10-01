@@ -333,7 +333,7 @@
         height: 78%;
     }
     .MainView_RelatedProducts{
-        margin-bottom: 72px;
+        /* margin-bottom: 72px; */
     }
     .MainView_RelatedProducts div button{
         width:100%;

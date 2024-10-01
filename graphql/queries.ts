@@ -248,6 +248,12 @@ query GetChildInventory {
     productDescription
     productType
     brandname
+    Ratings {
+      Ratings
+    }
+    Views {
+      productCode
+    }
   }
 }`
 export const GET_CHILD_INVENTORY_RELATED_COLOR_SIZE = gql`
@@ -275,6 +281,7 @@ query GetRelatedProduct {
   getRelatedProduct {
     id
     thumbnail
+    category
     price
     size
     color
@@ -282,6 +289,12 @@ query GetRelatedProduct {
     model
     productDescription
     productCode
+    Ratings {
+      Ratings
+    }
+    Views {
+      productCode
+    }
   }
 }`
 export const GET_VIEW_PRODUCT = gql`
@@ -313,6 +326,17 @@ query GetToviewProduct($getToviewProductId: Int) {
       id
       subImageRelationChild
       subImageRelationParent
+    },
+    Ratings {
+      Ratings
+      productCode
+      id
+      Comment
+      By
+      Attachment
+    }
+    Views {
+      productCode
     }
   }
 }`

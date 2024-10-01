@@ -25,11 +25,11 @@ const Thumbnails: React.FC = () => {
   const [CurrentPage] = useGlobalState('CurrentPage');
   const [sortBy] = useGlobalState('sortBy');
   const [sortDirection] = useGlobalState('sortDirection');
-  const { data: categoryData, loading: categoryLoading, error: categoryError } = useQuery(READ_CATEGORY);
+  // const { data: categoryData, loading: categoryLoading, error: categoryError } = useQuery(READ_CATEGORY);
   const { data: Products, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY,{
     fetchPolicy: 'cache-and-network',
   });
-  const { data: feedBackData, loading: feedBackLoading, error: feedBackError } = useQuery(READ_FEEDBACK);
+  // const { data: feedBackData, loading: feedBackLoading, error: feedBackError } = useQuery(READ_FEEDBACK);
 
 
   const filteredProducts = useMemo(() => {
@@ -80,16 +80,16 @@ const Thumbnails: React.FC = () => {
   }, []);
   if (productsLoading) return <Loading />;
   if (productsError) return <h1>Connection Error</h1>;
-  if (feedBackLoading) return
+  // if (feedBackLoading) return
   // if(categoryLoading) return
 
-console.log(feedBackData)
+// console.log(feedBackData)
   const HandleAddtoCartThumbs = (item) =>{
     handleAddToCart(Cart([item], Manager, 1))
     setGlobalState('thumbnailSearch', "0");
     // setGlobalState('thumbnailSearch',null);
   }
-
+  console.log(paginatedProducts);
   return (
     <>
     <div className="Thumbnails">
@@ -124,13 +124,10 @@ console.log(feedBackData)
             </div>
             <div className="ViewsLikes">
               <span>Views :</span>
-              <Views data={item} />
+              {item.Views.length > 0?item.Views.length:0}
             </div>
             <div className='Thumbnails_rating_cart'>
-              <Ratings data={ratings(item.productCode,feedBackData?.readFeedBack)===null || 
-                               ratings(item.productCode,feedBackData?.readFeedBack)===0?0:
-                             ratings(item.productCode,feedBackData?.readFeedBack)}/>
-
+              <Ratings data={item.Ratings.length > 0 ?ratings(item.Ratings):0}/>
               <Icon icon='mdi:cart' className='iconify_cart' onClick={()=> HandleAddtoCartThumbs(item)}/>
             </div>
           </div>

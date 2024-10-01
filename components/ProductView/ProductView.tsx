@@ -17,6 +17,7 @@ import { useGlobalState } from 'state';
 import { INSERT_VIEWS_COUNT } from 'graphql/mutation';
 import RelatedColor from './RelatedColor';
 import RelatedSize from './RelatedSize';
+import Ratings from 'components/Partial/Ratings/Ratings';
 
 const path = process.env.NEXT_PUBLIC_PATH;
 const Manager = new DataManager();
@@ -94,10 +95,17 @@ const ProductView: React.FC = () => {
             </div>
             <div className='LabelHead'>Product Review</div>
             <div className='longtext'>
-              {/* Product review content */}
+              {viewItem?.Ratings.length > 0 ? viewItem?.Ratings.map((item: any, idx: any) => (
+                <div key={idx}>
+                  <div>{item.By}</div>
+                  <div>{item.Comment}</div>
+                  <div><Ratings data={item.Ratings > 0 ?item.Ratings:0}/>
+                  </div>
+                </div>
+              )):"No Review Found"}
             </div>
           </div>
-              {loading ? <Loading /> : <RelatedProducts data={Products?.getRelatedProduct.slice(0, take)} />}
+              {loading ? <Loading /> : <RelatedProducts data={Products?.getRelatedProduct.filter((cat)=>cat.category===viewItem.category).slice(0, take)} />}
               <div>
                 <button onClick={() => setTake(take + 5)} className='universalButtonStyle'>
                   {loading?<Icon icon='eos-icons:bubble-loading' />:"Load More"}

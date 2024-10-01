@@ -172,8 +172,8 @@ export const replaceOembedWithIframe = (htmlContent) =>{
 }
 
 
-export  const ratings = (productCode:any, feedBackData:any) =>{
-  const filteredFeedback = feedBackData?.filter(item => item.productCode === productCode);
+export  const ratings = (feedBackData:any) =>{
+  const filteredFeedback = feedBackData;
   const totalRatings = filteredFeedback?.reduce((sum, item) => {
   return sum + (item.Ratings || 0); // Add the ratings, ensure ratings is not undefined
 }, 0);
@@ -182,5 +182,7 @@ const result = {
   filteredFeedback, // The filtered feedback items
   totalRatings,     // The sum of all ratings
 };
+console.log(result?.totalRatings / filteredFeedback?.length)
+
 return result?.totalRatings / filteredFeedback?.length;  
 }

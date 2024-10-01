@@ -14,11 +14,12 @@ interface RelatedProductsProps {
     price: number;
     name: string;
     productCode:string;
+    Ratings: any;
+    Views:any;
   }>;
 }
 
 const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
-
   const path = process.env.NEXT_PUBLIC_PATH;
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
   const fallbackImage = `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`;
@@ -59,13 +60,12 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
               <span>Name :</span><span>{item.name}</span>
             </div>
             <div>
-              <span>Ratings :</span><span></span>
+              <span>Views :</span><span>{item.Views.length > 0 ?item.Views.length:0}</span>
             </div>
             <div className='Rates'>
               <div className='ViewsLikes'>
-              <Ratings data={ratings(item.productCode,feedBackData.readFeedBack)===null || 
-                               ratings(item.productCode,feedBackData.readFeedBack)===0?0:
-                             ratings(item.productCode,feedBackData.readFeedBack)}/>
+              <Ratings data={item.Ratings.length > 0 ?ratings(item.Ratings):0}/>
+
               </div>
             </div>
           </div>
