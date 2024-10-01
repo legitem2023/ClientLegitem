@@ -7,13 +7,13 @@ import React from 'react'
 import { ToastContainer } from 'react-toastify'
 import FAQ from 'json/faq.json'
 import Privacy from 'components/About/Privacy'
+import Reviews from 'components/Reviews/Reviews'
 
 const page = () => {
   return (
     <div className='Main'>
       <PageHeader/>
-        <Privacy/>
-        <ToastContainer/>
+        <Reviews/>
       <PageFooter/>
     </div>
   )
