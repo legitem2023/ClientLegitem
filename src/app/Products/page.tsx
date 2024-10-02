@@ -9,7 +9,7 @@ import { setGlobalState } from 'state';
 export default function Index() {
   useEffect(() => {
     cookies();
-  }, []);
+  }, [cookies]);
   return (
     <div className='Main'>
       <PageHeader/>

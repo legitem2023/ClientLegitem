@@ -3,7 +3,7 @@ import React from 'react'
 type Props = {
     Paragraph :string
 }
-const Paragraph = ({Paragraph}:Props) => {
+const Paragraph:React.FC = ({Paragraph}:Props) => {
   return (
     <div className='p-2'>{Paragraph}</div>
   )

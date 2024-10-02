@@ -18,13 +18,9 @@ import AccordionOrderDelivered from 'components/AccordionOrders/AccordionOrderDe
 import AccordionOrderDeliver from 'components/AccordionOrders/AccordionOrderDeliver'
 import useOrderStatusNotification from 'components/Hooks/useOrderStatusNotification'
 
-const PageOrder = () => {
+const PageOrder:React.FC = () => {
   const [drawerState] = useGlobalState("drawer");
   const { updateNewOrder,updateRecieved,updatePacked,updateLogistic,updateDelivery,updateDelivered } = useOrderStatusNotification();
-
-  useEffect(()=>{
-    cookies();
-  })
   const [CurrentOrderStage] = useGlobalState("CurrentOrderStage");
   const [cookieEmailAddress] = useGlobalState("cookieEmailAddress");
   const { data:newOrder,loading:newOrderLoading,error,refetch:refetchNew} = useQuery(READ_ORDERS,{variables:{emailAddress:cookieEmailAddress}});
@@ -49,15 +45,6 @@ const PageOrder = () => {
   refetchdeliver();
   refetchdelivered();
 
-  // const [isVisible, setIsVisible] = useState(false);
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-  const path = process.env.NEXT_PUBLIC_PATH
-
   const optionalRender = () =>{
       if(CurrentOrderStage==='New Order'){
         return <AccordionOrders json={newOrder?.getGroupedOrderHistory}/>
@@ -80,14 +67,6 @@ const PageOrder = () => {
 
   }
 
-  const checkEvenOrOdd = (number:number) => {
-    if (number % 2 === 0) {
-    } else {
-      if(number===0) return
-      return (<span className='stagesLine'></span>);        
-    }
-  }
-  
 
   return (
     <div className='body'>
@@ -127,7 +106,6 @@ const PageOrder = () => {
               <div>
               {optionalRender()}
               </div>
-
             </div>
           </div>
         </div>

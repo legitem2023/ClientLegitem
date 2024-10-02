@@ -1,16 +1,16 @@
 import { useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
 import HtmlRenderer from 'components/Html/HtmlRenderer';
-import Pagination from 'components/Pagination/Pagination';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
 import UniversalPagination from 'components/Partial/Pagination/UniversalPagination';
 import TimestampConverter from 'components/Partial/timestamp/TimestampConverter';
+import UniversalContainerItem from 'components/UI/UniversalContainerItem';
 import { READ_NEWS } from 'graphql/queries';
 import Image from 'next/image';
 import React, { useCallback, useMemo, useState } from 'react';
 import { imageSource } from 'utils/scripts';
 
-const News = () => {
+const News:React.FC = () => {
   const { data: News, loading: NewsLoading, error: NewsError } = useQuery(READ_NEWS);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5; // Number of items per page
@@ -44,18 +44,7 @@ const News = () => {
         onPageChange={handlePageChange}
       />
       {paginatedNews.length > 0?paginatedNews?.map((item: any, idx: number) => (
-        <div key={idx} className='NewsContainerItem'>
-          <div className='NewsContainerHead LabelHead'>
-            <Icon icon="fa6-solid:newspaper" /> {item.title}
-          </div>
-          <div className='NewsThumbnail'>
-            <Image src={imageSource(item.thumbnail)} height={100} width={200} alt={`image${idx}`} />
-          </div>
-          <HtmlRenderer htmlContent={item.summary} />
-          <div className='NewsContainerFooter'>
-            Date: <TimestampConverter timestamp={item.dateCreated} />
-          </div>
-        </div>
+        <UniversalContainerItem key={idx} title={item.title} thumbnail={imageSource(item.thumbnail)} summary={item.summary} dateCreated={item.dateCreated} index={idx}/>
       )):(<h1>No Data</h1>)}
     </div>
   );

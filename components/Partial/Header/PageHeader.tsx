@@ -10,13 +10,15 @@ import OrderNotification from 'components/Notification/OrderNotification'
 
 import InstallPWAButton from '../InstallationApp/InstallPWAButton';
 import Dropdown from './Dropdown';
-const PageHeader = () => {
+import { B } from 'vitest/dist/reporters-yx5ZTtEV';
+import { drawer } from 'utils/scripts';
+const PageHeader: React.FC = () => {
   const path = process.env.NEXT_PUBLIC_PATH
   const [userId] = useGlobalState("cookieActiveUser");
   const [drawerState] = useGlobalState("drawer");
   const [loadingLink, setLoadingLink] = useState<string | null>(null);
   const currentPath = usePathname();
-
+  const redirect = useRouter();
 
   useEffect(() => {
     // Check if the current path is '/messages' and close the drawer
@@ -30,21 +32,13 @@ const PageHeader = () => {
       setLoadingLink(item.Name); // Set loading for clicked link only if it's not the current page
     }
   };
-  const drawer = () =>{
-    if(drawerState){
-      setGlobalState("drawer",false);
-    }else{
-      setGlobalState("drawer",true);
-    }
-  }
 
-  const redirect = useRouter();
   return (
     <>
       <InstallPWAButton/>
     <div className='Header'>
         <div className='HeaderNav'>
-          <Icon icon='iconamoon:menu-burger-horizontal-duotone' onClick={()=>drawer()}>
+          <Icon icon='iconamoon:menu-burger-horizontal-duotone' onClick={()=>drawer(drawerState)}>
           </Icon>
         </div>
         <span className='Logo openDrawer' onClick={()=>redirect.push('/Home')}></span>

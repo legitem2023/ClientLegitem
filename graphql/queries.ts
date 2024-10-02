@@ -525,11 +525,29 @@ query ReadFeedBack {
   readFeedBack {
     id
     productCode
-    TrackingNo
+    OrderNo
     Ratings
     Attachment
     Comment
     By
+  }
+}
+`
+export const READ_LIKES = gql`
+query ReadLikes($accountEmail: String) {
+  readLikes(accountEmail: $accountEmail) {
+    productCode
+    thumbnail
+    price
+    name
+    stock
+    size
+    Likes {
+      id
+      productCode
+      accountEmail
+      dateCreated
+    }
   }
 }
 `

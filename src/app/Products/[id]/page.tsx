@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function Index() {
   useEffect(() => {
     cookies();
-  }, []);
+  }, [cookies]);
   return (
     <div className='Main'>
         <PageHeader/>

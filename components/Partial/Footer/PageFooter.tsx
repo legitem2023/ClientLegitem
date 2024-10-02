@@ -1,12 +1,10 @@
 'use client'
 import { Icon } from '@iconify/react'
 import React, { useState } from 'react'
-import Share from '../Share/Share'
 import Link from 'next/link'
 import Notification from 'components/Notification/Notification'
-const PageFooter = () => {
+const PageFooter:React.FC = () => {
   const path = process.env.NEXT_PUBLIC_PATH
-
   const [showNotification, setShowNotification] = useState(true);
   const handleCloseNotification = () => {
     setShowNotification(false);

@@ -2,12 +2,8 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import useCurrentPage from 'store/useCurrentPage';
 import { setGlobalState } from 'state';
+import { PaginationProps } from 'utils/types/types';
 
-type PaginationProps = {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-};
 
 const UniversalPagination = ({
   currentPage,

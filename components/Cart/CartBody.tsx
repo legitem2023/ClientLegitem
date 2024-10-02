@@ -7,7 +7,7 @@ import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { extracted, filterAndSumQuantity, formatter, handleError, imageSource, imageSource_cart } from 'utils/scripts'
-import Thumbnails from 'components/Products/Thumbnails'
+import Thumbnails from 'components/Products/Products'
 import CartCols from './CartCols'
 
 const CartBody = () => {

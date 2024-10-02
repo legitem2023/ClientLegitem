@@ -1,6 +1,6 @@
 import React from 'react'
 import './Loading.css';
-const Loading = () => {
+const Loading: React.FC = () => {
   return (
     <div className='LOADINGCOVER'>
       <div className="Loading" id="Loading">

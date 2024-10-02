@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 const InstallPWAButton: React.FC = () => {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [deferredPrompt, setDeferredPrompt] = useState<Event | null>(null);
 
   useEffect(() => {
-    const handleBeforeInstallPrompt = (e: any) => {
+    const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e);
     };
@@ -18,8 +18,8 @@ const InstallPWAButton: React.FC = () => {
 
   const handleInstallClick = () => {
     if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult: any) => {
+      (deferredPrompt as any).prompt();
+      (deferredPrompt as any).userChoice.then((choiceResult: any) => {
         if (choiceResult.outcome === 'accepted') {
           console.log('User accepted the PWA installation');
         } else {
@@ -31,10 +31,10 @@ const InstallPWAButton: React.FC = () => {
   };
 
   return deferredPrompt ? (
-    <button onClick={handleInstallClick} style={{ boxShadow:"0.5px 0.5px 3px #000",height:"50px",width:"150px",border:"none", borderRadius: '5px',padding: '10px',margin:"5px", backgroundColor: '#00a380', color: 'white',position: 'relative',right: '2px',zIndex:'9999999999' }}>
+    <button onClick={handleInstallClick} className="install-button">
       Install App
     </button>
-  ) :null;
+  ) : null;
 };
 
 export default InstallPWAButton;

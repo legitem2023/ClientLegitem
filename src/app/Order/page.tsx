@@ -1,13 +1,11 @@
 "use client"
 import PageHeader from '../../../components/Partial/Header/PageHeader' 
 import PageFooter from '../../../components/Partial/Footer/PageFooter'
-import PageAccount from '../../../components/Account/PageAccount'
 import PageOrder from 'components/Order/PageOrder'
 import { useRouter } from 'next/navigation';
 import { cookies } from 'components/cookies/cookie';
 import { useEffect, useState } from 'react';
 import Loading from 'components/Partial/LoadingAnimation/Loading'
-import { setGlobalState } from 'state'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 export default function Order() {
@@ -22,7 +20,7 @@ export default function Order() {
       setIsAuthorized(true);
     }
     setIsLoading(false); // End loading state
-  }, [router]);
+  }, [router,cookies,setIsAuthorized]);
 
   if (isLoading) {
     return <Loading/>; // Show loading state while checking

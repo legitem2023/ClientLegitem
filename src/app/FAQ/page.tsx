@@ -9,7 +9,7 @@ import { cookies } from 'components/cookies/cookie'
 const FAQpage = () => {
   useEffect(() => {
     cookies();
-  }, []);
+  }, [cookies]);
   return (
     <div className='Main'>
       <PageHeader/>

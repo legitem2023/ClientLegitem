@@ -1,25 +1,9 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
-import useCurrentPage from 'store/useCurrentPage';
 import { setGlobalState } from 'state';
-
-
-type PaginationProps = {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-};
-
-const Pagination = ({
-  currentPage,
-  totalPages,
-  onPageChange,
-}: PaginationProps) => {
-
-  const { setCurrentPage } = useCurrentPage();
-
+import { PaginationProps } from 'utils/types/types';
+const Pagination = ({currentPage,totalPages,onPageChange}: PaginationProps): JSX.Element => {
   const siblingsCount = 2;
-
   const range = (start: number, end: number) => {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   };

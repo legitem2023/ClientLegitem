@@ -7,10 +7,9 @@ import { setGlobalState } from 'state';
 import { useQuery } from '@apollo/client';
 import { READ_CATEGORY, READ_PRODUCT_TYPES } from 'graphql/queries'; // Assuming you have this query for Collection Items
 
-const Menu = () => {
+const Menu: React.FC = () => {
   const { data: categoryData, loading: categoryLoading, error: categoryError } = useQuery(READ_CATEGORY);
   const { data: productTypesData, loading: productTypesLoading, error: productTypesError } = useQuery(READ_PRODUCT_TYPES);
-  // const { data: collectionItemsData, loading: collectionItemsLoading, error: collectionItemsError } = useQuery(READ_COLLECTION_ITEMS); // Collection Items query
 
   if (categoryLoading || productTypesLoading ) return <div>Loading...</div>;
   if (categoryError || productTypesError ) return <div>Error loading data</div>;

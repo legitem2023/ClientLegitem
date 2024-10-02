@@ -19,7 +19,8 @@ const Cart = () => {
       setIsAuthorized(true);
     }
     setIsLoading(false); // End loading state
-  }, [router]);
+  }, [router,cookies,setIsAuthorized]);
+
   if (isLoading) {
     return <Loading/>; // Show loading state while checking
   }

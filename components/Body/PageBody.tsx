@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Menu from '../Partial/Menu'
-import Thumbnails from '../Products/Thumbnails'
+import Products from '../Products/Products'
 import Carousel from 'components/Carousel'
 import { Icon } from '@iconify/react'
 import { setGlobalState, useGlobalState } from 'state'
@@ -78,7 +78,7 @@ const PageBody = () => {
         <div className='carousel'>
           <Carousel data={Category?.getCategory}></Carousel>
         </div>
-        <Thumbnails />
+        <Products/>
       </div>
       <div className='RightWing'>
         <div className='Banner'></div>

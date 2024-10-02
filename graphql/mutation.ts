@@ -169,5 +169,13 @@ mutation UpdateProductFeedBackStatus($productFeedBacksStatusParameter: [Ordersta
   updateProductFeedBackStatus(ProductFeedBacksStatusParameter: $productFeedBacksStatusParameter) {
     statusText
   }
+}`
+
+
+export const INSERT_LIKES = gql`
+mutation InsertLikes($likesParamInput: LikesParam) {
+  insertLikes(LikesParamInput: $likesParamInput) {
+    statusText
+  }
 }
 `

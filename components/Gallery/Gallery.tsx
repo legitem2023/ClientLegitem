@@ -4,9 +4,8 @@ import 'swiper/css';
 import 'swiper/css/scrollbar';
 import Image from 'next/image';
 import { handleError, imageSourceGallery } from 'utils/scripts';
-export const Gallery = ({data,length,slidesPerView,spaceBetween}) => {
+export const Gallery:React.FC = ({data,length,slidesPerView,spaceBetween}:any) => {
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-
   return (
       <Swiper
       spaceBetween={spaceBetween}

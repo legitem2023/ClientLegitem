@@ -12,7 +12,7 @@ const News = () => {
   setGlobalState("drawer",true);
   useEffect(() => {
     cookies();
-  }, []);
+  }, [cookies]);
   return (
     <div className='Main'>
       <PageHeader/>

@@ -1,11 +1,11 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { useRouter,useSearchParams,useParams } from 'next/navigation';
+import { useRouter} from 'next/navigation';
 import { useMutation } from '@apollo/client';
 import { UPDATE_PASSWORD } from 'graphql/mutation';
 import { decode } from 'js-base64';
 
-const ForgotPasswordForm = () => {
+const ForgotPasswordForm:React.FC = () => {
     const router = useRouter();
     const [useEmail,setEmail] = useState();
 

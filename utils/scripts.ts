@@ -1,5 +1,6 @@
 import { encode } from "js-base64";
 import { useCallback } from "react";
+import { setGlobalState } from "state";
 
 
 export const setSharedCookie = (name: string, value: string, daysToExpire: any) => {
@@ -22,7 +23,7 @@ export const setSharedCookie = (name: string, value: string, daysToExpire: any) 
 
   // Save the updated array back to the cookie
   const cookieValue = encodeURIComponent(name) + '=' + encodeURIComponent(JSON.stringify(usersArray)) +
-      '; expires=' + expiration.toUTCString() +
+      // '; expires=' + expiration.toUTCString() +
       '; secure;' +
       '; path=/';
   document.cookie = cookieValue;
@@ -184,4 +185,12 @@ const result = {
 };
 
 return result?.totalRatings / filteredFeedback?.length;  
+}
+
+export const drawer = (drawerState:Boolean) =>{
+  if(drawerState){
+    setGlobalState("drawer",false);
+  }else{
+    setGlobalState("drawer",true);
+  }
 }

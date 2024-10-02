@@ -10,7 +10,7 @@ import ThreeJS from 'components/Partial/ThreeJS/ThreeJS'
 import Loading from 'components/Partial/LoadingAnimation/Loading'
 import { useQuery } from '@apollo/client'
 import { GET_CATEGORY } from 'graphql/queries'
-const HomeBody = () => {
+const HomeBody:React.FC = () => {
   const [drawerState] = useGlobalState("drawer");
   const path = useGlobalState("activeModel");
   const { data:Category, loading, error } = useQuery(GET_CATEGORY);

@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/scrollbar';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
-export const HomeGallery = () => {
+export const HomeGallery:React.FC = () => {
 
   const { data:ImageData, loading:imageLoading, error:imageError } = useQuery(GET_INVENTORY_SUB_IMAGES);
 

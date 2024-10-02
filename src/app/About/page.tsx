@@ -10,7 +10,7 @@ import { setGlobalState } from 'state'
 const Aboutpage = () => {
   useEffect(() => {
     cookies();
-  }, []);
+  }, [cookies]);
   return (
     <div className='Main'>
       <PageHeader/>

@@ -7,6 +7,8 @@ import { Provider } from 'components/ApolloProvider/Provider'
 import { ShoppingCartProvider } from 'components/context/ShoppingCartProvider'
 import * as React from "react";
 import { NotificationProvider } from 'components/context/NotificationContext'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Legitem',
@@ -27,6 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {children}
             </Provider>
           </ShoppingCartProvider>
+          <ToastContainer/>
         </NotificationProvider>
       </body>
     </html>

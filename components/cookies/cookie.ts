@@ -25,7 +25,6 @@ export const getCookie = (cookieName: string): string | null => {
 export const cookies = () => {
     const cookie = getCookie("clientToken");
     if (!cookie) {
-        document.location.href='../Login';
         return;
     }
     let userTokens: string[] = [];
@@ -38,7 +37,6 @@ export const cookies = () => {
     for (const tokenString of userTokens) {
         const token = jwt.decode(tokenString) as JwtPayload | null;
         if (!token || !token.user) {
-            document.location.href = '../Login';
             return;
         }
         // Set global state based on the user's token data
@@ -68,7 +66,7 @@ export const deletecookies = (token:any) =>{
         setGlobalState("cookieEmailAddress", "");
         setGlobalState("cookieUserLevel", "");
         setGlobalState("cookieActiveUser", "");
-        // document.location.href = '../Login';
+        document.location.href = '../Login';
         deleteCookie(token);
     }
 }

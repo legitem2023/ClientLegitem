@@ -4,11 +4,12 @@ import PageFooter from '../../../components/Partial/Footer/PageFooter'
 import PageAccount from '../../../components/Account/PageAccount'
 import { cookies } from 'components/cookies/cookie';
 import { useEffect, useState } from 'react';
-import PageLikes from '../../../components/Likes/PageLikes'
+import PageLikes from '../../../components/Likes/LikesData'
 import { useRouter } from 'next/navigation';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
 import { setGlobalState } from 'state';
-export default function Likes() {
+import Likes from 'components/Likes/Likes';
+export default function Index() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
@@ -28,7 +29,7 @@ export default function Likes() {
   return isAuthorized?(
     <div className='Main'>
       <PageHeader/>
-        <PageLikes/>
+        <Likes/>
       <PageFooter/>
     </div>
   ): null

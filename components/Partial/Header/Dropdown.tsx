@@ -1,8 +1,9 @@
 import { Icon } from '@iconify/react'
 import Link from 'next/link'
 import React from 'react'
+import { DropdownProps } from 'utils/types/types'
 
-const Dropdown = ({path,deletecookies,OrderNotification}) => {
+const Dropdown: React.FC<DropdownProps> = ({ path, deletecookies, OrderNotification }) => {
   return (
     <div className='DroppedDown'>
         <ul>

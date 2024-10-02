@@ -4,7 +4,7 @@ import { SET_ACTIVE_USERS } from 'graphql/mutation';
 import React, { useEffect } from 'react'
 import { setGlobalState, useGlobalState } from 'state';
 
-const LoadActiveUsers = () => {
+const LoadActiveUsers:React.FC = () => {
     const [cookieEmailAddress]:any = useGlobalState("cookieEmailAddress");
     const [insertMessage] = useMutation(SET_ACTIVE_USERS,{
       onCompleted: (data) => {
