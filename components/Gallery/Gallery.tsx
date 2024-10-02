@@ -4,7 +4,16 @@ import 'swiper/css';
 import 'swiper/css/scrollbar';
 import Image from 'next/image';
 import { handleError, imageSourceGallery } from 'utils/scripts';
-export const Gallery:React.FC = ({data,length,slidesPerView,spaceBetween}:any) => {
+
+type PropsGallery = {
+  data: (item: string) => void;
+  length:any,
+  slidesPerView:number,
+  spaceBetween:number
+}
+
+
+export const Gallery:React.FC<PropsGallery> = ({data,length,slidesPerView,spaceBetween}:any) => {
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
   return (
       <Swiper

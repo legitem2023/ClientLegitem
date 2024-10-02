@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from 'react'
 import PageFooter from 'components/Partial/Footer/PageFooter'
 import PageHeader from 'components/Partial/Header/PageHeader'

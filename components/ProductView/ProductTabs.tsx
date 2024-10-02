@@ -6,7 +6,10 @@ import { Icon } from "@iconify/react";
 import EffectsRenderer from "components/Partial/VTO/EffectsRenderer";
 import { ViewGallery } from "components/Gallery/ViewGallery";
 
-export default function ProductTabs({data}) {
+type PropsProductTabs = {
+  data: (name: string) => void;
+}
+const ProductTabs:React.FC<PropsProductTabs> = ({data}:any) =>{
   const [isActive, setIsActive] = React.useState("Gallery");
 
   const openCity = (tabID: any, elmnt: any) => {
@@ -70,3 +73,5 @@ export default function ProductTabs({data}) {
     </div>
   );
 }
+
+export default ProductTabs

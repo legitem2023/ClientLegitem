@@ -367,7 +367,7 @@ input[type='date']{
 .keep_on_top{
   position: sticky;
   top: 0px;
-  z-index: 9999;
+  z-index: 1;
   background-color: #00a380;
   padding: 10px;
   margin: 0px;
@@ -1597,16 +1597,18 @@ input[type='date']{
 /*  */
 
 .LikeStyle {
-  color: #00937a;
+  color: #10b67f;
   position: absolute;
-  z-index: 0;
+  z-index: 1;
   top: 0;
-  right: 0;
+  left: 0;
   margin: 5px;
   font-size: 20px;
   padding: 5px;
-  border: solid 1px #00937a;
+  border: solid 1px #10b67f;
   border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0.5px 0.5px 3px #000;
 }
 
 
@@ -2468,6 +2470,7 @@ input[type='date']{
 .FootRoutes{
   /* display: none; */
   transform: scale(0);
+  z-index:2;
 }
 
 
