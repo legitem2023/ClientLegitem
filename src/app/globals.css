@@ -142,10 +142,16 @@ input[type='date']{
   padding:10px;
   width: 100%;
 }
+.CommandContainer{
+  display: flex;
+  flex-direction: row;
+}
 .SelectedAddress{
   padding: 10px;
   background-color: #00ffc8;
   margin:2px;
+  font-size: 18px;
+  font-weight: bold;
 }
 .universalINActiveButton{
   width:auto;
@@ -1213,20 +1219,22 @@ input[type='date']{
   grid-template-columns: 20% 60% 20%;
   justify-content: center;
   align-items: center;
-
+  grid-gap:2px;
 }
 
 .ShareQuantity button {
   height: 40px;
   width: 100%;
   font-size: 25px;
+  box-sizing: border-box;
 }
 
 .ShareQuantity input {
-  height: 33px;
+  height: 40px;
   outline: 0;
   text-align: center;
-
+  box-sizing: border-box;
+  width: 100%!important;
 }
 
 .Main {
@@ -1597,15 +1605,15 @@ input[type='date']{
 /*  */
 
 .LikeStyle {
-  color: #10b67f;
-  position: absolute;
+  color: #ff008c;
+  /* position: absolute; */
   z-index: 1;
   top: 0;
   left: 0;
   margin: 5px;
-  font-size: 20px;
+  font-size: 30px;
   padding: 5px;
-  border: solid 1px #10b67f;
+  border: solid 2px #ff008c;
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0.5px 0.5px 3px #000;

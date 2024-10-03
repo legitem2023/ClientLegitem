@@ -105,6 +105,8 @@ const CheckoutData = () => {
 
     </div>
     <div className='middlecontainer'>
+    <div className='LabelHead carouselLabel'><Icon icon="ic:baseline-payment" /> Select Payment Method</div>
+
     <div className='LabelHead carouselLabel'><Icon icon="mdi:cart" /> Select Address</div>
     <div>
       {AccountDetails && <AccordionCheckout address={AccountDetails.getAccountDetails_id} refetch={AccountRefetch}/>}

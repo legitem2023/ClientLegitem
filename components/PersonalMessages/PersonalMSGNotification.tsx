@@ -36,7 +36,6 @@ const PersonalMSGNotification:React.FC<PropsSender> = ({ sender }: { sender: str
                 [sender]: JSON.parse(savedCount),
             }));
         }
-
         isInitialLoad.current = false; // Mark as no longer the initial load
     }, [sender]);
 

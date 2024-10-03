@@ -18,6 +18,9 @@ import { INSERT_VIEWS_COUNT } from 'graphql/mutation';
 import RelatedColor from './RelatedColor';
 import RelatedSize from './RelatedSize';
 import Ratings from 'components/Partial/Ratings/Ratings';
+import LikeCmd from 'components/Commands/LikeCmd';
+import AddCartCmd from 'components/Commands/AddCartCmd';
+import AddCartCmdView from 'components/Commands/AddCartCmdView';
 
 const path = process.env.NEXT_PUBLIC_PATH;
 const Manager = new DataManager();
@@ -26,7 +29,7 @@ const ProductView: React.FC = () => {
   const [take, setTake] = useState(10);
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
-  const { handleAddToCart } = useContext(ShoppingCartContext);
+  // const { handleAddToCart } = useContext(ShoppingCartContext);
   const { data: Products, loading, error } = useQuery(GET_RELATED_PRODUCTS);
   const param:any = useParams();
 
@@ -40,7 +43,6 @@ const ProductView: React.FC = () => {
 
   const [insertNumberOfViews] = useMutation(INSERT_VIEWS_COUNT, {
     onCompleted: (data) => {
-      // console.log(data)
       return;
     },
     onError: (error) => {
@@ -78,10 +80,9 @@ const ProductView: React.FC = () => {
                   <input type='text' value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value) || 1)} />
                   <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
                 </div>
-                <div>
-                  <button onClick={() => handleAddToCart(Cart(ViewProduct?.getToviewProduct, Manager, quantity))} className='addCart universalButtonStyle'>
-                    <Icon icon="mdi:cart" /> Add to Cart
-                  </button>
+                <div className='CommandContainer'>
+                  <LikeCmd productCode={viewItem.productCode}/>
+                <AddCartCmdView viewedProduct={ViewProduct?.getToviewProduct} quantity={quantity} />
                 </div>
                 <div className='ShareContainer'>
                   <Share />

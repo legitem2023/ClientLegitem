@@ -8,6 +8,9 @@
         /* z-index: 99999; */
         /* background-color: rgb(255, 255, 255); */
     }
+    .MainView_LchildGalleryDetails div{
+        padding:5px;
+    }
     .UniversalThumbnail > img{
         width:100%;
     }
@@ -197,8 +200,5 @@
         right:0px!important;
         top:93vh!important;
         font-size: 16px;
-    }
-    .PlaceLink {
-        position:absolute;
     }
 }

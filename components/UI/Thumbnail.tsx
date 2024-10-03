@@ -4,14 +4,14 @@ import Image from 'next/image';
 import { Icon } from '@iconify/react';
 import Ratings from 'components/Partial/Ratings/Ratings'; // Assume you have a Ratings component
 import { formatter, imageSource } from 'utils/scripts'; // Assuming you have utilities for formatting and image source
+import LikeCmd from '../Commands/LikeCmd';
+import AddCartCmd from '../Commands/AddCartCmd';
 
-interface ThumbnailProps {
+type ThumbnailProps = {
   item: any;
   path: string;
   handleLoading: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void;
   handleError: (event: React.SyntheticEvent<HTMLImageElement, Event>) => void; // Updated to accept the event
-  HandleAddtoCartThumbs: (item: any) => void;
-  HandleAddtoLikelistThumbs: (item: any) => void;
 }
 
 const Thumbnail: React.FC<ThumbnailProps> = ({ 
@@ -19,18 +19,11 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   path, 
   handleLoading, 
   handleError, 
-  HandleAddtoCartThumbs,
-  HandleAddtoLikelistThumbs
 }) => {
 
   return (
     <div className="thumbnail">
       <div className="thumbnailImageContainer">
-        <Icon 
-          onClick={() => HandleAddtoLikelistThumbs(item.productCode)}
-          icon="mdi:like"  
-          className='LikeStyle'
-        />
         <Link href={`${path}Products/${item.id}`}>
           <Image
             src={imageSource(item)}
@@ -63,11 +56,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
         </div>
         <div className='Thumbnails_rating_cart'>
           <Ratings data={item.Ratings.length > 0 ? item.Ratings : 0} />
-          <Icon 
-            icon='mdi:cart' 
-            className='iconify_cart' 
-            onClick={() => HandleAddtoCartThumbs(item)}
-          />
+          <AddCartCmd item={item} />
         </div>
       </div>
     </div>

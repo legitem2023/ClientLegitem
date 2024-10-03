@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { extracted, filterAndSumQuantity, formatter, handleError, imageSource, imageSource_cart } from 'utils/scripts'
 import Thumbnails from 'components/Products/Products'
 import CartCols from './CartCols'
+import AddQuantityCmd from 'components/Commands/AddQuantityCmd'
 
 const CartBody = () => {
   const path = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
@@ -17,7 +18,7 @@ const CartBody = () => {
   const [useGrandTotal,setGrandTotal] = useState(0);
   const reload = useRouter();
   const [loadingState,setLoading] = useState(false)
-
+  console.log(useGrandTotal,"total")
   const { handleAddToCart, handleRemoveFromCart } = useContext(ShoppingCartContext);
   useEffect(() => {
     // Ensure the code runs on the client only
@@ -62,42 +63,10 @@ const CartBody = () => {
     )
   }
 
-  const updateQuant = (e:any) =>{
-    const id = e.target.getAttribute("aria-current");
-    const Element = (document.getElementById('CurQuant'+id) as HTMLInputElement)
-    const currValue:any = Element.value;
-    if(currValue===1) return
-    const Price:any = e.target.getAttribute("aria-label");
-    const Subtotal:any = formatter.format(currValue * Price);
-    document.getElementById("Subtotal"+id).innerHTML = Subtotal;
-    let grandTotal = 0;
-    for (let index = 0; index < filtered_data.length; index++) {
-      let QTY: number = parseFloat((document.getElementById('CurQuant' + index) as HTMLInputElement).value);
-      let Price: number = parseFloat((document.getElementById('CurQuant' + index)).getAttribute("aria-valuenow"));
-      let Total = QTY * Price;
-      grandTotal += Total;
-    }
-    setGrandTotal(grandTotal);
-  }
 
 const filtered_data = filterAndSumQuantity(extracted(Storage));
 
 let sumAmount = 0;
-const Cart = (prodCode:any,number:number,e:any) => {
-    const id = e.target.getAttribute("aria-current");
-    const Element:any = (document.getElementById('CurQuant'+id) as HTMLInputElement)
-    const currValue:any = Element.value;
-    Element.value = parseInt(currValue) + number;
-    return filtered_data.filter(i => i.productCode === prodCode).map((item: any) => ({
-      "productCode":item.productCode,
-      "Thumbnail":item.thumbnail,
-      "Name": item.name,
-      "Price": item.price,
-      "Size": item.size,
-      "Color": item.color,
-      "Quantity": number 
-    }));
-  };
 
   const handleRemoveFromCartAndUpdate = (productCode: string) => {
     handleRemoveFromCart(productCode);
@@ -145,22 +114,10 @@ return(
                     <span>Price: {formatter.format(item.Price)}</span>
                   </div>
                   <div className='CartDetails CartDetailsCenter'>
-                    <div className='ShareQuantity'>
-                      <div>
-                        <button aria-current={innerIdx} aria-label={item.Price} onClick={(e:any)=>{
-                            handleAddToCart(Cart(item.productCode,1,e));
-                            updateQuant(e);}}>+</button>
-                      </div>
-                      <div>
-                        <input type='text' id={"CurQuant"+innerIdx} style={{'width':'90%'}} defaultValue={item.Quantity} aria-valuenow={item.Price}/>
-                      </div>
-                      <div>
-                          <button aria-current={innerIdx} aria-label={item.Price} onClick={(e:any)=>{
-                            handleAddToCart(Cart(item.productCode,(-1),e));
-                            updateQuant(e);}}>-
-                          </button>
-                      </div>
-                    </div>
+                  <AddQuantityCmd item = {item}
+                                  innerIdx={innerIdx}
+                                  filtered_data={filtered_data}
+                                  setGrandTotal={setGrandTotal}/>
                   </div>
                   <div className='CartDetails CartDetailsCenter'>
                     <div className='CartDetailsCenter' id={"Subtotal"+innerIdx}>
