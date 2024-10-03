@@ -3,7 +3,10 @@ import { PERSONAL_MESSAGES_ADDED } from 'graphql/subscriptions';
 import React, { useEffect, useRef } from 'react';
 import { setGlobalState, useGlobalState } from 'state';
 
-const PersonalMSGNotification = ({ sender }: { sender: string }) => {
+type PropsSender = {
+    sender: string
+}
+const PersonalMSGNotification:React.FC<PropsSender> = ({ sender }: { sender: string }) => {
     const [messageCounts] = useGlobalState("messageCount"); // Global state for message counts per sender
     const isInitialLoad = useRef(true); // Track initial load state
 
@@ -11,14 +14,12 @@ const PersonalMSGNotification = ({ sender }: { sender: string }) => {
         onSubscriptionData: ({ subscriptionData }) => {
             const newMessages = subscriptionData.data?.messagesPersonal || [];
             const filteredBySender = newMessages.filter((data: any) => data.Sender === sender);
-
             if (filteredBySender.length > 0 && !isInitialLoad.current) {
                 // Update message count in global state
                 setGlobalState("messageCount", (prevCounts: any) => ({
                     ...prevCounts,
                     [sender]: (prevCounts[sender] || 0) + filteredBySender.length,
                 }));
-
                 // Persist updated count to localStorage
                 const updatedCount = (messageCounts[sender] || 0) + filteredBySender.length;
                 localStorage.setItem(`personalMSGCount_${sender}`, JSON.stringify(updatedCount));

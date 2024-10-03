@@ -24,12 +24,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={inter.className}>
         <NotificationProvider>
+          <ToastContainer/>
           <ShoppingCartProvider>
             <Provider>
               {children}
             </Provider>
           </ShoppingCartProvider>
-          <ToastContainer/>
         </NotificationProvider>
       </body>
     </html>

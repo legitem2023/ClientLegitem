@@ -24,41 +24,42 @@ const Messages = ({reciever}) => {
     const [currentDay, setCurrentDay] = useState(new Date()); // Track current day
     useEffect(() => {
         const unsubscribe = subscribeToMore({
-            document: PERSONAL_MESSAGES_ADDED,
-            variables: { emailAddress: cookieEmailAddress,reciever:reciever }, // Pass any necessary variables
-            updateQuery: (prev, { subscriptionData }) => {
-                // Assuming messagesPersonal is an array
-                const newMessages = subscriptionData?.data?.messagesPersonal;
-                if (!newMessages || newMessages.length === 0) return prev; // Check if messagesPersonal is empty or null
-    
-                // Filter the new messages based on the receiver
-                const filteredNewMessages = newMessages.filter(
-                    (item: any) => (item.Sender===reciever || item.Sender === cookieEmailAddress) && (item.Reciever===cookieEmailAddress || item.Reciever === reciever)
-                );
-    
-                if (filteredNewMessages.length === 0) return prev; // If no messages pass the filter, return the previous state
-
-                // Update the state with the new filtered messages
-                // return {
-                //     ...prev,
-                //     personalMessages: [...filteredNewMessages, ...prev.personalMessages],
-                // };
-                return {
-                    ...prev,
-                    personalMessages: prev.personalMessages ? [filteredNewMessages, ...prev.personalMessages] : [filteredNewMessages],
-                  };
-                  
-            },
+          document: PERSONAL_MESSAGES_ADDED,
+          variables: { emailAddress: cookieEmailAddress, reciever: reciever }, // Pass any necessary variables
+          updateQuery: (prev, { subscriptionData }) => {
+            if (!subscriptionData?.data) return;
+            const newMessages = subscriptionData?.data?.messagesPersonal;
+            // Filter messages for the correct sender/receiver pair
+            const filteredNewMessages = newMessages?.filter(
+              (item: any) => (item.Sender === reciever || item.Sender === cookieEmailAddress) &&
+                             (item.Reciever === cookieEmailAddress || item.Reciever === reciever)
+            );
+      
+            if (!filteredNewMessages || filteredNewMessages.length === 0) return prev;
+            // Filter out any duplicates based on a unique identifier (assuming message.id exists)
+            const uniqueNewMessages = filteredNewMessages.filter(
+              (newMsg: any) => !prev.personalMessages.some((prevMsg: any) => prevMsg.id === newMsg.id)
+            );
+      
+            if (uniqueNewMessages.length === 0) return prev;
+            return {
+              ...prev,
+              personalMessages: [
+                ...uniqueNewMessages, // Add only unique new messages
+                ...prev.personalMessages
+              ]
+            };
+          },
         });
-    
+      
         return () => {
-            unsubscribe();
+          unsubscribe();
         };
-    }, [subscribeToMore, cookieEmailAddress, reciever]); // Add necessary dependencies
-
+      }, [subscribeToMore, cookieEmailAddress, reciever]);
+      
+// Add necessary dependencies
 //########################## MUTATION PART START ##########################
-    const FilterReciever = data?.personalMessages.filter(
-        (item: any) => (item.Sender===reciever || item.Sender === cookieEmailAddress) && (item.Reciever===cookieEmailAddress || item.Reciever === reciever))
+    const FilterReciever = data?.personalMessages.filter((item: any) => (item.Sender===reciever || item.Sender === cookieEmailAddress) && (item.Reciever===cookieEmailAddress || item.Reciever === reciever))
         const filteredPosts = FilterReciever.filter((post: any) => {
       const postDate = new Date(parseInt(post.dateSent)); // Convert timestamp to date
       return (
@@ -130,7 +131,7 @@ const Messages = ({reciever}) => {
             </ul>
             <ul className='messagesUL'>
                 {
-                    filteredPosts.map((item: any, id: any) => (
+                  filteredPosts.map((item: any, id: any) => (
                         <li key={id} className={item.Sender===cookieEmailAddress?"messagesLI_me":"messagesLI"}>
                             <div>
                                 <div>Sender: {item.Sender===cookieEmailAddress?"Me":item.Sender}</div>
@@ -139,7 +140,7 @@ const Messages = ({reciever}) => {
                                 <div className='dateSent'>{setTime(item.dateSent)}</div>
                             </div>
                         </li>
-                    ))}
+                ))}
         <li className='messages_pagination'>
           <button className='universalButtonStyle' onClick={goToPreviousDay}>Previous Day</button>
           <button className='universalButtonStyle' onClick={goToNextDay}>Next Day</button>

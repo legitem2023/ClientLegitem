@@ -1,14 +1,13 @@
 import React, { useCallback, useContext, useMemo } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_CHILD_INVENTORY } from 'graphql/queries';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
-import Ratings from 'components/Partial/Ratings/Ratings';
+
 import { setGlobalState, useGlobalState } from 'state';
-import { Cart, formatter, handleError, handleLoading, imageSource, ratings } from 'utils/scripts';
+import { Cart, handleError, handleLoading } from 'utils/scripts';
 import UniversalPagination from 'components/Partial/Pagination/UniversalPagination';
-import { Icon } from '@iconify/react';
+
 import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import DataManager from 'utils/DataManager';
 import Thumbnail from 'components/UI/Thumbnail';
@@ -81,9 +80,11 @@ const Products: React.FC = () => {
   const handlePageChange = useCallback((page: number) => {
     setGlobalState('CurrentPage', page);
   }, []);
+
   if (productsLoading) return <Loading />;
   if (productsError) return <h1>Connection Error</h1>;
 
+  console.log(paginatedProducts)
   const HandleAddtoCartThumbs = (item) =>{
     handleAddToCart(Cart([item], Manager, 1))
     setGlobalState('thumbnailSearch', "0");

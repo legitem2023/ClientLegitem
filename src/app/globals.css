@@ -368,23 +368,23 @@ input[type='date']{
   position: sticky;
   top: 0px;
   z-index: 1;
-  background-color: #00a380;
+  background-color: #006650;
   padding: 10px;
   margin: 0px;
 }
 .notificationfmsg{
-  display: 'flex';
-  width: '25px';
-  height: '25px';
-  border-radius: '50%';
-  background-color: 'red';
-  color: 'white';
-  justify-content: 'center';
-  align-items: 'center';
-  font-size: '10px';
-  position: 'absolute';
-  top: '0px';
-  right: '0px';
+  display: flex;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: red!important;
+  color: white;
+  justify-content:center;
+  align-items: center;
+  font-size: 10px;
+  position: absolute!important;
+  top: 0px;
+  right: 0px;
 }
 /* .messagesUL_fixed {
   padding-left: 0px;
@@ -2054,7 +2054,7 @@ input[type='date']{
   background-color: #53e2ab;
   position: absolute;
   top: 8vh;
-  z-index: 999;
+  z-index: 999999;
   width: 12vw;
   transition: ease 0.5s;
   transform: scaleX(0);

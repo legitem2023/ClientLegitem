@@ -4,8 +4,7 @@ import PageFooter from 'components/Partial/Footer/PageFooter';
 import PageHeader from 'components/Partial/Header/PageHeader';
 import ProductView from 'components/ProductView/ProductView'
 import { useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 export default function Index() {
   useEffect(() => {
     cookies();
@@ -14,7 +13,6 @@ export default function Index() {
     <div className='Main'>
         <PageHeader/>
         <ProductView/>
-        <ToastContainer/>
         <PageFooter/>
     </div>
   )

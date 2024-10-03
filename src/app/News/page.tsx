@@ -5,7 +5,6 @@ import PageHeader from 'components/Partial/Header/PageHeader'
 import Loading from 'components/Partial/LoadingAnimation/Loading'
 import { cookies } from 'components/cookies/cookie'
 import React, { useEffect, useState } from 'react'
-import { ToastContainer } from 'react-toastify'
 import { setGlobalState } from 'state'
 
 const News = () => {
@@ -17,7 +16,6 @@ const News = () => {
     <div className='Main'>
       <PageHeader/>
         <NewsData/>
-        <ToastContainer/>
       <PageFooter/>
     </div>
   )
