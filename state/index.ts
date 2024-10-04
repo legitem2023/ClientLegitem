@@ -37,7 +37,7 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     drawer:true,
     checkoutAddress:"",
     checkoutContact:"",
-    CurrentOrderStage:"New Order",
+    CurrentOrderStage:"",
     CurrentPage:1,
     sortDirection:'asc',
     sortBy:'price'

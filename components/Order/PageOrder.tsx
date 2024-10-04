@@ -17,10 +17,24 @@ import AccordionOrderLogistic from 'components/AccordionOrders/AccordionOrderLog
 import AccordionOrderDelivered from 'components/AccordionOrders/AccordionOrderDelivered'
 import AccordionOrderDeliver from 'components/AccordionOrders/AccordionOrderDeliver'
 import useOrderStatusNotification from 'components/Hooks/useOrderStatusNotification'
+import OrderStageNotification from './OrderStageNotification'
+import { ClearStorage } from 'utils/scripts'
 
 const PageOrder:React.FC = () => {
   const [drawerState] = useGlobalState("drawer");
-  const { updateNewOrder,updateRecieved,updatePacked,updateLogistic,updateDelivery,updateDelivered } = useOrderStatusNotification();
+  const { updateNewOrder,
+          updateRecieved,
+          updatePacked,
+          updateLogistic,
+          updateDelivery,
+          updateDelivered,
+          setUpdateNewOrder,
+          setUpdateRecieved,
+          setUpdatePacked,
+          setUpdateLogistic,
+          setUpdateDelivery,
+          setUpdateDelivered
+        } = useOrderStatusNotification();
   const [CurrentOrderStage] = useGlobalState("CurrentOrderStage");
   const [cookieEmailAddress] = useGlobalState("cookieEmailAddress");
   const { data:newOrder,loading:newOrderLoading,error,refetch:refetchNew} = useQuery(READ_ORDERS,{variables:{emailAddress:cookieEmailAddress}});
@@ -68,6 +82,19 @@ const PageOrder:React.FC = () => {
   }
 
 
+
+
+  const ClearLocalStorage = (item:any) =>{
+    setGlobalState("CurrentOrderStage",item.URL);
+    item.Name==='New Order'?ClearStorage(setUpdateNewOrder,"NewOrder"):"";
+    item.Name==='Recieve'?ClearStorage(setUpdateRecieved,"Recieve"):"";
+    item.Name==='Packed'?ClearStorage(setUpdatePacked,"Packed"):"";
+    item.Name==='Logistic'?ClearStorage(setUpdateLogistic,"Logistic"):"";
+    item.Name==='Delivery'?ClearStorage(setUpdateDelivery,"Delivery"):"";
+    item.Name==='Delivered'?ClearStorage(setUpdateDelivered,"Delivered"):"";
+  }
+
+
   return (
     <div className='body'>
       <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>
@@ -83,21 +110,13 @@ const PageOrder:React.FC = () => {
               <div className='OrderStages'>
                 {
                   transactionData.map((item:any,idx:any)=>(
-                      <span className={item.Class} key={idx} onClick={()=>{
-                        setGlobalState("CurrentOrderStage",item.URL);
-                        item.Name==='New Order'?localStorage.removeItem('NewOrder'):"";
-                        item.Name==='Recieve'?localStorage.removeItem('Recieved'):"";
-                        item.Name==='Packed'?localStorage.removeItem('Packed'):"";
-                        item.Name==='Logistic'?localStorage.removeItem('Logistic'):"";
-                        item.Name==='Delivery'?localStorage.removeItem('Delivery'):"";
-                        item.Name==='Delivered'?localStorage.removeItem('Delivered'):"";
-                        }}>
-                          {item.Name === 'New Order'?<span className='OrderStageNotification' style={{'display':updateNewOrder===0?'none':'flex'}}>{updateNewOrder}</span>:null}
-                          {item.Name === 'Recieve'?<span className='OrderStageNotification' style={{'display':updateRecieved===0?'none':'flex'}}>{updateRecieved}</span>:null}
-                          {item.Name === 'Packed'?<span className='OrderStageNotification' style={{'display':updatePacked===0?'none':'flex'}}>{updatePacked}</span>:null}
-                          {item.Name === 'Logistic'?<span className='OrderStageNotification' style={{'display':updateLogistic===0?'none':'flex'}}>{updateLogistic}</span>:null}
-                          {item.Name === 'Delivery'?<span className='OrderStageNotification' style={{'display':updateDelivery===0?'none':'flex'}}>{updateDelivery}</span>:null}
-                          {item.Name === 'Delivered'?<span className='OrderStageNotification' style={{'display':updateDelivered===0?'none':'flex'}}>{updateDelivered}</span>:null}
+                      <span className={item.Class} key={idx} onClick={()=>ClearLocalStorage(item)}>
+                          {item.Name === 'New Order'?<OrderStageNotification notification={updateNewOrder}/>:null}
+                          {item.Name === 'Recieve'?<OrderStageNotification notification={updateRecieved}/>:null}
+                          {item.Name === 'Packed'?<OrderStageNotification notification={updatePacked}/>:null}
+                          {item.Name === 'Logistic'?<OrderStageNotification notification={updateLogistic}/>:null}
+                          {item.Name === 'Delivery'?<OrderStageNotification notification={updateDelivery}/>:null}
+                          {item.Name === 'Delivered'?<OrderStageNotification notification={updateDelivered}/>:null}
                           <Icon icon={item.Image} height='50' width='50'  className='TransactionImage'></Icon>
                       </span>                      
                   ))

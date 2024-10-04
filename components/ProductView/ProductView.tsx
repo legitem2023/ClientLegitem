@@ -21,12 +21,12 @@ import Ratings from 'components/Partial/Ratings/Ratings';
 import LikeCmd from 'components/Commands/LikeCmd';
 import AddCartCmd from 'components/Commands/AddCartCmd';
 import AddCartCmdView from 'components/Commands/AddCartCmdView';
+import LinkStoreCmd from 'components/Commands/LinkStoreCmd';
 
 const path = process.env.NEXT_PUBLIC_PATH;
 const Manager = new DataManager();
 
 const ProductView: React.FC = () => {
-  const [take, setTake] = useState(10);
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
   // const { handleAddToCart } = useContext(ShoppingCartContext);
@@ -52,7 +52,7 @@ const ProductView: React.FC = () => {
 
   if (loading) return <Loading />;
   if (error) return <h1>Connection Error</h1>;
-  if(ViewProductLoading) return
+  if(ViewProductLoading) return <Loading />;
   if(ViewProductError) return
   return (
     <Suspense fallback={<Loading />}>
@@ -70,8 +70,8 @@ const ProductView: React.FC = () => {
               <div className='MainView_LchildGalleryDetails'>
                 <div className='MainView_LchildGalleryDetails_labels'><span>Name:</span><span>{viewItem.name}</span></div>
                 <div className='MainView_LchildGalleryDetails_labels'><span>Price :</span><span>{formatter.format(viewItem.price)}</span></div>
-                <div className='MainView_LchildGalleryDetails_labels'><span>Size :</span><span>{viewItem.size}</span></div>
-                <div className='MainView_LchildGalleryDetails_labels'><span>Color :</span><span>{viewItem.color}</span></div>
+                {/* <div className='MainView_LchildGalleryDetails_labels'><span>Size :</span><span>{viewItem.size}</span></div> */}
+                {/* <div className='MainView_LchildGalleryDetails_labels'><span>Color :</span><span>{viewItem.color}</span></div> */}
                 <div>Available Size :<RelatedSize styleCode={viewItem.style_Code}/></div>
                 <div>Available Colors of Size: <RelatedColor styleCode={viewItem.style_Code}/></div>
                 <div>Quantity :</div>
@@ -81,6 +81,7 @@ const ProductView: React.FC = () => {
                   <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
                 </div>
                 <div className='CommandContainer'>
+                  <LinkStoreCmd emailAddress={viewItem.agentEmail}/>
                   <LikeCmd productCode={viewItem.productCode}/>
                 <AddCartCmdView viewedProduct={ViewProduct?.getToviewProduct} quantity={quantity} />
                 </div>
@@ -106,12 +107,7 @@ const ProductView: React.FC = () => {
               )):"No Review Found"}
             </div>
           </div>
-              {loading ? <Loading /> : <RelatedProducts data={Products?.getRelatedProduct.filter((cat)=>cat.category===viewItem.category).slice(0, take)} />}
-              <div>
-                <button onClick={() => setTake(take + 5)} className='universalButtonStyle'>
-                  {loading?<Icon icon='eos-icons:bubble-loading' />:"Load More"}
-                </button>
-              </div>
+              <RelatedProducts data={Products?.getRelatedProduct} />
         </div>
       )) : null}
     </Suspense>

@@ -23,7 +23,7 @@ const HomeBody:React.FC = () => {
       </div>
       <div className='middlecontainer'>
       <div className='LabelHead carouselLabel'><Icon icon="dashicons:store" /> Stores</div>
-        {/* <ThreeJS/> */}
+        {/* <ViewGallery/> */}
         <div className='carousel'>
           <Carousel data={Category?.getCategory}></Carousel>
         </div>

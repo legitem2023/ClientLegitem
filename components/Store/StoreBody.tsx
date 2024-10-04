@@ -9,7 +9,8 @@ import Commercial3DModel from 'components/Partial/ThreeJS/Commercial3DModel'
 import { useQuery } from '@apollo/client'
 import { GET_CATEGORY } from 'graphql/queries'
 import Loading from 'components/Partial/LoadingAnimation/Loading'
-const PageBody = () => {
+import Store from './Store'
+const StoreBody = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [drawerState] = useGlobalState("drawer");
   const [sortDirection] = useGlobalState("sortDirection");
@@ -55,8 +56,13 @@ const PageBody = () => {
         <Icon icon="emojione-monotone:up-arrow" className='goUp' onClick={() => scrollToTop()} />
       </div>
       <div className='middlecontainer'>
-      <div className='LabelHead carouselLabel'><Icon icon="bi:tags-fill" /> Products</div>
+      <div className='LabelHead carouselLabel'><Icon icon="bi:tags-fill" /> Store Details</div>
 
+        <div className='LabelHead carouselLabel'><Icon icon="bi:tags-fill" /> Category</div>
+
+        <div className='carousel'>
+          <Carousel data={Category?.getCategory}></Carousel>
+        </div>
         <div className='searchContaier'>
           <div><input type='text' placeholder='Search' onChange={(e: any) => searchEngine(e)}></input></div>
           <div>
@@ -73,12 +79,7 @@ const PageBody = () => {
               </button>
           </div>
         </div>
-        {/* <Commercial3DModel data={activeModel}/>
-         */}
-        <div className='carousel'>
-          <Carousel data={Category?.getCategory}></Carousel>
-        </div>
-        <Products/>
+        <Store/>
       </div>
       <div className='RightWing'>
         <div className='Banner'></div>
@@ -87,4 +88,4 @@ const PageBody = () => {
   )
 }
 
-export default PageBody
+export default StoreBody

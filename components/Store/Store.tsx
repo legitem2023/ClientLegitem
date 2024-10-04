@@ -7,10 +7,14 @@ import Loading from 'components/Partial/LoadingAnimation/Loading';
 import { setGlobalState, useGlobalState } from 'state';
 import { handleError, handleLoading } from 'utils/scripts';
 import UniversalPagination from 'components/Partial/Pagination/UniversalPagination';
+import { useRouter,useParams } from 'next/navigation';
 
 import Thumbnail from 'components/UI/Thumbnail';
+import { decode } from 'js-base64';
 
-const Products: React.FC = () => {
+const Store: React.FC = () => {
+  const param:any = useParams();
+
   const [thumbnailCategory] = useGlobalState('thumbnailCategory');
   const [thumbnailProductTypes] = useGlobalState('thumbnailProductTypes');
   const [thumbnailSearch] = useGlobalState('thumbnailSearch');
@@ -19,21 +23,27 @@ const Products: React.FC = () => {
   const [sortBy] = useGlobalState('sortBy');
   const [sortDirection] = useGlobalState('sortDirection');
 
-  const { data: ProductsData, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY);
+  const { data: ProductsData, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY,{
+    fetchPolicy: 'cache-and-network',
+  });
 
 
-   if (!ProductsData) return [];
+  const filteredProducts = useMemo(() => {
+    if (!ProductsData) return [];
     
-    const filteredProducts = ProductsData?.getChildInventory?.filter((item: any) =>
+    return ProductsData?.getChildInventory
+      ?.filter((item: any) =>
         item?.name?.toLowerCase()?.includes(thumbnailSearch.toLowerCase())
       )
       ?.filter((item: any) =>
         item?.category?.toLowerCase()?.includes(thumbnailCategory.toLowerCase())
       )
+  }, [ProductsData, thumbnailSearch, thumbnailCategory,thumbnailProductTypes]);
 
+  const sortedProducts = useMemo(() => {
     if (!filteredProducts) return [];
 
-    const sortedProducts = filteredProducts.sort((a: any, b: any) => {
+    return filteredProducts.filter(((item:any) => item.agentEmail === decode(param.id))).sort((a: any, b: any) => {
 
       if (sortBy === 'price') {
         return sortDirection === 'asc' ? a.price - b.price : b.price - a.price;
@@ -44,6 +54,7 @@ const Products: React.FC = () => {
       }
       return 0;
     });
+  }, [filteredProducts, sortBy, sortDirection]);  
 
 
   const itemsPerPage = 20;
@@ -52,11 +63,14 @@ const Products: React.FC = () => {
       (CurrentPage - 1) * itemsPerPage,
       CurrentPage * itemsPerPage);
 
-  const totalPages = Math.ceil((filteredProducts?.length || 0) / itemsPerPage);
+  const totalPages = useMemo(() => {
+    const itemsPerPage = 20;
+    return Math.ceil((filteredProducts?.length || 0) / itemsPerPage);
+  }, [filteredProducts]);
 
-  const handlePageChange = (page: number) => {
+  const handlePageChange = useCallback((page: number) => {
     setGlobalState('CurrentPage', page);
-  };
+  }, []);
 
   if (productsLoading) return <Loading />;
   if (productsError) return <h1>Connection Error</h1>;
@@ -83,4 +97,4 @@ const Products: React.FC = () => {
   );
 };
 
-export default Products;
+export default Store;

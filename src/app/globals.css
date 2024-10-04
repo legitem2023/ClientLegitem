@@ -997,9 +997,6 @@ input[type='date']{
   align-items: center;
 }
 
-/* .cropperControlsContainer_gallery .image-gallery {
-  width: 100%;
-} */
 
 .CropperImageContrainer {
   display: flex;
@@ -1051,15 +1048,12 @@ input[type='date']{
 }
 
 .LabelHead {
-  /* background: linear-gradient(to right, rgb(233, 229, 206) 0%, rgb(191, 171, 57) 0%, rgb(198, 179, 97) 30%, rgb(216, 189, 67) 44%, rgb(239, 209, 76) 61%, rgb(196, 171, 58) 84%, rgb(140, 121, 39) 100%); */
   background: linear-gradient(to right, rgba(206, 219, 233, 1) 0%, rgba(57, 191, 144, 1) 0%, rgba(97, 198, 154, 1) 30%, rgba(67, 216, 151, 1) 44%, rgba(76, 239, 158, 1) 61%, rgba(58, 196, 148, 1) 84%, rgba(39, 140, 74, 1) 100%);
   padding: 10px;
   border-top: solid 3px #004127;
   border-bottom: solid 3px #004127;
   font-size: 20px;
   font-weight: bold;
-  /* margin-top:3px; */
-  margin-bottom: 3px;
   height: 25px;
 }
 
@@ -1079,6 +1073,8 @@ input[type='date']{
   display: grid;
   grid-template-columns: 50% 50%;
   margin-bottom: 4px;
+  box-sizing: border-box;
+  /* margin: 4px; */
   background: aliceblue;
   transition: ease 0.5s;
   overflow: hidden;
@@ -1095,9 +1091,7 @@ input[type='date']{
   grid-template-rows: auto auto auto auto auto;
 }
 
-/* .image-gallery-image {
-  width: 30vw !important;
-} */
+
 
 .backIcon {
   font-size: 30px;
@@ -1134,21 +1128,14 @@ input[type='date']{
   cursor: pointer;
 }
 
-/* .image-gallery {
-  background-color: #ffffff;
-  justify-content: center;
-  align-items: center;
-  width: 95%;
-  height: 23vw;
+.masonry-gallery-demo{
+  width: 100%!important;
+  background-color: transparent;
+}
+.masonry-gallery-demo img{
+  width: 200px;
 }
 
-.image-gallery-image {
-  width: 100%;
-}
-
-.image-gallery-content {
-  background-color: rgb(2, 31, 2);
-} */
 
 .MainView_LchildGalleryDetails {
   display: flex;
@@ -1804,13 +1791,7 @@ input[type='date']{
   text-align: center;
 }
 
-/* .image-gallery-description a {
-  text-decoration: none;
-  color: #008793;
-  font-family: 'Times New Roman', Times, serif;
-  font-weight: bold;
-  text-shadow: 0.5px 0.5px 3px #ffffff;
-} */
+
 
 .Rates {
   padding: 0px !important;
@@ -2204,15 +2185,13 @@ input[type='date']{
 }
 
 .react-stacked-center-carousel {
-  height: 50vh !important;
+  height: 30vh !important;
   display: flex;
   align-items: center;
 }
 
 .RightWing {
   position: relative;
-
-
 }
 
 .RightWing .div {

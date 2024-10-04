@@ -138,7 +138,6 @@ export const imageSourceGallery = (item:any) =>{
 
 export const Cart = (viewedProd:any,Manager:any,quantity:any) => {
   Manager.Success("Added to cart!");
-console.log(viewedProd,Manager,quantity);
   return viewedProd.map((item: any) => ({
     "productCode": item.productCode,
     "Thumbnail": item.thumbnail,
@@ -192,3 +191,9 @@ export const drawer = (drawerState:Boolean) =>{
     setGlobalState("drawer",true);
   }
 }
+
+export const ClearStorage = (DeleteState:any,name:string) =>{
+  localStorage.removeItem(name);
+  DeleteState(0);
+}
+

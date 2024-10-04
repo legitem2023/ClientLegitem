@@ -13,6 +13,7 @@ export default function Carousel({data}) {
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
   const pathname = usePathname();
   const Products = pathname.startsWith('/Products');
+
   const Card = (props:any) => {
     const { data, dataIndex }:any = props;
     const { image } = data[dataIndex];
