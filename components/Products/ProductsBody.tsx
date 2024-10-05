@@ -7,12 +7,13 @@ import { Icon } from '@iconify/react'
 import { setGlobalState, useGlobalState } from 'state'
 import { useQuery } from '@apollo/client'
 import { GET_CATEGORY } from 'graphql/queries'
+import Loading from 'components/Partial/LoadingAnimation/Loading'
 const ProductsBody = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
   const [drawerState] = useGlobalState("drawer");
   const [sortDirection] = useGlobalState("sortDirection");
-  const [sortBy] = useGlobalState("sortBy");
-  const [activeModel] = useGlobalState("activeModel")
+  // const [sortBy] = useGlobalState("sortBy");
+  // const [activeModel] = useGlobalState("activeModel");
   const { data:Category, loading, error } = useQuery(GET_CATEGORY);
 
   const scrollToTop = () => {
@@ -43,7 +44,7 @@ const ProductsBody = () => {
       }
   }) 
 
-  if(loading) return
+  if(loading) return <Loading/>
   if(error) return "Connection Error";
 
   return (

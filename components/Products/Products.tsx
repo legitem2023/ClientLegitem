@@ -21,8 +21,9 @@ const Products: React.FC = () => {
 
   const { data: ProductsData, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY);
 
-
-   if (!ProductsData) return [];
+  if (productsLoading) return <Loading />;
+  if (productsError) return <h1>Connection Error</h1>;
+  //  if (!ProductsData) return [];
     
     const filteredProducts = ProductsData?.getChildInventory?.filter((item: any) =>
         item?.name?.toLowerCase()?.includes(thumbnailSearch.toLowerCase())
@@ -58,11 +59,11 @@ const Products: React.FC = () => {
     setGlobalState('CurrentPage', page);
   };
 
-  if (productsLoading) return <Loading />;
-  if (productsError) return <h1>Connection Error</h1>;
+
 
   return (
     <>
+    {/* <Loading /> */}
     <div className="Thumbnails">
       {paginatedProducts.length > 0?paginatedProducts.map((item: any, idx: number) => (
         <Thumbnail key={idx} 

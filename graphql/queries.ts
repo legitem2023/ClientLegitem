@@ -542,6 +542,7 @@ query ReadLikes($accountEmail: String) {
     name
     stock
     size
+    agentEmail
     Likes {
       id
       productCode

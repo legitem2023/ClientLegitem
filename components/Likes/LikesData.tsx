@@ -18,14 +18,8 @@ const LikesData = () => {
   });
   if(LikeLoading) return <Loading/> 
   if(LikeError) return
-
   return (
     <div className='NewsContainer'>
-      {/* { <UniversalPagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />} */}
       {LikeData.readLikes.length > 0?LikeData.readLikes?.map((item: any, idx: number) => (
         <UniversalContainerItem_Likes key={idx} 
                                       item={item} 

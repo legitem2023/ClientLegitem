@@ -21,13 +21,14 @@
     justify-content: center;
     align-items: center;
     position: fixed;
-    background-color: rgba(0, 114, 66,0.5);
+    background-color: rgba(0, 170, 133, 0.726);
     left:0px;
     right:0px;
     top:0px;
     bottom:0px;
     margin:auto;
     z-index: 9999999999;
+    overflow: hidden;
   }
   @keyframes lds-ripple {
     0% {

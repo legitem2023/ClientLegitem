@@ -145,6 +145,8 @@ input[type='date']{
 .CommandContainer{
   display: flex;
   flex-direction: row;
+  align-items: center;
+  
 }
 .SelectedAddress{
   padding: 10px;
@@ -297,7 +299,6 @@ input[type='date']{
 }
 .ContactForm div{
   background-color: #f1f1f1;
-  /* padding:10px; */
   width: 100%;
   display:flex ;
   align-items: center;
@@ -325,45 +326,18 @@ input[type='date']{
   margin:10px;
 
 }
-/* HTML: <div class="loader"></div> */
 .loader {
   box-sizing: border-box;
   display: inline-block;
-  width: 50px;
-  height: 80px;
-  border-top: 5px solid #fff;
-  border-bottom: 5px solid #fff;
-  position: relative;
-  background: linear-gradient(#00ffbf 30px, transparent 0) no-repeat;
-  background-size: 2px 40px;
-  background-position: 50% 0px;
-  animation: spinx 5s linear infinite;
+  width: 100vw;
+  height: 100vh;
   filter: drop-shadow(0.5px 0.5px 3px #000);
-}
-
-.loader:before,
-.loader:after {
-  content: "";
-  width: 40px;
-  left: 50%;
-  height: 35px;
-  position: absolute;
-  top: 0;
-  transform: translatex(-50%);
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 0 0 20px 20px;
-  background-size: 100% auto;
+  background-image: url("../../public/Loading.gif");
+  background-position: center;
   background-repeat: no-repeat;
-  background-position: 0 0px;
-  animation: lqt 5s linear infinite;
+  background-size: 75px auto;
 }
 
-.loader:after {
-  top: auto;
-  bottom: 0;
-  border-radius: 20px 20px 0 0;
-  animation: lqb 5s linear infinite;
-}
 
 .messagesUL {
   padding-left: 0px;
@@ -392,20 +366,9 @@ input[type='date']{
   top: 0px;
   right: 0px;
 }
-/* .messagesUL_fixed {
-  padding-left: 0px;
-  margin: 10px;
-  list-style-type: none;
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-  left: 0px;
-  right: 0px;
-  background-color: #002c23;
-} */
+
 
 .slide {
-  /* border:solid 5px #000000; */
   margin: 5px;
   box-shadow: 0.5px 0.5px 3px #000000;
   overflow: hidden;
@@ -502,36 +465,6 @@ input[type='date']{
   text-align: right;
 }
 
-@keyframes lqt {
-
-  0%,
-  100% {
-    background-image: linear-gradient(#00ffbf 40px, transparent 0);
-    background-position: 0% 0px;
-  }
-
-  50% {
-    background-image: linear-gradient(#00ffbf 40px, transparent 0);
-    background-position: 0% 40px;
-  }
-
-  50.1% {
-    background-image: linear-gradient(#00ffbf 40px, transparent 0);
-    background-position: 0% -40px;
-  }
-}
-
-@keyframes lqb {
-  0% {
-    background-image: linear-gradient(#00ffbf 40px, transparent 0);
-    background-position: 0 40px;
-  }
-
-  100% {
-    background-image: linear-gradient(#00ffbf 40px, transparent 0);
-    background-position: 0 -40px;
-  }
-}
 
 @keyframes spinx {
 
@@ -1054,7 +987,7 @@ input[type='date']{
   border-bottom: solid 3px #004127;
   font-size: 20px;
   font-weight: bold;
-  height: 25px;
+  /* height: 25px; */
 }
 
 .MainView_LchildGallery {
@@ -1619,15 +1552,9 @@ input[type='date']{
   align-items: center;
   background-color: #f1f1f1;
   margin:10px;
-  /* border-radius: 10px; */
-  /* padding:10px; */
-  padding-left: 10px;
-  padding-right: 10px;
   width: auto;
 }
-.UniversalContainerHead{
-  /* border-radius: 10px 10px 0px 0px!important; */
-}
+
 .UniversalContainerItem > div{
   width: 100%;
 }
@@ -1635,13 +1562,20 @@ input[type='date']{
   width:200px;
   height: auto;
 }
-
+.UniversalContainerBody{
+  padding:10px;
+  box-sizing: border-box;
+}
 .UniversalContainerHead{
   display: flex;
   align-items: center;
+  box-sizing: border-box;
+  padding:10px;
 }
 .UniversalContainerFooter{
   text-align: right;
+  box-sizing: border-box;
+  padding:10px;
 }
 
 /*  */
