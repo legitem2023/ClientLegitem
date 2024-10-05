@@ -8,7 +8,7 @@ import { Icon } from '@iconify/react';
 const AccordionAddress = ({ address,refetch }) => {
     const Manager = new DataManager();
 
-    const [activeIndex, setActiveIndex] = useState(null);
+    const [activeIndex, setActiveIndex] = useState(0);
     const [deleteAddress] = useMutation(DELETE_SHIPPING_ADDRESS,{
         onCompleted:data =>{
             Manager.Success("Successfully Deleted!");
@@ -25,7 +25,7 @@ const AccordionAddress = ({ address,refetch }) => {
     })
     const toggleAccordion = (index:any) => {
         if (activeIndex === index) {
-            setActiveIndex(null); // Collapse if clicked again
+            setActiveIndex(0); // Collapse if clicked again
         } else {
             setActiveIndex(index); // Expand clicked item
         }

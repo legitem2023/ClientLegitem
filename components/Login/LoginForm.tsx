@@ -40,9 +40,8 @@ const LoginForm = () => {
             e.target.value='Login';
             setSharedCookie("clientToken", response.data.getLogin.jsonToken, 1);
             Manager.Success("Welcome!\n" + username);
-
-            router.push('/Account');
             setLoading(false);
+            router.push('/Products');
           }else{
            Manager.Error("Login Failed!");
           (document.getElementById("password") as HTMLInputElement).focus();

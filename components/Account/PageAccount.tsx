@@ -2,32 +2,22 @@
 import { Icon } from '@iconify/react';
 import AccountMenu from './AccountMenu';
 import AccordionAddress from '../AccordionAddress/AccordionAddress'
-import { useRouter } from 'next/navigation';
 import { useQuery } from '@apollo/client';
 import { GET_ACCOUNT_DETAILS_ID } from 'graphql/queries';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
 import { useGlobalState } from 'state';
-import Input from 'components/UI/Input';
 import { useState } from 'react';
 import InsertForm from './InsertForm';
 interface PageAccountProps {
   userId: string;
 }
 
-const PageAccount = ({ userId }) => {
-  const router = useRouter();
+const PageAccount:React.FC<PageAccountProps> = ({ userId }) => {
   const [useScale,setScale] = useState(0);
   const [drawerState] = useGlobalState("drawer");
-  const [useForm,setForm] = useState({
-    Fullname:"",
-    contactNo:"",
-    Address:"",
-  })
   const { data:AccountDetails, loading:AccountLoading, error:AccountError,refetch:AccountRefetch } = useQuery(GET_ACCOUNT_DETAILS_ID, { variables: { getAccountDetailsIdId: userId } });
 if(AccountLoading) return <Loading/>
-
-
-
+if(AccountError) return "Connection Error";
   return (
     <div className='body'>
       <div className={`${drawerState ? 'LeftWing' : 'LeftWing_'}`}>

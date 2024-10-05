@@ -10,7 +10,6 @@ import OrderNotification from 'components/Notification/OrderNotification'
 
 import InstallPWAButton from '../InstallationApp/InstallPWAButton';
 import Dropdown from './Dropdown';
-import { B } from 'vitest/dist/reporters-yx5ZTtEV';
 import { drawer } from 'utils/scripts';
 const PageHeader: React.FC = () => {
   const path = process.env.NEXT_PUBLIC_PATH
