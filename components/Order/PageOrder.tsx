@@ -87,7 +87,7 @@ const PageOrder:React.FC = () => {
   const ClearLocalStorage = (item:any) =>{
     setGlobalState("CurrentOrderStage",item.URL);
     item.Name==='New Order'?ClearStorage(setUpdateNewOrder,"NewOrder"):"";
-    item.Name==='Recieve'?ClearStorage(setUpdateRecieved,"Recieve"):"";
+    item.Name==='Recieve'?ClearStorage(setUpdateRecieved,"Recieved"):"";
     item.Name==='Packed'?ClearStorage(setUpdatePacked,"Packed"):"";
     item.Name==='Logistic'?ClearStorage(setUpdateLogistic,"Logistic"):"";
     item.Name==='Delivery'?ClearStorage(setUpdateDelivery,"Delivery"):"";
