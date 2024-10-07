@@ -35,7 +35,7 @@ const ProductView: React.FC = () => {
 
   const {data:ViewProduct,loading:ViewProductLoading,error:ViewProductError} = useQuery(GET_VIEW_PRODUCT,{
     variables:{
-      "getToviewProductId": parseInt(param.id)
+      "getToviewProductId": param.id
     }
   })
   

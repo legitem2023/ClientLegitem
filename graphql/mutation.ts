@@ -134,7 +134,7 @@ mutation SetActiveUsers($emailAddress: String) {
 `
 
 export const SET_DEFAULT_ADDRESS = gql`
-mutation UpdateDefaultAddress($accountEmail: String, $updateDefaultAddressId: Int) {
+mutation UpdateDefaultAddress($accountEmail: String, $updateDefaultAddressId: String) {
   updateDefaultAddress(accountEmail: $accountEmail, id: $updateDefaultAddressId) {
     statusText
   }

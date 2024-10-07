@@ -66,10 +66,11 @@ export const ViewGallery:React.FC = () => {
     return ImageData?.getInv_subImage;
   }, [ImageData, urlData]);
 
+
   const images = useMemo(() => {
     return filteredImageData?.map((item:any, idx:any) => ({
-      original: item.ImagePath ? `${imagepath}${item.ImagePath}` : `${path}image/Legitem-svg.svg`,
-      thumbnail: item.ImagePath ? `${imagepath}${item.ImagePath}` : `${path}image/Legitem-svg.svg`,
+      original: item.ImagePath ? `${item.ImagePath}` : `${path}image/Legitem-svg.svg`,
+      thumbnail: item.ImagePath ? `${item.ImagePath}` : `${path}image/Legitem-svg.svg`,
       description: <Link href={`${path}Products/?Store=${item.id}`}>{item.Name}</Link>,
       alt: `Image ${idx + 1}`,
       title: item.Name,

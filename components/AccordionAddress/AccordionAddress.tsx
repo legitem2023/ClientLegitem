@@ -34,7 +34,7 @@ const AccordionAddress = ({ address,refetch }) => {
     const handleUpdate = (e:any) =>{
         setDefaultAddress({
             variables:{
-                updateDefaultAddressId:parseInt(e.target.getAttribute("aria-current")),
+                updateDefaultAddressId:e.target.getAttribute("aria-current"),
                 accountEmail:e.target.getAttribute("aria-details")
             }
         })

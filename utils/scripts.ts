@@ -115,7 +115,7 @@ export const createdPath = (data: any) => {
 
 export const imageSource = (item:any) =>{
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-  return item?.thumbnail ? `${imgPath}${item.thumbnail}` : fallbackImage()
+  return item?.thumbnail ? `${item.thumbnail}` : fallbackImage()
 }
 
 export const imageSource_cart = (item:any) =>{
@@ -131,7 +131,7 @@ export const imageSourceOrder = (item:any) =>{
 
 export const imageSourceGallery = (item:any) =>{
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-  return item.ImagePath ? `${imgPath}${item.ImagePath}` : fallbackImage()
+  return item.ImagePath ? `${item.ImagePath}` : fallbackImage()
 }
 
 

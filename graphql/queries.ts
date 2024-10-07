@@ -298,7 +298,7 @@ query GetRelatedProduct {
   }
 }`
 export const GET_VIEW_PRODUCT = gql`
-query GetToviewProduct($getToviewProductId: Int) {
+query GetToviewProduct($getToviewProductId: String) {
   getToviewProduct(id: $getToviewProductId) {
     agentEmail
     model
