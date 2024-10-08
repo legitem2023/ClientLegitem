@@ -169,7 +169,10 @@
         right: 0px;
         margin: auto;
     }
-
+    .feedbackattachment{
+        width: 100%;
+        height: auto;
+      }
     .viewmore {
         grid-column: 1 / span 2 !important;
     }

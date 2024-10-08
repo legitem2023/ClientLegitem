@@ -55,7 +55,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
           {item.Views?.length > 0 ? item.Views.length : 0}
         </div>
         <div className='Thumbnails_rating_cart'>
-          <Ratings data={item.Ratings.length > 0 ? item.Ratings : 0} />
+          <Ratings data={item.Ratings.length > 0 ? item.Ratings[0].Ratings : 0} />
           <AddCartCmd item={item} />
         </div>
       </div>

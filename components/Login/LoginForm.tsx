@@ -38,7 +38,7 @@ const LoginForm = () => {
     } else {
         if(response?.data?.getLogin?.statusText==="Welcome!"){
             e.target.value='Login';
-            setSharedCookie("clientToken", response.data.getLogin.jsonToken, 1);
+            setSharedCookie("clientToken", response.data.getLogin.jsonToken, 90);
             Manager.Success("Welcome!\n" + username);
             setLoading(false);
             router.push('/Products');

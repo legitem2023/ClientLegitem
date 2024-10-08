@@ -44,8 +44,9 @@ const Accordion = ({ data }) => {
                         </div>
                         {activeIndex === index && (
                             <div className="faq-answer">
-                                <p>{rev.Comment}</p>
+                                <p>{rev.Comment}</p>                
                                 <Ratings data={rev.Ratings}/>
+                                {rev.Attachment===null?"":<img src={rev.Attachment} className='feedbackattachment'/>}
                             </div>
                         )}
                     </div>

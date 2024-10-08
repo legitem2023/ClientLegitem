@@ -14,9 +14,10 @@ const AccordionOrderDelivered = ({json,refetchdelivered}) => {
     const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
     const [activeIndex, setActiveIndex] = useState(null);
     const [cookieEmailAddress]: any = useGlobalState("cookieEmailAddress");
+    const [tempAttachement,setTempAttachment] = useState("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%231b470a' d='M5 20h14v-2H5zm0-10h4v6h6v-6h4l-7-7z'/%3E%3C/svg%3E")
     const Manager = new DataManager();
     const [useFeedBack,setFeedBack] = useState({
-        "Attachment": String,
+        "Attachment": "",
         "By": cookieEmailAddress,
         "Comment": null,
         "Ratings": 0,
@@ -32,11 +33,6 @@ const AccordionOrderDelivered = ({json,refetchdelivered}) => {
             }
         }
     })
-
-
-
-
-
 
     const [insertFeedBack] = useMutation(INSERT_FEEDBACK,{
         onCompleted:(data) => {
@@ -69,14 +65,14 @@ const AccordionOrderDelivered = ({json,refetchdelivered}) => {
     const handleFeedBack = (e:any,items: any) => {
         e.preventDefault();
         // Assuming useFeedBack is a hook or global state
-        const { By, Comment, Ratings } = useFeedBack;
+        const { By, Comment, Ratings,Attachment } = useFeedBack;
         if(Comment===null) return Manager.Warning("Input Comment!");
         if(Ratings===0) return Manager.Warning("Rate the Order!");
         const filter = items.OrderHistory;
             insertFeedBack({
                 variables: {
                     productFeedBacksInput: filter.map((item)=>({
-                        Attachment: null,  // Change as necessary if you have an attachment
+                        Attachment: Attachment || null,  // Change as necessary if you have an attachment
                         By: By || null,    // Set to null if By is not available
                         Comment: Comment || null,  // Set to null if Comment is not available
                         Ratings: Ratings !== undefined ? Ratings : null, // Convert Ratings to string or set to null
@@ -98,6 +94,20 @@ const AccordionOrderDelivered = ({json,refetchdelivered}) => {
      
     }
 
+const handleAttachement = (e) =>{
+    const value = e.target.files[0];
+    const name = e.target.name;
+    if (value) {
+        const reader:any = new FileReader();
+        // Convert file to base64 string when read
+        reader.onloadend = () => {
+            setFeedBack((prev)=>({...prev,[name]:reader.result}));
+            setTempAttachment(reader.result);
+        };
+        // Read the file as a data URL (base64)
+        reader.readAsDataURL(value);
+      }
+}
 
     return (
         <div className="faq-accordion">
@@ -138,7 +148,11 @@ const AccordionOrderDelivered = ({json,refetchdelivered}) => {
                             <div className='orderName'>FeedBack</div>
                             <form onSubmit={(e:any)=>handleFeedBack(e,odr)}className='feedbackContainer'>
                                 <Rate feedBack={setFeedBack} />
-                                <input type="file" name='Attachement' onChange={(e)=>setFeedBack((prev)=>({...prev,[e.target.name]:e.target.value}))}></input>
+                                <img src={tempAttachement} height={200} width={200}/>
+                                <input type="file" 
+                                       name='Attachment' 
+                                       onChange={(e)=>handleAttachement(e)}>
+                                </input>
                                 <textarea className='feedback'
                                           name="Comment"
                                           onChange={(e)=>setFeedBack((prev)=>(

@@ -23,7 +23,7 @@ export const setSharedCookie = (name: string, value: string, daysToExpire: any) 
 
   // Save the updated array back to the cookie
   const cookieValue = encodeURIComponent(name) + '=' + encodeURIComponent(JSON.stringify(usersArray)) +
-      // '; expires=' + expiration.toUTCString() +
+      '; expires=' + expiration.toUTCString() +
       '; secure;' +
       '; path=/';
   document.cookie = cookieValue;
@@ -126,14 +126,13 @@ export const imageSource_cart = (item:any) =>{
 
 export const imageSourceOrder = (item:any) =>{
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-  return item.Image ? `${imgPath}${item.Image}` : fallbackImage()
+  return item.Image ? `${item.Image}` : fallbackImage()
 }
 
 export const imageSourceGallery = (item:any) =>{
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
   return item.ImagePath ? `${item.ImagePath}` : fallbackImage()
 }
-
 
 
 export const Cart = (viewedProd:any,Manager:any,quantity:any) => {

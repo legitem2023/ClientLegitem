@@ -55,8 +55,9 @@ const AccordionAddress = ({ address,refetch }) => {
         <div className="faq-accordion">
             {address.map((add:any, index:number) => (
                 <div className="faq-item" key={index}>
-                    <div className="faq-question" onClick={() => toggleAccordion(index)}>
-                        {add.Address}
+                    <div className="faq-question" 
+                         onClick={() => toggleAccordion(index)}>
+                         {add.Address}
                         <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
                     </div>
                     {activeIndex === index && (

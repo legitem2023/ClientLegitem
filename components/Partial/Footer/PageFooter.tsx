@@ -33,6 +33,7 @@ const PageFooter:React.FC = () => {
               <Notification onClose={handleCloseNotification} />
         )}
       <div className='FootHeader'>
+        <Icon icon="logos:tiktok-icon" />
         <Icon icon="entypo-social:facebook" style={{color:'#104291'}}/>
         <Icon icon="entypo-social:instagram" style={{color:'#d609ad'}}/>
         <Icon icon="entypo-social:youtube" style={{color:'#ff0000'}}/>

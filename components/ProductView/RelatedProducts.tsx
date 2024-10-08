@@ -6,7 +6,7 @@ import Ratings from 'components/Partial/Ratings/Ratings';
 import { READ_FEEDBACK } from 'graphql/queries';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createdPath, formatter, imageSource, ratings } from 'utils/scripts';
 
 interface RelatedProductsProps {
@@ -24,6 +24,9 @@ interface RelatedProductsProps {
 const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
   const path = process.env.NEXT_PUBLIC_PATH;
   const [take, setTake] = useState(10);
+
+  const [useLoading, setLoading] = useState(false);
+
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
   const fallbackImage = `https://hokei-storage.s3.ap-northeast-1.amazonaws.com/images/Legit/IconImages/Legitem-svg.svg`;
   const handleError = useCallback((event: any) => {
@@ -34,6 +37,15 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
     event.target.src = path +`/Loading.webp`;
     event.target.srcset = path +`/Loading.webp`;
   }, []);
+  
+  useEffect(() => {
+    setLoading(false);
+  },[take])
+  const LoadMoreData = () =>{
+    setTake(take + 5);
+    setLoading(true);
+  }
+
 
   return (
     <div className='MainView_Rchild'>
@@ -69,17 +81,16 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
             <div className='Rates'>
               <div className='ViewsLikes'>
               <Ratings data={item.Ratings.length > 0 ?ratings(item.Ratings):0}/>
-
               </div>
             </div>
           </div>
         </div>
       ))}
     </div>
-    <div>
-      <button onClick={() => setTake(take + 5)} className='universalButtonStyle'>
-        <Icon icon='eos-icons:bubble-loading' />Load More
-      </button>
+    <div className='LoadmoreContainer'>
+      {data.length <=take?(<button className='universalINActiveButton'>End of Data</button>):(<button onClick={() => LoadMoreData()} className='universalButtonStyle'>
+        {useLoading===true?(<Icon icon='eos-icons:bubble-loading' />):"Load More"} 
+      </button>)}
     </div>
     </div>
     </div>
