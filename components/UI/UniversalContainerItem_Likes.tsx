@@ -36,12 +36,12 @@ const UniversalContainerItem_Likes: React.FC<UniversalContainerItemProps> = ({ i
         <div>
           Stock : {item.stock}
         </div>
-        <div className='CommandContainer'>
+      </div>      
+      <div className="UniversalContainerFooter">
+      <div className='CommandContainer'>
           <LinkStoreCmd emailAddress={item.agentEmail}/>
           <AddCartCmdView viewedProduct={item} quantity={1} />
         </div>
-      </div>      
-      <div className="UniversalContainerFooter">
         Date: <TimestampConverter timestamp={item.Likes.dateCreated} />
       </div>
     </div>

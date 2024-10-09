@@ -18,6 +18,8 @@ interface RelatedProductsProps {
     productCode:string;
     Ratings: any;
     Views:any;
+    stock:any;
+    TotalSoldItems:any
   }>;
 }
 
@@ -70,17 +72,24 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
               <span>Price :</span><span>{formatter.format(item.price)}</span>
             </div>
             <div>
-              <span>Name :</span><span>{item.name}</span>
+              <span>Name :</span>
+                <span>
+                  <span className='overflow_ellipsis'>{item.name}</span>
+                </span>
             </div>
             <div>
               <span>Views :</span><span>{item.Views.length > 0 ?item.Views.length:0}</span>
             </div>
             <div>
-              <span>Sold :</span><span>{item.Views.length > 0 ?item.Views.length:0}</span>
+              <span>Sold :</span><span>{item.TotalSoldItems > 0 ?item.TotalSoldItems:0}</span>
             </div>
+            <div>
+              <span>Stock :</span><span>{item.stock}</span>
+            </div>
+
             <div className='Rates'>
               <div className='ViewsLikes'>
-              <Ratings data={item.Ratings.length > 0 ?ratings(item.Ratings):0}/>
+              <Ratings data={item.Ratings.length > 0 ?ratings(item.Ratings):0} count={item}/>
               </div>
             </div>
           </div>

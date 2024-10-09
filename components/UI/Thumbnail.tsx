@@ -6,6 +6,8 @@ import Ratings from 'components/Partial/Ratings/Ratings'; // Assume you have a R
 import { formatter, imageSource } from 'utils/scripts'; // Assuming you have utilities for formatting and image source
 import LikeCmd from '../Commands/LikeCmd';
 import AddCartCmd from '../Commands/AddCartCmd';
+import Optional3D from 'components/Commands/Optional3D';
+import Discounted from 'components/Commands/Discounted';
 
 type ThumbnailProps = {
   item: any;
@@ -20,10 +22,13 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
   handleLoading, 
   handleError, 
 }) => {
-
+// console.log(item)
   return (
     <div className="thumbnail">
       <div className="thumbnailImageContainer">
+        {item.model===null?"":(<Optional3D/>)}
+        {item.discount > 0?(<Discounted/>):""}
+        
         <Link href={`${path}Products/${item.id}`}>
           <Image
             src={imageSource(item)}
@@ -38,25 +43,46 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
         </Link>
       </div>
       <div className="thumbnailTextContainer">
+        {item.discount >0?(
         <div>
-          <span>Price :</span>
-          <span>{formatter.format(item.price)}</span>
+          <span className='thumbElements'>Price :</span>
+          <s className='Price'>{formatter.format(item.price)}</s>
+        </div>):(
+        <div>
+          <span className='thumbElements'>Price :</span>
+          <span className='Price'>{formatter.format(item.price)}</span>
+        </div>
+        )}
+        {item.discount > 0?(
+        <div>
+          <span className='thumbElements'>Discounted :</span>
+          <span className='thumbElements'>{formatter.format(item.price * item.discount)}</span>
+        </div>):""}
+
+
+        <div className="prodName">
+          <span className='thumbElements'>Name :</span>
+          <span className="thumbElements">{item.name ? item.name : 'Untitled'}</span>
         </div>
         <div className="prodName">
-          <span>Name :</span>
-          <span className="span">{item.name ? item.name : 'Untitled'}</span>
+          <span className='thumbElements'>Sold :</span>
+          <span className="thumbElements">{item.TotalSoldItems ? item.TotalSoldItems : '0'}</span>
         </div>
         <div className="prodName">
-          <span>Sold :</span>
-          <span className="span">{item.Stock ? item.Stock : 'No Stock'}</span>
+          <span className='thumbElements'>Stocks :</span>
+          <span className="thumbElements">{item.stock ? item.stock : '0'}</span>
         </div>
         <div className="ViewsLikes">
-          <span>Views :</span>
-          {item.Views?.length > 0 ? item.Views.length : 0}
+          <span className='thumbElements'>Views :</span>
+          <span className='thumbElements'>{item.Views?.length > 0 ? item.Views.length : 0}</span>
         </div>
         <div className='Thumbnails_rating_cart'>
-          <Ratings data={item.Ratings.length > 0 ? item.Ratings[0].Ratings : 0} />
-          <AddCartCmd item={item} />
+          <span>
+            <Ratings data={item.Ratings.length > 0 ? item.Ratings[0].Ratings : 0} count={item}/>
+          </span>
+          <span className='thumbElements_addCart'>
+            <AddCartCmd item={item} />
+          </span>        
         </div>
       </div>
     </div>

@@ -49,25 +49,80 @@ const ProductTabs:React.FC<PropsProductTabs> = ({data}:any) =>{
 
 
   }
-  
+
+  const optional_rendering_button_gallery = () => {
+    if (data[0].model === null && isActive === "Gallery") {
+      return (
+        <button className="tablink" onClick={() => { setIsActive("Gallery"); openCity('Gallery', 'GalleryBut') }} id="GalleryBut"><Icon icon="pepicons-pop:photo" /> Photos</button>
+      );
+    }
+    return null; // Return null to indicate no rendering
+  }
+  const optional_rendering_button_3D_model = () => {
+    if (data[0].model === null && isActive === "ThreeJS") {
+      return (
+        <button className="tablink" onClick={() => { setIsActive("ThreeJS"); openCity('ThreeJS', 'ThreeJSBut') }} id="ThreeJSBut"><Icon icon='fluent-mdl2:cube-shape-solid'></Icon> 3D Model</button>
+      );
+    }
+    return null; // Return null to indicate no rendering
+  }
+  const optional_rendering_button_3D_vto = () => {
+    if (data[0].model === null && isActive === "ThreeJS") {
+      return (
+        <button className="tablink" onClick={() => { setIsActive("VTO"); openCity('VTO', 'VTOBut') }} id="VTOBut">VTO</button>);
+    }
+    return null; // Return null to indicate no rendering
+  }
+//#####################################################################################
+//#####################################################################################
+//#####################################################################################
+//#####################################################################################
+  const optional_rendering_tab_threejs = () => {
+    if (data[0].model === null && isActive === "ThreeJS") {
+      return (
+        <div className='ThreeJS' id='ThreeJS'>
+          <ModelViewer data={data} />
+        </div>
+      );
+    }
+    return null; // Return null to indicate no rendering
+  };
+  const optional_rendering_tab_gallery = () =>{
+    if (isActive === "Gallery") {
+      return (
+        <Gallery data={data[0].subImageFieldOut} length={data} slidesPerView={1} spaceBetween={50}/>
+      );
+    }
+  }
+  const optional_rendering_tab_vto = () =>{
+    if (isActive === "VTO") {
+      return (
+        <EffectsRenderer />
+    );
+    }
+  }
+//#####################################################################################
+//#####################################################################################
+//#####################################################################################
+//#####################################################################################
+
+
   return (
     <div className="flex flex-col px-4">
       <div className="flex w-full flex-col">
         <div className="grid grid-cols-3 gap-4">
-          <button className="tablink" onClick={() => { setIsActive("Gallery"); openCity('Gallery', 'GalleryBut') }} id="GalleryBut"><Icon icon="pepicons-pop:photo" /> Photos</button>
-          <button className="tablink" onClick={() => { setIsActive("ThreeJS"); openCity('ThreeJS', 'ThreeJSBut') }} id="ThreeJSBut"><Icon icon='fluent-mdl2:cube-shape-solid'></Icon> 3D Model</button>
-          <button className="tablink" onClick={() => { setIsActive("VTO"); openCity('VTO', 'VTOBut') }} id="VTOBut">VTO</button>
+          {optional_rendering_button_gallery()}
+          {optional_rendering_button_3D_model()}
+          {optional_rendering_button_3D_vto()}
         </div>
         <div id="Gallery" className="tabcontent">
-          {isActive === "Gallery" ? <Gallery data={data[0].subImageFieldOut} length={data} slidesPerView={1} spaceBetween={50}/> : ""}
+          {optional_rendering_tab_gallery()}
         </div>
         <div id="ThreeJS" className="tabcontent">
-          {isActive === "ThreeJS" ? <div className='ThreeJS' id='ThreeJS'>
-            <ModelViewer data={data}/>
-          </div> : ""}
+          {optional_rendering_tab_threejs()}
         </div>
         <div id="VTO" className="tabcontent">
-          {isActive === "VTO" ? <EffectsRenderer /> : ""}
+          {optional_rendering_tab_vto()}
         </div>
       </div>
     </div>

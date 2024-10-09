@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 
-export default function Ratings({ data }) {
+export default function Ratings({ data,count }) {
   // Use state to control the rating value
   const [ratingValue, setRatingValue] = useState(data); // Initialize with passed data
-
+ 
   return (
     <div className="Ratings">
       <Stack spacing={1}>
@@ -20,6 +20,7 @@ export default function Ratings({ data }) {
           //   console.log(`Hover rating:`, newHover);
           // }}
         />
+        ({count.Ratings?.length})
       </Stack>
     </div>
   );

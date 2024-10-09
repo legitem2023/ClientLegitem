@@ -2,6 +2,10 @@
     body {
         overflow: hidden;
     }
+    .UniversalContainerItem{
+        grid-template-columns: 50% 50%;
+      }
+      
     .feedbackattachment{
         width: 100%;
         height: auto;

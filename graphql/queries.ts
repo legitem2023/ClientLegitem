@@ -242,12 +242,15 @@ query GetChildInventory {
     name
     category
     size
+    discount
     color
+    stock
     model
     agentEmail
     productDescription
     productType
     brandname
+    TotalSoldItems
     Ratings {
       Ratings
     }
@@ -283,8 +286,10 @@ query GetRelatedProduct {
     thumbnail
     category
     price
+    discount
     size
     color
+    stock
     name
     model
     productDescription
@@ -295,6 +300,7 @@ query GetRelatedProduct {
     Views {
       productCode
     }
+    TotalSoldItems
   }
 }`
 export const GET_VIEW_PRODUCT = gql`
