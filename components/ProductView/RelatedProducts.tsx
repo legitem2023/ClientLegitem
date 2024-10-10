@@ -1,27 +1,12 @@
 'use client'
-import { useQuery } from '@apollo/client';
 import { Icon } from '@iconify/react';
-import Loading from 'components/Partial/LoadingAnimation/Loading';
 import Ratings from 'components/Partial/Ratings/Ratings';
-import { READ_FEEDBACK } from 'graphql/queries';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
-import { createdPath, formatter, imageSource, ratings } from 'utils/scripts';
+import { formatter, imageSource } from 'utils/scripts';
+import { RelatedProductsProps } from 'utils/types/types';
 
-interface RelatedProductsProps {
-  data: Array<{
-    id: string;
-    thumbnail: string | null;
-    price: number;
-    name: string;
-    productCode:string;
-    Ratings: any;
-    Views:any;
-    stock:any;
-    TotalSoldItems:any
-  }>;
-}
 
 const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
   const path = process.env.NEXT_PUBLIC_PATH;
@@ -78,18 +63,11 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
                 </span>
             </div>
             <div>
-              <span>Views :</span><span>{item.Views.length > 0 ?item.Views.length:0}</span>
-            </div>
-            <div>
               <span>Sold :</span><span>{item.TotalSoldItems > 0 ?item.TotalSoldItems:0}</span>
             </div>
-            <div>
-              <span>Stock :</span><span>{item.stock}</span>
-            </div>
-
             <div className='Rates'>
               <div className='ViewsLikes'>
-              <Ratings data={item.Ratings.length > 0 ?ratings(item.Ratings):0} count={item}/>
+              <Ratings data={item.TotalRatings > 0 ? item.TotalRatings : 0} count={item}/>
               </div>
             </div>
           </div>

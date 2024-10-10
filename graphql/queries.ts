@@ -247,16 +247,10 @@ query GetChildInventory {
     stock
     model
     agentEmail
-    productDescription
     productType
     brandname
     TotalSoldItems
-    Ratings {
-      Ratings
-    }
-    Views {
-      productCode
-    }
+    TotalRatings
   }
 }`
 export const GET_CHILD_INVENTORY_RELATED_COLOR_SIZE = gql`
@@ -284,22 +278,11 @@ query GetRelatedProduct {
   getRelatedProduct {
     id
     thumbnail
-    category
     price
     discount
-    size
-    color
-    stock
     name
-    model
-    productDescription
     productCode
-    Ratings {
-      Ratings
-    }
-    Views {
-      productCode
-    }
+    TotalRatings
     TotalSoldItems
   }
 }`
@@ -327,6 +310,8 @@ query GetToviewProduct($getToviewProductId: String) {
     style_Code
     thumbnail
     productDescription
+    TotalSoldItems
+    TotalRatings
     subImageFieldOut {
       ImagePath
       id

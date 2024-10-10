@@ -103,7 +103,7 @@ const ProductView: React.FC = () => {
                   <div>{item.Comment}</div>
                   <div><Ratings data={item.Ratings > 0 ?item.Ratings:0} count={item}/>
                   </div>
-                </div>
+                </div>     
               )):"No Review Found"}
             </div>
           </div>

@@ -21,3 +21,15 @@ export type PaginationProps = {
     postsData: Post[];
   }
   
+  export type RelatedProductsProps = {
+    data: Array<{
+      id: string;
+      thumbnail: string | null;
+      price: number;
+      name: string;
+      productCode:string;
+      stock:any;
+      TotalSoldItems:any;
+      TotalRatings:any;
+    }>;
+  }

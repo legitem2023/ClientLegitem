@@ -32,7 +32,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
         <Link href={`${path}Products/${item.id}`}>
           <Image
             src={imageSource(item)}
-            height="156"
+            height="200"
             width="200"
             quality={1}
             alt={item.id}
@@ -68,17 +68,9 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
           <span className='thumbElements'>Sold :</span>
           <span className="thumbElements">{item.TotalSoldItems ? item.TotalSoldItems : '0'}</span>
         </div>
-        <div className="prodName">
-          <span className='thumbElements'>Stocks :</span>
-          <span className="thumbElements">{item.stock ? item.stock : '0'}</span>
-        </div>
-        <div className="ViewsLikes">
-          <span className='thumbElements'>Views :</span>
-          <span className='thumbElements'>{item.Views?.length > 0 ? item.Views.length : 0}</span>
-        </div>
         <div className='Thumbnails_rating_cart'>
           <span>
-            <Ratings data={item.Ratings.length > 0 ? item.Ratings[0].Ratings : 0} count={item}/>
+            <Ratings data={item.TotalRatings > 0 ? item.TotalRatings : 0} count={item}/>
           </span>
           <span className='thumbElements_addCart'>
             <AddCartCmd item={item} />

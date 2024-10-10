@@ -120,10 +120,8 @@ export const imageSource = (item:any) =>{
 
 export const imageSource_cart = (item:any) =>{
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
-  return item?.Thumbnail ? `${imgPath}${item.Thumbnail}` : fallbackImage()
+  return item?.Thumbnail ? `${item.Thumbnail}` : fallbackImage()
 }
-
-
 export const imageSourceOrder = (item:any) =>{
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
   return item.Image ? `${item.Image}` : fallbackImage()

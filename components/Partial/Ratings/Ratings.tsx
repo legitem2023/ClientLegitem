@@ -20,7 +20,6 @@ export default function Ratings({ data,count }) {
           //   console.log(`Hover rating:`, newHover);
           // }}
         />
-        ({count.Ratings?.length})
       </Stack>
     </div>
   );
