@@ -6,9 +6,9 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React from "react";
 import {StackedCarousel,ResponsiveContainer} from "react-stacked-center-carousel";
-import { imageSource } from "utils/scripts";
+import { imageSource, imageSource_category } from "utils/scripts";
 
-export default function Carousel({data}) {
+export default function Carousel({data,fromData}) {
   const ref:any = React.useRef(StackedCarousel);
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
   const pathname = usePathname();
@@ -17,6 +17,7 @@ export default function Carousel({data}) {
   const Card = (props:any) => {
     const { data, dataIndex }:any = props;
     const { image } = data[dataIndex];
+
     return (
       <div>
       <div
@@ -34,7 +35,7 @@ export default function Carousel({data}) {
           className="carouselImage"
           draggable={false}
           priority={true}
-          src={imageSource(image)}
+          src={image}
         />
       </div>
       </div>

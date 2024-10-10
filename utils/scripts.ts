@@ -127,6 +127,13 @@ export const imageSourceOrder = (item:any) =>{
   return item.Image ? `${item.Image}` : fallbackImage()
 }
 
+export const imageSource_category = (item:any) =>{
+  const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
+  return item[0].image ? `${item[0].image}` : fallbackImage()
+  console.log(item)
+}
+
+
 export const imageSourceGallery = (item:any) =>{
   const imgPath = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH || '';
   return item.ImagePath ? `${item.ImagePath}` : fallbackImage()

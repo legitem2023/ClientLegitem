@@ -61,7 +61,7 @@ const StoreBody = () => {
         <div className='LabelHead carouselLabel'><Icon icon="bi:tags-fill" /> Category</div>
 
         <div className='carousel'>
-          <Carousel data={Category?.getCategory}></Carousel>
+          <Carousel data={Category?.getCategory} fromData={"Category"}></Carousel>
         </div>
         <div className='searchContaier'>
           <div><input type='text' placeholder='Search' onChange={(e: any) => searchEngine(e)}></input></div>

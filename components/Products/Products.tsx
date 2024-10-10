@@ -30,7 +30,9 @@ const Products: React.FC = () => {
       )
       ?.filter((item: any) =>
         item?.category?.toLowerCase()?.includes(thumbnailCategory.toLowerCase())
-      )
+      )?.filter((item: any) =>
+        item?.productType?.toLowerCase()?.includes(thumbnailProductTypes.toLowerCase())
+      );
 
     if (!filteredProducts) return [];
 

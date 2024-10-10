@@ -72,7 +72,7 @@ const ProductsBody = () => {
           </div>
         </div>
         <div className='carousel'>
-          <Carousel data={Category?.getCategory}></Carousel>
+          <Carousel data={Category?.getCategory} fromData="Category"></Carousel>
         </div>
         <Products/>
       </div>

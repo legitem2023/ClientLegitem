@@ -74,12 +74,18 @@ const ProductView: React.FC = () => {
                 {/* <div className='MainView_LchildGalleryDetails_labels'><span>Color :</span><span>{viewItem.color}</span></div> */}
                 <div>Available Size :<RelatedSize styleCode={viewItem.style_Code}/></div>
                 <div>Available Colors of Size: <RelatedColor styleCode={viewItem.style_Code}/></div>
+                <div className='MainView_LchildGalleryDetails_labels'>
+                  <span>Available Stock :</span>
+                  <span>{viewItem.stock}</span>
+                </div>
                 <div>Quantity :</div>
                 <div className='ShareQuantity'>
                   <button onClick={() => setQuantity(quantity + 1)}>+</button>
                   <input type='text' value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value) || 1)} />
                   <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)}>-</button>
                 </div>
+
+   
                 <div className='CommandContainer'>
                   <LinkStoreCmd emailAddress={viewItem.agentEmail}/>
                   <LikeCmd productCode={viewItem.productCode}/>
