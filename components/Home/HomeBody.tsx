@@ -25,7 +25,7 @@ const HomeBody:React.FC = () => {
       <div className='LabelHead carouselLabel'><Icon icon="dashicons:store" /> Stores</div>
         {/* <ViewGallery/> */}
         <div className='carousel'>
-          <Carousel data={Category?.getCategory}></Carousel>
+          <Carousel data={Category?.getCategory} fromData={'Category'}></Carousel>
         </div>
       </div>
       <div className='RightWing'>
