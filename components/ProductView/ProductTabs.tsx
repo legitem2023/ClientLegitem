@@ -51,15 +51,13 @@ const ProductTabs:React.FC<PropsProductTabs> = ({data}:any) =>{
   }
 
   const optional_rendering_button_gallery = () => {
-    if (data[0].model === null && isActive === "Gallery") {
       return (
         <button className="tablink" onClick={() => { setIsActive("Gallery"); openCity('Gallery', 'GalleryBut') }} id="GalleryBut"><Icon icon="pepicons-pop:photo" /> Photos</button>
       );
-    }
     return null; // Return null to indicate no rendering
   }
   const optional_rendering_button_3D_model = () => {
-    if (data[0].model === null && isActive === "ThreeJS") {
+    if (data[0].model !== null) {
       return (
         <button className="tablink" onClick={() => { setIsActive("ThreeJS"); openCity('ThreeJS', 'ThreeJSBut') }} id="ThreeJSBut"><Icon icon='fluent-mdl2:cube-shape-solid'></Icon> 3D Model</button>
       );
@@ -67,7 +65,7 @@ const ProductTabs:React.FC<PropsProductTabs> = ({data}:any) =>{
     return null; // Return null to indicate no rendering
   }
   const optional_rendering_button_3D_vto = () => {
-    if (data[0].model === null && isActive === "ThreeJS") {
+    if (data[0].model !== null) {
       return (
         <button className="tablink" onClick={() => { setIsActive("VTO"); openCity('VTO', 'VTOBut') }} id="VTOBut">VTO</button>);
     }
@@ -78,7 +76,7 @@ const ProductTabs:React.FC<PropsProductTabs> = ({data}:any) =>{
 //#####################################################################################
 //#####################################################################################
   const optional_rendering_tab_threejs = () => {
-    if (data[0].model === null && isActive === "ThreeJS") {
+    if (data[0].model !== null) {
       return (
         <div className='ThreeJS' id='ThreeJS'>
           <ModelViewer data={data} />
@@ -105,8 +103,6 @@ const ProductTabs:React.FC<PropsProductTabs> = ({data}:any) =>{
 //#####################################################################################
 //#####################################################################################
 //#####################################################################################
-
-
   return (
     <div className="flex flex-col px-4">
       <div className="flex w-full flex-col">
