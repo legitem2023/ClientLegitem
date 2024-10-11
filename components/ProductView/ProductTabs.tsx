@@ -76,7 +76,7 @@ const ProductTabs:React.FC<PropsProductTabs> = ({data}:any) =>{
 //#####################################################################################
 //#####################################################################################
   const optional_rendering_tab_threejs = () => {
-    if (data[0].model !== null) {
+    if (data[0].model !== null && isActive === "ThreeJS") {
       return (
         <div className='ThreeJS' id='ThreeJS'>
           <ModelViewer data={data} />
@@ -93,7 +93,7 @@ const ProductTabs:React.FC<PropsProductTabs> = ({data}:any) =>{
     }
   }
   const optional_rendering_tab_vto = () =>{
-    if (isActive === "VTO") {
+    if (data[0].model !== null && isActive === "VTO") {
       return (
         <EffectsRenderer />
     );
