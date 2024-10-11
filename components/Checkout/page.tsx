@@ -93,7 +93,8 @@ const CheckoutData = () => {
             Size: item.Size,
             Image: item.Thumbnail,
             Color: item.Color,
-            agentEmail:item.agentEmail
+            agentEmail:item.agentEmail,
+            paymentMethod:"COD"
           })),  
         },
       });
