@@ -8,6 +8,8 @@ import AddCartCmd from 'components/Commands/AddCartCmd';
 import AddCartCmdView from 'components/Commands/AddCartCmdView';
 import LinkStoreCmd from 'components/Commands/LinkStoreCmd';
 import { encode } from 'js-base64';
+import Name from './Name';
+import Element from './Element';
 
 interface UniversalContainerItemProps {
   item:any;
@@ -17,7 +19,7 @@ interface UniversalContainerItemProps {
 }
 
 const UniversalContainerItem_Likes: React.FC<UniversalContainerItemProps> = ({ item, title, thumbnail, index }) => {
-  
+  console.log(item.Likes);
   return (
     <div className="UniversalContainerItem">
       <div className="UniversalContainerHead LabelHead">
@@ -27,23 +29,19 @@ const UniversalContainerItem_Likes: React.FC<UniversalContainerItemProps> = ({ i
         <Image src={imageSource(item)} onError={handleError} height={100} width={200} alt={`image${index}`} />
       </div>
       <div className='UniversalContainerBody'>
-        <div>
-          Price : {formatter.format(item.price)}
-        </div>
-        <div>
-          Size : {item.size}
-        </div>
-        <div>
-          Stock : {item.stock}
-        </div>
+        <Element Label="Name" value={item.name} />
+        <Element Label="Price" value={formatter.format(item.price)} />
+        <Element Label="Size" value={item.size} />
+        <Element Label="Color" value={item.color} />
+        <Element Label="Stock" value={item.stock} />
       </div>      
       <div className="UniversalContainerFooter">
       <div className='CommandContainer'>
           <LinkStoreCmd emailAddress={item.agentEmail}/>
           <AddCartCmdView viewedProduct={item} quantity={1} />
-        </div>
-        Date: <TimestampConverter timestamp={item.Likes.dateCreated} />
       </div>
+      </div>
+      <div>Date: <TimestampConverter timestamp={item.Likes[0].dateCreated} /></div>
     </div>
   );
 };

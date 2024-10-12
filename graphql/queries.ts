@@ -534,6 +534,7 @@ query ReadLikes($accountEmail: String) {
     price
     name
     stock
+    color
     size
     agentEmail
     Likes {

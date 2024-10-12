@@ -8,7 +8,7 @@ import LikeCmd from '../Commands/LikeCmd';
 import AddCartCmd from '../Commands/AddCartCmd';
 import Optional3D from 'components/Commands/Optional3D';
 import Discounted_ from 'components/Commands/Discounted';
-import Price from './Price_strike';
+import Price from './Price';
 import Price_strike from './Price_strike';
 import Discounted from './Discounted';
 import Name from './Name';
@@ -48,8 +48,8 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
         </Link>
       </div>
       <div className="thumbnailTextContainer">
-        {item.discount > 0?(<Price_strike item={item}/>):(<Price item={item}/>)}
-        {item.discount > 0?(<Discounted item={item}/>):""}
+      {item.discount > 0?(<Price_strike item={item}/>):(<Price item={item}/>)}
+      {item.discount > 0?(<Discounted item={item}/>):""}
         <Name item={item} />
         <Sold item={item} />
         <div className='Thumbnails_rating_cart'>

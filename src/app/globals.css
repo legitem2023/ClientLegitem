@@ -1555,7 +1555,7 @@ input[type='date']{
 .UniversalContainerItem{
   box-shadow: 0.5px 0.5px 3px #000;
   display:grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 25% 75%;
   justify-content: center;
   align-items: center;
   background-color: #f1f1f1;
@@ -1564,10 +1564,22 @@ input[type='date']{
 }
 
 .UniversalContainerItem > div{
+  box-sizing: border-box;
   width: 100%;
+  padding:5px;
+  height: 100%;
+  display: flex;
 }
 .UniversalThumbnail{
   display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+.UniversalThumbnail .dangerousHTML p{
+  width:100%;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
 }
 .UniversalThumbnail > img{
   width:100%;
@@ -1578,6 +1590,11 @@ input[type='date']{
 .UniversalContainerBody{
   padding:10px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.UniversalContainerBody div{
+  padding:5px;
 }
 .UniversalContainerHead{
   grid-column: 1 / span 2 !important;
@@ -1586,6 +1603,11 @@ input[type='date']{
   box-sizing: border-box;
   padding:10px;
 }
+.UniversalLabels{
+  display: grid;
+  grid-template-columns: 25% 75%;
+}
+
 .UniversalContainerFooter{
   grid-column: 1 / span 2 !important;
   text-align: right;
@@ -1758,7 +1780,6 @@ input[type='date']{
   border-radius: 20px;
   display: block;
   text-overflow:ellipsis;
-  overflow: hidden;
   justify-content: flex-start;
   align-items: center!important;
   font-size: 12px;
