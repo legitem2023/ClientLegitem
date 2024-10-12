@@ -31,13 +31,26 @@ const Menu: React.FC = () => {
 
 
   const ShowAll = (name:any) =>{
+
+    if(name==='Discounted'){
+      setGlobalState("thumbnailDiscounted",name);
+    }
+
+    if(name==='New'){
+      setGlobalState("thumbnailNewData",name);
+    }
+
     if(name==='All Products'){
       setGlobalState('thumbnailCategory',"");
       setGlobalState('thumbnailProductTypes',"");
       setGlobalState('thumbnailSearch',"");
+      setGlobalState("thumbnailDiscounted","");
+      setGlobalState("thumbnailNewData","");
     }
     setGlobalState("drawer", true)
   }
+
+
 
   return (
     <ul className='Menu'>

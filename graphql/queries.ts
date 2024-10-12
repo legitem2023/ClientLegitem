@@ -251,6 +251,8 @@ query GetChildInventory {
     brandname
     TotalSoldItems
     TotalRatings
+    dateCreated
+    dateUpdated
   }
 }`
 export const GET_CHILD_INVENTORY_RELATED_COLOR_SIZE = gql`

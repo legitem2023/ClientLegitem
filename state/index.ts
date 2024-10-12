@@ -31,6 +31,8 @@ const { setGlobalState, useGlobalState } = createGlobalState({
     thumbnailCategory: "",
     thumbnailProductTypes: "",
     thumbnailCollectionItems:"",
+    thumbnailDiscounted:"",
+    thumbnailNewData:"",
     descAsc: null,
     activeModel: "/honda_pcx.glb",
     saveDeviceid: "",
