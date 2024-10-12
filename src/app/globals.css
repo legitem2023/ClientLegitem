@@ -1656,7 +1656,9 @@ input[type='date']{
   border-radius: 5px;
   box-shadow: 0.5px 0.5px 3px #000;
   right:0px;
-  top:-5px;
+  top:0px;
+  bottom:0px;
+  margin:auto;
   z-index: 99999;
   transition: ease 0.5s;
   transform: scale(0.5);
@@ -1758,7 +1760,7 @@ input[type='date']{
   text-overflow:ellipsis;
   overflow: hidden;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center!important;
   font-size: 12px;
   position: relative;
 }

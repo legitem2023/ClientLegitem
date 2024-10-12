@@ -7,7 +7,12 @@ import { formatter, imageSource } from 'utils/scripts'; // Assuming you have uti
 import LikeCmd from '../Commands/LikeCmd';
 import AddCartCmd from '../Commands/AddCartCmd';
 import Optional3D from 'components/Commands/Optional3D';
-import Discounted from 'components/Commands/Discounted';
+import Discounted_ from 'components/Commands/Discounted';
+import Price from './Price_strike';
+import Price_strike from './Price_strike';
+import Discounted from './Discounted';
+import Name from './Name';
+import Sold from './Sold';
 
 type ThumbnailProps = {
   item: any;
@@ -27,7 +32,7 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
     <div className="thumbnail">
       <div className="thumbnailImageContainer">
         {item.model===null?"":(<Optional3D/>)}
-        {item.discount > 0?(<Discounted/>):""}
+        {item.discount > 0?(<Discounted_/>):""}
         
         <Link href={`${path}Products/${item.id}`}>
           <Image
@@ -43,33 +48,10 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
         </Link>
       </div>
       <div className="thumbnailTextContainer">
-        {item.discount >0?(
-        <div>
-          <span className='thumbElements'>Price :
-            <span className='thumbElements_tag'>Less {100 - (item.discount * 100)}%</span>
-          </span>          
-          <s className='Price'>{formatter.format(item.price)}</s>
-        </div>):(
-        <div>
-          <span className='thumbElements'>Price :</span>
-          <span className='Price'>{formatter.format(item.price)}</span>
-        </div>
-        )}
-        {item.discount > 0?(
-        <div>
-          <span className='thumbElements'>Discounted :</span>
-          <span className='thumbElements'>{formatter.format(item.price * item.discount)}</span>
-        </div>):""}
-
-
-        <div className="prodName">
-          <span className='thumbElements'>Name :</span>
-          <span className="thumbElements">{item.name ? item.name : 'Untitled'}</span>
-        </div>
-        <div className="prodName">
-          <span className='thumbElements'>Sold :</span>
-          <span className="thumbElements">{item.TotalSoldItems ? item.TotalSoldItems : '0'}</span>
-        </div>
+        {item.discount > 0?(<Price_strike item={item}/>):(<Price item={item}/>)}
+        {item.discount > 0?(<Discounted item={item}/>):""}
+        <Name item={item} />
+        <Sold item={item} />
         <div className='Thumbnails_rating_cart'>
           <span>
             <Ratings data={item.TotalRatings > 0 ? item.TotalRatings : 0} count={item}/>

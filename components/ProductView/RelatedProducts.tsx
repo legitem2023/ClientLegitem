@@ -1,6 +1,11 @@
 'use client'
 import { Icon } from '@iconify/react';
 import Ratings from 'components/Partial/Ratings/Ratings';
+import Discounted from 'components/UI/Discounted';
+import Name from 'components/UI/Name';
+import Price from 'components/UI/Price';
+import Price_strike from 'components/UI/Price_strike';
+import Sold from 'components/UI/Sold';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -39,7 +44,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
     <div className='LabelHead'>Related Product</div>
     <div className='MainView_RelatedProducts'>
     <div>
-      {data.slice(0, take).map((item, idx) => (
+      {data.slice(0, take).map((item:any, idx) => (
         <div key={idx} className='MainView_RelatedProductsThumbs'>
             <Link href={`${path}Products/${item.id}`}>
               <Image
@@ -53,18 +58,10 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
                 onClick={handleLoading}/>
             </Link>
           <div className='thumbnailTextContainer'>
-            <div>
-              <span>Price :</span><span>{formatter.format(item.price)}</span>
-            </div>
-            <div>
-              <span>Name :</span>
-                <span>
-                  <span className='overflow_ellipsis'>{item.name}</span>
-                </span>
-            </div>
-            <div>
-              <span>Sold :</span><span>{item.TotalSoldItems > 0 ?item.TotalSoldItems:0}</span>
-            </div>
+          {item.discount > 0?(<Price_strike item={item}/>):(<Price item={item}/>)}
+          {item.discount > 0?(<Discounted item={item}/>):""}
+          <Name item={item} />
+          <Sold item={item} />
             <div className='Rates'>
               <div className='ViewsLikes'>
               <Ratings data={item.TotalRatings > 0 ? item.TotalRatings : 0} count={item}/>
