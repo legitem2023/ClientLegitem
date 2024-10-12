@@ -45,7 +45,9 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
       <div className="thumbnailTextContainer">
         {item.discount >0?(
         <div>
-          <span className='thumbElements'>Price :</span>
+          <span className='thumbElements'>Price :
+            <span className='thumbElements_tag'>Less {100 - (item.discount * 100)}%</span>
+          </span>          
           <s className='Price'>{formatter.format(item.price)}</s>
         </div>):(
         <div>

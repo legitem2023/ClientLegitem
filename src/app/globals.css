@@ -1648,7 +1648,19 @@ input[type='date']{
   justify-content: center;
   position: relative;
 }
-
+.thumbElements_tag{
+  background-color: #006454;
+  position: absolute;
+  padding:5px;
+  color:#ffffff;
+  border-radius: 5px;
+  box-shadow: 0.5px 0.5px 3px #000;
+  right:0px;
+  top:-5px;
+  z-index: 99999;
+  transition: ease 0.5s;
+  transform: scale(0.5);
+}
 .thumbnail {
   display: grid;
   grid-template-columns: 100%;
@@ -1748,6 +1760,7 @@ input[type='date']{
   justify-content: flex-start;
   align-items: flex-start;
   font-size: 12px;
+  position: relative;
 }
 .thumbElements_addCart{
   display: flex;
