@@ -3,6 +3,7 @@ import UniversalPagination from 'components/Partial/Pagination/UniversalPaginati
 import Ratings from 'components/Partial/Ratings/Ratings';
 import { useCallback, useMemo, useState } from 'react';
 import { setGlobalState, useGlobalState } from 'state';
+import { maskEmail } from 'utils/scripts';
 
 const Accordion = ({ data }) => {
     const Reviews = data.readFeedBack;
@@ -39,7 +40,7 @@ const Accordion = ({ data }) => {
                 {paginatedProducts.map((rev, index) => (
                     <div className="faq-item" key={index}>
                         <div className="faq-question" onClick={() => toggleAccordion(index)}>
-                            <div>FeedBack By :{rev.By}</div> 
+                            <div>FeedBack By :{maskEmail(rev.By)}</div> 
                             <span className={`arrow ${activeIndex === index ? 'open' : ''}`}>&#9660;</span>
                         </div>
                         {activeIndex === index && (

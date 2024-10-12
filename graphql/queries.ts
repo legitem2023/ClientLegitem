@@ -283,6 +283,8 @@ query GetRelatedProduct {
     price
     discount
     name
+    color
+    size
     productCode
     TotalRatings
     TotalSoldItems

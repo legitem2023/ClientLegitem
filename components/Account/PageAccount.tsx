@@ -8,6 +8,7 @@ import Loading from 'components/Partial/LoadingAnimation/Loading';
 import { useGlobalState } from 'state';
 import { useState } from 'react';
 import InsertForm from './InsertForm';
+import Element from 'components/UI/Element';
 interface PageAccountProps {
   userId: string;
 }
@@ -31,37 +32,14 @@ if(AccountError) return "Connection Error";
               <Icon icon="iconamoon:profile-fill" /> Profile Details
             </div>
           </div>
-
-          <div className='AddressDetails'>
-            <div>
-              <span className='AddressDetails_text'>Name :</span>
-            </div>
-            <div>
-              <span className='AddressDetails_text'>Email :</span>
-            </div>
-            <div>
-              <span className='AddressDetails_text'>Contact :</span>
-            </div>
-            <div>
-              <span className='AddressDetails_text'>Address :</span>
-            </div>
-          </div>
           {
             AccountDetails?.getAccountDetails_id.filter((idx:any)=>idx.defaultAddress===true).map((item:any,idx:number)=>(
               <div className='AddressDetails' key={idx}>
-              <div>
-                {item?.fullname}
+                <Element Label="Name" value={item?.fullname} />
+                <Element Label="Email" value={item?.accountEmail} />
+                <Element Label="Contact" value={item?.contactNo} />
+                <Element Label="Address" value={item?.Address} />
               </div>
-              <div>
-                {item?.accountEmail}
-              </div>
-              <div>
-                {item?.contactNo}
-              </div>
-              <div>
-                {item?.Address}
-              </div>
-            </div>
             ))
           }
           <div className='AddressList'>

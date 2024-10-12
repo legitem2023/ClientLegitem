@@ -10,7 +10,7 @@ const Price_strike:React.FC<PropsPrice> = ({item}) => {
         <span className='thumbElements'>Price :
             {item.discount > 0?(<span className='thumbElements_tag'>Less {100 - (item.discount * 100)}%</span>):""}
         </span>          
-        <s className='Price'>{formatter.format(item.price)}</s>
+        <s className='thumbElements'>{formatter.format(item.price)}</s>
   </div>
   )
 }

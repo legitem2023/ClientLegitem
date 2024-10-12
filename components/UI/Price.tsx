@@ -8,7 +8,7 @@ const Price:React.FC<PropsPrice> = ({item}) => {
   return (
     <div>
     <span className='thumbElements'>Price :</span>
-    <span className='Price'>{formatter.format(item.price)}</span>
+    <span className='thumbElements'>{formatter.format(item.price)}</span>
   </div>
   )
 }

@@ -9,7 +9,7 @@ import { ShoppingCartContext } from 'components/context/ShoppingCartProvider';
 import ProductTabs from './ProductTabs';
 import { GET_RELATED_PRODUCTS,GET_VIEW_PRODUCT } from 'graphql/queries';
 import { useMutation, useQuery } from '@apollo/client';
-import { Cart, formatter } from 'utils/scripts';
+import { Cart, formatter, maskEmail } from 'utils/scripts';
 import RelatedProducts from './RelatedProducts';
 import HtmlRenderer from 'components/Html/HtmlRenderer';
 import InsertView from './InsertView';
@@ -22,6 +22,7 @@ import LikeCmd from 'components/Commands/LikeCmd';
 import AddCartCmd from 'components/Commands/AddCartCmd';
 import AddCartCmdView from 'components/Commands/AddCartCmdView';
 import LinkStoreCmd from 'components/Commands/LinkStoreCmd';
+import Element from 'components/UI/Element';
 
 const path = process.env.NEXT_PUBLIC_PATH;
 const Manager = new DataManager();
@@ -68,16 +69,13 @@ const ProductView: React.FC = () => {
             <div className='MainView_LchildGallery'>
               <ProductTabs data={ViewProduct?.getToviewProduct} />
               <div className='MainView_LchildGalleryDetails'>
-                <div className='MainView_LchildGalleryDetails_labels'><span>Name:</span><span>{viewItem.name}</span></div>
-                <div className='MainView_LchildGalleryDetails_labels'><span>Price :</span><span>{formatter.format(viewItem.price)}</span></div>
-                {/* <div className='MainView_LchildGalleryDetails_labels'><span>Size :</span><span>{viewItem.size}</span></div> */}
-                {/* <div className='MainView_LchildGalleryDetails_labels'><span>Color :</span><span>{viewItem.color}</span></div> */}
+
+                <Element Label="Name" value={viewItem.name} />
+                <Element Label="Price" value={formatter.format(viewItem.price)} />
+
                 <div>Available Size :<RelatedSize styleCode={viewItem.style_Code}/></div>
                 <div>Available Colors of Size: <RelatedColor styleCode={viewItem.style_Code}/></div>
-                <div className='MainView_LchildGalleryDetails_labels'>
-                  <span>Available Stock :</span>
-                  <span>{viewItem.stock}</span>
-                </div>
+                <Element Label="Available Stock" value={viewItem.stock} />
                 <div>Quantity :</div>
                 <div className='ShareQuantity'>
                   <button onClick={() => setQuantity(quantity + 1)}>+</button>
@@ -105,7 +103,7 @@ const ProductView: React.FC = () => {
             <div className='longtext'>
               {viewItem?.Ratings.length > 0 ? viewItem?.Ratings.map((item: any, idx: any) => (
                 <div key={idx}>
-                  <div>{item.By}</div>
+                  <div>{maskEmail(item.By)}</div>
                   <div>{item.Comment}</div>
                   <div><Ratings data={item.Ratings > 0 ?item.Ratings:0} count={item}/>
                   </div>

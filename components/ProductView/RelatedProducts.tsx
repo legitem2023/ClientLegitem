@@ -2,6 +2,7 @@
 import { Icon } from '@iconify/react';
 import Ratings from 'components/Partial/Ratings/Ratings';
 import Discounted from 'components/UI/Discounted';
+import Element from 'components/UI/Element';
 import Name from 'components/UI/Name';
 import Price from 'components/UI/Price';
 import Price_strike from 'components/UI/Price_strike';
@@ -58,10 +59,12 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({ data }) => {
                 onClick={handleLoading}/>
             </Link>
           <div className='thumbnailTextContainer'>
+          <Element Label="Name" value={item.name} />
+          <Element Label="Color" value={item.color} />
+          <Element Label="Size" value={item.size} />
+          <Element Label="Sold" value={item.TotalSoldItems ? item.TotalSoldItems : '0'} />
           {item.discount > 0?(<Price_strike item={item}/>):(<Price item={item}/>)}
           {item.discount > 0?(<Discounted item={item}/>):""}
-          <Name item={item} />
-          <Sold item={item} />
             <div className='Rates'>
               <div className='ViewsLikes'>
               <Ratings data={item.TotalRatings > 0 ? item.TotalRatings : 0} count={item}/>

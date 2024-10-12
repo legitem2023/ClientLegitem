@@ -13,6 +13,7 @@ import Price_strike from './Price_strike';
 import Discounted from './Discounted';
 import Name from './Name';
 import Sold from './Sold';
+import Element from './Element';
 
 type ThumbnailProps = {
   item: any;
@@ -48,10 +49,10 @@ const Thumbnail: React.FC<ThumbnailProps> = ({
         </Link>
       </div>
       <div className="thumbnailTextContainer">
-      {item.discount > 0?(<Price_strike item={item}/>):(<Price item={item}/>)}
-      {item.discount > 0?(<Discounted item={item}/>):""}
-        <Name item={item} />
-        <Sold item={item} />
+        <Element Label="Name" value={item.name} />
+        {item.discount > 0?(<Price_strike item={item}/>):(<Price item={item}/>)}
+        {item.discount > 0?(<Discounted item={item}/>):""}
+        <Element Label="Sold" value={item.TotalSoldItems ? item.TotalSoldItems : '0'} />
         <div className='Thumbnails_rating_cart'>
           <span>
             <Ratings data={item.TotalRatings > 0 ? item.TotalRatings : 0} count={item}/>

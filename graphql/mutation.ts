@@ -149,7 +149,7 @@ mutation InsertShippingDetails($shippingDetailsInput: shippingDetailsInput) {
 }`
 
 export const DELETE_SHIPPING_ADDRESS = gql`
-mutation DeleteShippingDetails($deleteShippingDetailsId: Int) {
+mutation DeleteShippingDetails($deleteShippingDetailsId: String) {
   deleteShippingDetails(id: $deleteShippingDetailsId) {
     statusText
   }

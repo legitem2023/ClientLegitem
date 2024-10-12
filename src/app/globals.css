@@ -518,9 +518,10 @@ input[type='date']{
 }
 
 .ProfileDetails {
-  display: grid;
-  grid-template-columns: 30% 70%;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  /* grid-template-columns: 30% 70%;
+  padding: 10px; */
 }
 
 .AddressImageContainer {
@@ -614,17 +615,19 @@ input[type='date']{
 .AddressDetails {
   display: flex;
   flex-direction: column;
-  grid-template-rows: 20% 20% 20% 20%;
   position: relative;
-  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
-
+.AddressDetails span{
+  padding: 10px;
+}
+/* 
 .AddressDetails div {
   padding: 3px;
   height: 100%;
   align-items: center;
   justify-content: center;
-}
+} */
 .checkoutLink{
   display: flex;
   justify-content: center;
@@ -668,21 +671,21 @@ input[type='date']{
   /* height:100%; */
   padding: 10px;
 }
-.AddressDetails div{
+/* .AddressDetails div{
   display: flex;
   align-items: center;
   justify-content: left;
   width: auto;
   height:100%!important;
-}
-.AddressDetails div span{
+} */
+/* .AddressDetails div span{
   display: flex;
   align-items: center;
   justify-content: left;
   width: 100%!important;
   height:100%!important;
   padding: 10px;
-}
+} */
 .AddressesCollapse {
   grid-column: 1 / span 2;
   /* overflow-x: hidden; */
@@ -1751,8 +1754,6 @@ input[type='date']{
   align-items: center;
   justify-content: center;
   box-shadow: inset 0.5px 0.5px 3px #000;
-  font-size: 12px;
-  transform: scale(1.1);
 }
 .Optional3D{
   display: flex;
@@ -1782,7 +1783,7 @@ input[type='date']{
   text-overflow:ellipsis;
   justify-content: flex-start;
   align-items: center!important;
-  font-size: 12px;
+  /* font-size: 12px; */
   position: relative;
 }
 .thumbElements_addCart{
