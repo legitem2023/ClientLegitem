@@ -21,7 +21,7 @@
         height: 80vw!important;
     }
     .carouselImage {
-        transform: scale(0.4)!important;
+        /* transform: scale(0.4)!important; */
     }
 
     .LabelBack{
@@ -164,7 +164,7 @@
         grid-gap: 0.5vw !important;
         grid-template-columns: 49% 49% !important;
         /* grid-template-columns: 32% 32% 32% !important; */
-        width: 98%;
+        width: 100%;
         left: 0px;
         right: 0px;
         margin: auto;

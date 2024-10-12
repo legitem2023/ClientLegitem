@@ -275,9 +275,11 @@
     }
 
     .carouselImage {
+        /* transform: scale(0.5); */
+    }
+    .my-slide-component{
         transform: scale(0.5);
     }
-
     .CartColsHead {
         display: none;
     }

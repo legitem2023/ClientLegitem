@@ -5,6 +5,7 @@ import { ORDER_STATUS_SUBSCRIPTION } from 'graphql/subscriptions';
 import { useState, useEffect } from 'react';
 import { useNotification } from 'components/context/NotificationContext';
 import { useGlobalState } from 'state';
+import { PushNotification } from 'components/Notification/PushNotification';
 
 const OrderStatusNotification = () => {
   const { showNotification } = useNotification();
@@ -52,7 +53,7 @@ const OrderStatusNotification = () => {
       if (subscriptionData.data?.messageToOrder) {
         const filter = subscriptionData.data.messageToOrder.filter((item:any)=>item.emailAddress===useEmail);
         filter.forEach((data: any) => {
-          console.log(data.agentEmail,"<<")
+          PushNotification("Order Messages","Order Notification",data.OrderStatus);
           switch (data.OrderStatus) {
             case 'New Order':
               setUpdateNewOrder(prevCount => {

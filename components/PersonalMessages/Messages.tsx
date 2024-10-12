@@ -40,7 +40,8 @@ const Messages = ({reciever}) => {
             const uniqueNewMessages = filteredNewMessages.filter(
               (newMsg: any) => !prev.personalMessages.some((prevMsg: any) => prevMsg.id === newMsg.id)
             );
-      
+            
+            // Add new messages to the end of the list
             if (uniqueNewMessages.length === 0) return prev;
             return {
               ...prev,

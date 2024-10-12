@@ -1,4 +1,5 @@
 import { useSubscription } from '@apollo/client';
+import { PushNotification } from 'components/Notification/PushNotification';
 import { PERSONAL_MESSAGES_ADDED } from 'graphql/subscriptions';
 import React, { useEffect, useRef } from 'react';
 import { setGlobalState, useGlobalState } from 'state';
@@ -9,6 +10,7 @@ type PropsSender = {
 const PersonalMSGNotification:React.FC<PropsSender> = ({ sender }: { sender: string }) => {
     const [messageCounts] = useGlobalState("messageCount"); // Global state for message counts per sender
     const isInitialLoad = useRef(true); // Track initial load state
+    const [cookieEmailAddress]:any = useGlobalState("cookieEmailAddress");
 
     useSubscription(PERSONAL_MESSAGES_ADDED, {
         onSubscriptionData: ({ subscriptionData }) => {
@@ -16,6 +18,7 @@ const PersonalMSGNotification:React.FC<PropsSender> = ({ sender }: { sender: str
             const filteredBySender = newMessages.filter((data: any) => data.Sender === sender);
             if (filteredBySender.length > 0 && !isInitialLoad.current) {
                 // Update message count in global state
+                PushNotification("Messages","Personal Messages",filteredBySender[0]?.Messages);
                 setGlobalState("messageCount", (prevCounts: any) => ({
                     ...prevCounts,
                     [sender]: (prevCounts[sender] || 0) + filteredBySender.length,
@@ -31,6 +34,7 @@ const PersonalMSGNotification:React.FC<PropsSender> = ({ sender }: { sender: str
         // Load the initial count from localStorage when component mounts
         const savedCount = localStorage.getItem(`personalMSGCount_${sender}`);
         if (savedCount) {
+
             setGlobalState("messageCount", (prevCounts: any) => ({
                 ...prevCounts,
                 [sender]: JSON.parse(savedCount),
