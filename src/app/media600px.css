@@ -160,6 +160,7 @@
     .transformRotate{
         transform: rotate(90deg);
     }
+
     .Thumbnails {
         grid-gap: 0.5vw !important;
         grid-template-columns: 49% 49% !important;

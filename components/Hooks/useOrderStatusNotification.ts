@@ -60,6 +60,11 @@ const OrderStatusNotification = () => {
                 const newValue = prevCount + 1;
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('NewOrder', newValue.toString());
+                  localStorage.removeItem('Recieved');
+                  localStorage.removeItem('Packed');
+                  localStorage.removeItem('Logistic');
+                  localStorage.removeItem('Delivery');
+                  localStorage.removeItem('Delivered');
                 }
                 // playSound('/newNot.mp3');
                 // showNotification('New Order', 'A new order has arrived.');
@@ -71,6 +76,11 @@ const OrderStatusNotification = () => {
                 const newValue = prevCount + 1;
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Recieved', newValue.toString());
+                  localStorage.removeItem('NewOrder');
+                  localStorage.removeItem('Packed');
+                  localStorage.removeItem('Logistic');
+                  localStorage.removeItem('Delivery');
+                  localStorage.removeItem('Delivered');
                 }
                 // playSound('/newNot.mp3');
                 // showNotification('Order Received', 'An order has been received.');
@@ -82,6 +92,11 @@ const OrderStatusNotification = () => {
                 const newValue = prevCount + 1;
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Packed', newValue.toString());
+                  localStorage.removeItem('NewOrder');
+                  localStorage.removeItem('Recieved');
+                  localStorage.removeItem('Logistic');
+                  localStorage.removeItem('Delivery');
+                  localStorage.removeItem('Delivered');
                 }
                 //playSound('/newNot.mp3');
                 // showNotification('Order Packed', 'An order has been packed.');
@@ -93,6 +108,11 @@ const OrderStatusNotification = () => {
                 const newValue = prevCount + 1;
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Logistic', newValue.toString());
+                  localStorage.removeItem('NewOrder');
+                  localStorage.removeItem('Recieved');
+                  localStorage.removeItem('Packed');
+                  localStorage.removeItem('Delivery');
+                  localStorage.removeItem('Delivered');
                 }
                 //playSound('/newNot.mp3');
                 // showNotification('Order in Transit', 'An order is in logistic.');
@@ -104,6 +124,11 @@ const OrderStatusNotification = () => {
                 const newValue = prevCount + 1;
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Delivery', newValue.toString());
+                  localStorage.removeItem('NewOrder');
+                  localStorage.removeItem('Recieved');
+                  localStorage.removeItem('Packed');
+                  localStorage.removeItem('Logistic');
+                  localStorage.removeItem('Delivered');
                 }
                 //playSound('/newNot.mp3');
                 // showNotification('Out for Delivery', 'An order is out for delivery.');
@@ -115,6 +140,11 @@ const OrderStatusNotification = () => {
                 const newValue = prevCount + 1;
                 if (typeof window !== 'undefined') {
                   localStorage.setItem('Delivered', newValue.toString());
+                  localStorage.removeItem('NewOrder');
+                  localStorage.removeItem('Recieved');
+                  localStorage.removeItem('Packed');
+                  localStorage.removeItem('Logistic');
+                  localStorage.removeItem('Delivery');
                 }
                 //playSound('/newNot.mp3');
                 // showNotification('Order Delivered', 'An order has been delivered.');

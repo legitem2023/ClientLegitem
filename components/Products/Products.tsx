@@ -23,10 +23,9 @@ const Products: React.FC = () => {
   const { data: ProductsData, loading: productsLoading, error: productsError } = useQuery(GET_CHILD_INVENTORY);
 
 
-  // Memoize filtered and sorted products to avoid unnecessary recalculations
   const filteredProducts = useMemo(() => {
     if (!ProductsData) return [];
-
+    
     return ProductsData?.getChildInventory
       ?.filter((item: any) =>
         item?.name?.toLowerCase()?.includes(thumbnailSearch.toLowerCase())
@@ -34,13 +33,13 @@ const Products: React.FC = () => {
       ?.filter((item: any) =>
         item?.category?.toLowerCase()?.includes(thumbnailCategory.toLowerCase())
       )
-      ?.filter((item: any) =>
-        item?.productType?.toLowerCase()?.includes(thumbnailProductTypes.toLowerCase())
-      );
-  }, [ProductsData, thumbnailSearch, thumbnailCategory, thumbnailProductTypes]);
+  }, [ProductsData, thumbnailSearch, thumbnailCategory,thumbnailProductTypes]);
 
   const sortedProducts = useMemo(() => {
-    return filteredProducts?.sort((a: any, b: any) => {
+    if (!filteredProducts) return [];
+
+    return filteredProducts.sort((a: any, b: any) => {
+
       if (sortBy === 'price') {
         return sortDirection === 'asc' ? a.price - b.price : b.price - a.price;
       } else if (sortBy === 'name') {
@@ -50,26 +49,15 @@ const Products: React.FC = () => {
       }
       return 0;
     });
-  }, [filteredProducts, sortBy, sortDirection]);
-
-
-
-  const paginatedProducts = useMemo(() => {
-    return sortedProducts?.slice(
-      (CurrentPage - 1) * itemsPerPage,
-      CurrentPage * itemsPerPage
-    );
-  }, [sortedProducts, CurrentPage]);
-
+  }, [filteredProducts, sortBy, sortDirection]);  
 
   const handlePageChange = useCallback((page: number) => {
     setGlobalState('CurrentPage', page);
   }, []);
 
-
   const DiscountedData = useMemo(() => {
-    return thumbnailDiscounted==="" ? paginatedProducts :paginatedProducts?.filter((item: any) => item?.discount > 0);
-  }, [paginatedProducts,thumbnailDiscounted]);
+    return thumbnailDiscounted==="" ? sortedProducts :sortedProducts?.filter((item: any) => item?.discount > 0);
+  }, [sortedProducts,thumbnailDiscounted]);
 
 
   const NewItemData = useMemo(() => {
@@ -79,17 +67,22 @@ const Products: React.FC = () => {
     });
   }, [DiscountedData,thumbnailNewData]);
 
+  const itemsPerPage = 20;
+  
+  const paginatedProducts = NewItemData.slice(
+      (CurrentPage - 1) * itemsPerPage,
+      CurrentPage * itemsPerPage);
 
-  const totalPages = useMemo(() => Math.ceil((NewItemData?.length || 0) / itemsPerPage), [NewItemData]);
-
-
+  const totalPages = useMemo(() => {
+    return Math.ceil((NewItemData?.length || 0) / itemsPerPage);
+  }, [NewItemData]);
 
   if (productsLoading) return <Loading />;
   if (productsError) return <h1>Connection Error</h1>;
   return (
     <div className="Thumbnails">
-      {NewItemData.length > 0 ? (
-        NewItemData.map((item: any, idx: number) => (
+      {paginatedProducts.length > 0 ? (
+        paginatedProducts.map((item: any, idx: number) => (
           <Thumbnail
             key={idx}
             item={item}

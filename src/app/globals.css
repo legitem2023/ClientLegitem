@@ -1606,7 +1606,7 @@ input[type='date']{
 }
 .UniversalLabels{
   display: grid;
-  grid-template-columns: 25% 75%;
+  grid-template-columns: 30% 70%;
 }
 
 .UniversalContainerFooter{
@@ -1678,13 +1678,14 @@ input[type='date']{
   color:#ffffff;
   border-radius: 5px;
   box-shadow: 0.5px 0.5px 3px #000;
-  right:0px;
+  right:-10px;
   top:0px;
   bottom:0px;
   margin:auto;
   z-index: 99999;
   transition: ease 0.5s;
   transform: scale(0.5);
+  height: 15px;
 }
 .thumbnail {
   display: grid;
