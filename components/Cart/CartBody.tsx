@@ -10,6 +10,7 @@ import { extracted, filterAndSumQuantity, formatter, handleError, imageSource, i
 import Thumbnails from 'components/Products/Products'
 import CartCols from './CartCols'
 import AddQuantityCmd from 'components/Commands/AddQuantityCmd'
+import Element from 'components/UI/Element'
 
 const CartBody = () => {
   const path = process.env.NEXT_PUBLIC_SERVER_PRODUCT_IMAGE_PATH;
@@ -108,10 +109,10 @@ return(
                           alt={innerIdx}></Image>
                   </div>
                   <div className='CartDetails'>
-                    <span>Name: {item.Name}</span>
-                    <span>Size: {item.Size}</span>
-                    <span>Color: {item.Color}</span>
-                    <span>Price: {formatter.format(item.Price)}</span>
+                    <Element Label="Name" value={item.Name}/>
+                    <Element Label="Size" value={item.Size}/>
+                    <Element Label="Color" value={item.Color}/>
+                    <Element Label="Price" value={formatter.format(item.Price)}/>
                   </div>
                   <div className='CartDetails CartDetailsCenter'>
                   <AddQuantityCmd item = {item}

@@ -3,7 +3,6 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 
 export default function Rate(feedBack:any) {
-  // console.log(feedBack.feedBack)
   const feedBackState = feedBack.feedBack;
   return (
     <div className='Ratings'>
@@ -13,8 +12,7 @@ export default function Rate(feedBack:any) {
         defaultValue={0} 
         precision={0.1} 
         sx={{ fontSize: '30px' }} // Change the fontSize to resize the stars
-        onChangeActive={(event:any, newHover) => {
-          console.log(event.target.name)
+        onChange={(event:any, newHover) => {
           feedBackState((prev)=>({
             ...prev,
             "Ratings":newHover

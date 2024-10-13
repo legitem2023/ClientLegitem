@@ -1,49 +1,71 @@
-import { useSubscription } from '@apollo/client';
+import useMessagesNotification from 'components/Hooks/useMessagesNotification';
 import { PushNotification } from 'components/Notification/PushNotification';
-import { PERSONAL_MESSAGES_ADDED } from 'graphql/subscriptions';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { setGlobalState, useGlobalState } from 'state';
 
 type PropsSender = {
-    sender: string
-}
-const PersonalMSGNotification:React.FC<PropsSender> = ({ sender }: { sender: string }) => {
-    const [messageCounts] = useGlobalState("messageCount"); // Global state for message counts per sender
-    const isInitialLoad = useRef(true); // Track initial load state
-    const [cookieEmailAddress]:any = useGlobalState("cookieEmailAddress");
+    sender: string;
+};
 
-    useSubscription(PERSONAL_MESSAGES_ADDED, {
-        onSubscriptionData: ({ subscriptionData }) => {
-            const newMessages = subscriptionData.data?.messagesPersonal || [];
-            const filteredBySender = newMessages.filter((data: any) => data.Sender === sender);
-            if (filteredBySender.length > 0 && !isInitialLoad.current) {
-                // Update message count in global state
-                PushNotification("Messages","Personal Messages",filteredBySender[0]?.Messages);
+const PersonalMSGNotification: React.FC<PropsSender> = ({ sender }) => {
+    const [messageCounts] = useGlobalState("messageCount"); // Global state for message counts per sender
+    const { useMessageNotification, loading, error } = useMessagesNotification();
+    const [isInitialLoad, setIsInitialLoad] = useState(true); // Track initial load
+    const [lastMessageID, setLastMessageID] = useState<number | null>(null); // Track last message ID
+
+    // Fetch saved count and last message ID from localStorage on initial load
+    useEffect(() => {
+        if (useMessageNotification && isInitialLoad) {
+            const savedCount = localStorage.getItem(`personalMSGCount_${sender}`);
+            const savedLastID = localStorage.getItem(`lastMessageID_${sender}`);
+
+            if (savedCount) {
                 setGlobalState("messageCount", (prevCounts: any) => ({
                     ...prevCounts,
-                    [sender]: (prevCounts[sender] || 0) + filteredBySender.length,
+                    [sender]: JSON.parse(savedCount),
                 }));
-                // Persist updated count to localStorage
-                const updatedCount = (messageCounts[sender] || 0) + filteredBySender.length;
-                localStorage.setItem(`personalMSGCount_${sender}`, JSON.stringify(updatedCount));
             }
-        },
-    });
-
-    useEffect(() => {
-        // Load the initial count from localStorage when component mounts
-        const savedCount = localStorage.getItem(`personalMSGCount_${sender}`);
-        if (savedCount) {
-
-            setGlobalState("messageCount", (prevCounts: any) => ({
-                ...prevCounts,
-                [sender]: JSON.parse(savedCount),
-            }));
+            if (savedLastID) {
+                setLastMessageID(JSON.parse(savedLastID)); // Restore last message ID
+            }
+            setIsInitialLoad(false); // Mark initial load as complete
         }
-        isInitialLoad.current = false; // Mark as no longer the initial load
-    }, [sender]);
+    }, [useMessageNotification, isInitialLoad]);
+
+    // Handle new message notifications, but skip on initial load
+    useEffect(() => {
+        if (useMessageNotification && !isInitialLoad) {
+            const MessageData = useMessageNotification.filter((data: any) => data.Sender === sender);
+
+            if (MessageData.length > 0) {
+                const latestMessage = MessageData[MessageData.length - 1]; // Get the latest message
+
+                // Check if the latest message ID is different from the lastMessageID
+                if (lastMessageID !== latestMessage.id) {
+                    PushNotification("Messages", "Personal Messages", latestMessage.Messages);
+
+                    // Update global state message count
+                    setGlobalState("messageCount", (prevCounts: any) => ({
+                        ...prevCounts,
+                        [sender]: (prevCounts[sender] || 0) + MessageData.length,
+                    }));
+
+                    // Update localStorage with the new message count and the latest message ID
+                    const updatedCount = (messageCounts[sender] || 0) + MessageData.length;
+                    localStorage.setItem(`personalMSGCount_${sender}`, JSON.stringify(updatedCount));
+                    localStorage.setItem(`lastMessageID_${sender}`, JSON.stringify(latestMessage.id));
+
+                    // Update the last message ID in state
+                    setLastMessageID(latestMessage.id);
+                }
+            }
+        }
+    }, [sender, useMessageNotification, lastMessageID, messageCounts]);
 
     const count = messageCounts[sender] || 0; // Get the message count for the specific sender
+
+    if (loading) return null; // Handle loading state
+    if (error) return null; // Handle error state
 
     return count > 0 ? (
         <div className="notificationfmsg">
@@ -51,7 +73,5 @@ const PersonalMSGNotification:React.FC<PropsSender> = ({ sender }: { sender: str
         </div>
     ) : null;
 };
-
-
 
 export default PersonalMSGNotification;

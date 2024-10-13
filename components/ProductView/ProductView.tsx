@@ -75,7 +75,10 @@ const ProductView: React.FC = () => {
 
                 <div>Available Size :<RelatedSize styleCode={viewItem.style_Code}/></div>
                 <div>Available Colors of Size: <RelatedColor styleCode={viewItem.style_Code}/></div>
-                <Element Label="Available Stock" value={viewItem.stock} />
+                {/* <div className='MainView_LchildGalleryDetails_labels'> */}
+                  {/* <span>Available Stock :</span>
+                  <span>{viewItem.stock}</span> */}
+                  <Element Label="Available Stock" value={viewItem.stock} />
                 <div>Quantity :</div>
                 <div className='ShareQuantity'>
                   <button onClick={() => setQuantity(quantity + 1)}>+</button>

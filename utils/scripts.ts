@@ -203,6 +203,6 @@ export const ClearStorage = (DeleteState:any,name:string) =>{
 
 export const maskEmail = (email:any) => {
   const [name, domain] = email.split('@'); // Split email into name and domain parts
-  const maskedName = name.slice(0, 5) + '*'.repeat(name.length - 5); // Show first 5 characters, mask the rest
+  const maskedName = name.slice(0, 3) + '*'.repeat(10 - 5); // Show first 5 characters, mask the rest
   return `${maskedName}@${domain}`; // Return masked email
 }

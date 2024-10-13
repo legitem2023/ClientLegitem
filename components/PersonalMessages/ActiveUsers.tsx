@@ -25,6 +25,7 @@ const ActiveUsers = ({email}) => {
     setGlobalState("messageCount",[]);
     localStorage.removeItem(`personalMSGCount_${Reciever}`);
   };
+  console.log(ActiveUsers)
   return (
     <ul className='Menu'>
     <li className='Menu_label'>Active Users</li>

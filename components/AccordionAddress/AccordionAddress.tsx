@@ -4,6 +4,7 @@ import { SET_DEFAULT_ADDRESS,DELETE_SHIPPING_ADDRESS } from 'graphql/mutation';
 import { useMutation } from '@apollo/client';
 import DataManager from 'utils/DataManager';
 import { Icon } from '@iconify/react';
+import Element from 'components/UI/Element';
 
 const AccordionAddress = ({ address,refetch }) => {
     const Manager = new DataManager();
@@ -76,9 +77,9 @@ const AccordionAddress = ({ address,refetch }) => {
                             onClick={() => handleDelete(add.id)} 
                             style={{color:"red",right:"0px",top:"0px",margin:"10px",height:"30px",width:"30px",position:"absolute"}} />):""}
                             </div>
-                            <p>{add.fullname}</p>
-                            <p>{add.contactNo}</p>
-                            <p>{add.Address}</p>
+                            <Element Label="Name" value={add.fullname} />
+                            <Element Label="Contact No" value={add.contactNo} />
+                            <Element Label="Address" value={add.Address} />
                         </div>
                     )}
                 </div>

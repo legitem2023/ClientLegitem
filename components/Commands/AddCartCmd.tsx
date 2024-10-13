@@ -13,7 +13,6 @@ const AddCartCmd:React.FC<PropsAddCartCmd> = (item) => {
     const Manager = new DataManager();
     const HandleAddtoCartThumbs = (item) =>{
         handleAddToCart(Cart([item], Manager, 1))
-        setGlobalState('thumbnailSearch', "0");
       }
     
   return (

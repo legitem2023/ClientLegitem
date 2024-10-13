@@ -108,7 +108,7 @@ const handleAttachement = (e) =>{
         reader.readAsDataURL(value);
       }
 }
-
+console.log(useFeedBack)
     return (
         <div className="faq-accordion">
             {paginatedProducts.map((odr:any, index:number) => (
