@@ -67,3 +67,38 @@ subscription Subscription {
     dateSent
   }
 }`
+
+export const CALL_RECIEVE = gql`
+subscription CallReceived {
+  callReceived {
+    from {
+      id
+      email
+      accountCode
+      password
+      accountLevel
+      loginAttemp
+      macAddress
+      agentIdentity
+      image
+      dateCreated
+      dateUpdated
+      nameOfStore
+    }
+    to {
+      id
+      email
+      accountCode
+      password
+      accountLevel
+      loginAttemp
+      macAddress
+      agentIdentity
+      image
+      dateCreated
+      dateUpdated
+      nameOfStore
+    }
+  }
+}
+`

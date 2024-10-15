@@ -179,3 +179,38 @@ mutation InsertLikes($likesParamInput: LikesParam) {
   }
 }
 `
+
+export const STARTCALL = gql`
+mutation StartCall($callInput: CallInput!) {
+  startCall(callInput: $callInput) {
+    from {
+      id
+      email
+      accountCode
+      password
+      accountLevel
+      loginAttemp
+      macAddress
+      agentIdentity
+      image
+      dateCreated
+      dateUpdated
+      nameOfStore
+    }
+    to {
+      id
+      email
+      accountCode
+      password
+      accountLevel
+      loginAttemp
+      macAddress
+      agentIdentity
+      image
+      dateCreated
+      dateUpdated
+      nameOfStore
+    }
+  }
+}
+`

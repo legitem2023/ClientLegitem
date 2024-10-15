@@ -68,6 +68,9 @@ const Store: React.FC = () => {
     return Math.ceil((filteredProducts?.length || 0) / itemsPerPage);
   }, [filteredProducts]);
 
+
+
+  
   const handlePageChange = useCallback((page: number) => {
     setGlobalState('CurrentPage', page);
   }, []);

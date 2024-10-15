@@ -8,6 +8,7 @@ import { setTime } from 'utils/cookie';
 import Loading from 'components/Partial/LoadingAnimation/Loading';
 import { useGlobalState } from 'state';
 import { SEND_MESSAGE } from 'graphql/mutation';
+import VideoCall from './VideoCall';
 
 const MessageItem = React.memo(({ item }:any) => (
   <li className='messagesLI'>
@@ -105,6 +106,7 @@ const Messages = () => {
         <li className='messagesLI_1'>
           <div className='Messenger_inputs'>
             <textarea ref={textareaRef} id='textarea' placeholder="Message" />
+            <VideoCall/>
             <button
               type="submit"
               onClick={handleSubmit}
